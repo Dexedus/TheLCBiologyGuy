@@ -1,0 +1,36 @@
+body{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+#headerBackground{
+    background-color: rgb(127, 208, 255);
+    width: 100vw;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+header{
+    width: 100%;
+    text-align: center;
+    margin-top: -10px;
+}
+
+.flexContainer{
+    display: flex;
+    justify-content: center;
+}
+
+#navBar{
+    margin-top: -24px;
+}
+
+.navLink{
+    margin-inline: 20px;
+}

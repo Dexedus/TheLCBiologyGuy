@@ -1,0 +1,16 @@
+<%- include("partials/header.ejs")  %>
+
+<main style="width: 80%; display: flex; align-items: center; flex-direction: column;">
+    <h2>Maths</h2>
+    <p>€5:00</p>
+    <div style="height: 400px; width: 60%; background-color: aquamarine;">
+
+    </div>
+
+    <form action="/api/create-checkout-session" method="POST">
+      <input type="hidden" name="priceId" value="price_1QRbmKFArv9BTH3QYG3eVLX9">
+      <button class="button" type="submit">Checkout</button>
+    </form>
+</main>
+
+<%- include("partials/footer.ejs")  %>

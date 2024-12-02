@@ -1,0 +1,17 @@
+
+<%- include("partials/header.ejs")  %>
+
+<main style="width: 80%; display: flex; align-items: center; flex-direction: column;">
+    <h2>Irish</h2>
+    <p>€10:00</p>
+    <div style="height: 400px; width: 60%; background-color: rgb(18, 122, 88);">
+
+    </div>
+
+    <form action="/api/create-checkout-session" method="POST">
+      <input type="hidden" name="priceId" value="price_1QRbwMFArv9BTH3QXMxlOVsW">
+      <button class="button" type="submit">Checkout</button>
+    </form>
+</main>
+
+<%- include("partials/footer.ejs")  %>
