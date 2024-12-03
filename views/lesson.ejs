@@ -1,15 +1,18 @@
-
 <%- include("partials/header.ejs")  %>
 
 <main style="width: 80%; display: flex; align-items: center; flex-direction: column;">
-    <h2>Irish</h2>
-    <p>€10:00</p>
-    <div style="height: 400px; width: 60%; background-color: rgb(18, 122, 88);">
-
-    </div>
+  
+  <div class="infoCard">
+    <h1>Zoom Class</h1>
+    <h6>What you get</h6>
+    <ul style="padding: 0;">
+      <li>A spot in my live Zoom classes.</li>
+      <li>Full access to notes.</li>
+    </ul>
+  </div>
 
     <form action="/api/create-checkout-session" method="POST">
-      <input type="hidden" name="priceId" value="price_1QRbwMFArv9BTH3QXMxlOVsW">
+      <input type="hidden" name="priceId" value="price_1QRbmKFArv9BTH3QYG3eVLX9">
       <button class="button" type="submit">Checkout</button>
     </form>
 </main>

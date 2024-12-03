@@ -1,10 +1,21 @@
 <%- include("partials/header.ejs")  %>
 
-<main style="width: 80%; display: flex; align-items: center; flex-direction: column;">
-    <h2>2025 Schedule</h2>
-    <div style="height: 800px; width: 80%; background-color: aquamarine;">
+<main style= "display: flex; align-items: center; flex-direction: column; padding: 40px;">
 
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+          <img src="/images/Banner.png" id="homeImg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+        </div>
+        <div class="col-lg-6">
+          <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3" style="color: #317c65 !important;">Welcome to the best LC biology Grinds School</h1>
+          <p class="lead">This is your one stop shop for LC biology. I provide live sessions on Zoom where I will teach you all you need to know to ace your exam. You will also get top quality notes to help you study.</p>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <button id="LearnMore" type="button" class="btn btn btn-lg px-4 me-md-2" style="background-color: #51a890; color: white;">Learn More</button>
+            <button id="FreeTrial" type="button" class="btn btn btn-lg px-4" style="border: 1px solid #51a890;">Free Trial</button>
+          </div>
+        </div>
     </div>
+
 </main>
 
 <%- include("partials/footer.ejs")  %>

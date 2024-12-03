@@ -17,16 +17,12 @@ app.get('/', (req, res) => {
     res.render("home.ejs")
 })
 
-app.get('/package', (req, res) => {
-    res.render("package.ejs")
+app.get('/lesson', (req, res) => {
+    res.render("lesson.ejs")
 })
 
-app.get('/maths', (req, res) => {
-    res.render("maths.ejs")
-})
-
-app.get('/irish', (req, res) => {
-    res.render("Irish.ejs")
+app.get('/trial', (req, res) => {
+    res.render("trial.ejs")
 })
 
 app.get('/contact', (req, res) => {

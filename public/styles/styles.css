@@ -1,3 +1,7 @@
+html{
+    overflow-x: hidden;
+}
+
 body{
     display: flex;
     flex-direction: column;
@@ -6,31 +10,126 @@ body{
     align-items: center;
     margin: 0;
     font-family: sans-serif;
+    
 }
 
-#headerBackground{
-    background-color: rgb(127, 208, 255);
-    width: 100vw;
-    height: 100px;
-    display: flex;
-    justify-content: center;
-}
+.gradient-background {
+    background: linear-gradient(300deg, #ffffff, #7dd4bc, #ffffff);
+    background-size: 400% 500%;
+    animation: gradient-animation 28s ease infinite;
+  }
 
+
+
+
+/*Header Styles*/
 header{
     width: 100%;
     text-align: center;
-    margin-top: -10px;
+    background-color: white;
 }
 
-.flexContainer{
+.nav-link{
+    color: #3c806c!important;
+    transition: transform .6s!important;
+}
+.nav-link:hover{
+    transform: scale(1.2);
+}
+
+
+
+
+/*Home Styles*/
+#homeImg{
+    transform: translateX(600px);
+    opacity: 0;
+    animation-name: fromTheSide;
+    animation-delay: 1s;
+    animation-fill-mode: forwards;
+    animation-duration: 3s;
+    animation-timing-function: ease-in-out;
+}
+
+#LearnMore{
+    transition: background-color .5s;
+}
+
+#LearnMore:hover{
+    background-color: #3c806c!important;
+}
+
+#FreeTrial{
+    transition: background-color .5s, color .5s;
+}
+
+#FreeTrial:hover{
+    background-color: #51a890!important;
+    color: white;
+}
+
+
+
+/*lesson/trial pages*/
+.infoCard{
     display: flex;
+    flex-direction: column;
+    padding: 20px;
     justify-content: center;
+    align-items: center;
+    border-radius: 20px;
 }
 
-#navBar{
-    margin-top: -24px;
+
+.button{
+    border: none;
+    border-radius: 20px;
+    width: 120px;
+    height: 40px;
+    background-color: rgb(85, 163, 236);
+    color: white;
+    transition: background-color 1s;
 }
 
-.navLink{
-    margin-inline: 20px;
+.button:hover{
+background-color: #51a890;
 }
+
+
+
+/*Footer Styles*/
+footer{
+    background-color: white;
+}
+
+
+
+
+/*Animations*/
+
+@keyframes gradient-animation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  @keyframes fromTheSide {
+
+    0%{
+        opacity: 0%;
+
+    }
+
+    100%{
+        transform: translateX(0px);
+        opacity: 100%;
+
+    }
+    
+ }
