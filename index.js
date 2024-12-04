@@ -48,7 +48,7 @@ const sendEmail = (toEmail, subject, message) => {
 
 
 // Stripe webhook handler
-app.post('/stripe/webhook', (req, res) => {
+app.post('/stripe/webhook', async (req, res) => {
   const sig = req.headers['stripe-signature'];
 
   let event;
@@ -64,18 +64,27 @@ app.post('/stripe/webhook', (req, res) => {
   // Handle successful payment (for both Stripe Checkout and Payment Intents)
   if (event.type === 'checkout.session.async_payment_succeeded' || event.type === 'checkout.session.completed') {
     const paymentIntent = event.data.object;
-    console.log(paymentIntent)
+
     const customerEmail = paymentIntent.receipt_email || paymentIntent.customer_details.email; // Get the customer email
 
-    // Define your custom email content
-    const subject = 'Thank you for your purchase!';
-    const message = `Dear customer,
+    const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 10 }); // Get line items
 
-Thank you for your purchase. Your payment has been successfully processed.
-This test email is working!
+    let subject = '';
+    let message = '';
 
-Best regards,
-Max Grind School`;
+    // Loop through line items to determine the product
+    for (const item of lineItems.data) {
+      const productId = item.price.product; // Extract the product ID
+
+      // Check product ID to determine which product was purchased
+      if (productId === 'prod_RKGIXPoDtTir6V') {
+        subject = 'Thank you for purchasing a Zoom class placement!';
+        message = `Dear customer,\n\nThank you for purchasing Zoom Class! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nMax Grind School`;
+      } else if (productId === 'prod_RKGTn7KzbAJk6u') {
+        subject = 'Thank you for choosing the Free Trial';
+        message = `Dear customer,\n\nThank you for choosing the Free Trial! Here is the link to my notes: \n\nBest regards,\nMax Grind School`;
+      }
+    }
 
     // Send the custom email via SendGrid
     sendEmail(customerEmail, subject, message);
