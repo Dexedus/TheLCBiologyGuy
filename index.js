@@ -4,17 +4,16 @@ const express = require("express");
 const app = express();
 const router = express.Router();
 const sgMail = require("@sendgrid/mail")
-const nodemailer = require('nodemailer');
 const bodyParser = require("body-parser");
+
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 const port = 3000
 
 //Middleware
 app.use(bodyParser.raw({ type: 'application/json' }));
 app.use(express.json());
-app.use(express.static("public"));
+
 
 const endpointSecret = process.env.WEBHOOK_SECRET
 const API_KEY = process.env.SEND_GRID_KEY
