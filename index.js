@@ -50,7 +50,7 @@ const sendEmail = (toEmail, subject, message) => {
 
 // Stripe webhook handler
 app.post('/stripe/webhook', (req, res) => {
-  const sig = req.headers[`${endpointSecret}`];
+  const sig = req.headers['stripe-signature'];
 
   let event;
 
