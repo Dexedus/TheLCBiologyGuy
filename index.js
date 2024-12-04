@@ -65,7 +65,7 @@ app.post('/stripe/webhook', (req, res) => {
   if (event.type === 'checkout.session.async_payment_succeeded' || event.type === 'checkout.session.completed') {
     const paymentIntent = event.data.object;
     console.log(paymentIntent)
-    const customerEmail = paymentIntent.receipt_email || paymentIntent.customer_email; // Get the customer email
+    const customerEmail = paymentIntent.receipt_email || paymentIntent.customer_details.email; // Get the customer email
 
     // Define your custom email content
     const subject = 'Thank you for your purchase!';
