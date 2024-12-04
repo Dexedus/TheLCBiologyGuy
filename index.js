@@ -26,7 +26,7 @@ sgMail.setApiKey(`${API_KEY}`)
 const sendEmail = (toEmail, subject, message) => {
   const msg = {
     to: toEmail,
-    from: `${SendgridSender}`, // Verified SendGrid sender email
+    from: 'Karl', // Verified SendGrid sender email
     subject: subject,
     text: message,
   };
@@ -62,7 +62,7 @@ app.post('/stripe/webhook', (req, res) => {
   }
 
   // Handle successful payment (for both Stripe Checkout and Payment Intents)
-  if (event.type === 'payment_intent.succeeded' || event.type === 'checkout.session.completed') {
+  if (event.type === 'checkout.session.async_payment_succeeded' || event.type === 'checkout.session.completed') {
     const paymentIntent = event.data.object;
     console.log(paymentIntent)
     const customerEmail = paymentIntent.receipt_email || paymentIntent.customer_email; // Get the customer email
