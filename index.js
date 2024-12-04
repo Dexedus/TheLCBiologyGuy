@@ -26,7 +26,7 @@ sgMail.setApiKey(`${API_KEY}`)
 const sendEmail = (toEmail, subject, message) => {
   const msg = {
     to: toEmail,
-    from: 'Karl', // Verified SendGrid sender email
+    from: `${SendgridSender}`, // Verified SendGrid sender email
     subject: subject,
     text: message,
   };
