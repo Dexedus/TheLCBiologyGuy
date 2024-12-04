@@ -63,9 +63,9 @@ app.post('/stripe/webhook', async (req, res) => {
 
   // Handle successful payment (for both Stripe Checkout and Payment Intents)
   if (event.type === 'checkout.session.async_payment_succeeded' || event.type === 'checkout.session.completed') {
-    const paymentIntent = event.data.object;
+    const session = event.data.object;
 
-    const customerEmail = paymentIntent.receipt_email || paymentIntent.customer_details.email; // Get the customer email
+    const customerEmail = session.receipt_email || session.customer_details.email; // Get the customer email
 
     const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 10 }); // Get line items
 
