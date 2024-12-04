@@ -12,9 +12,9 @@ app.use(express.json());
 const port = 3000
 
 //Middleware
+app.use(bodyParser.raw({ type: 'application/json' }));
 app.use(express.json());
 app.use(express.static("public"));
-app.use(bodyParser.raw({ type: 'application/json' }));
 
 const endpointSecret = process.env.WEBHOOK_SECRET
 const API_KEY = process.env.SEND_GRID_KEY
