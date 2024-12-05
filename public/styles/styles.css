@@ -1,5 +1,6 @@
 html{
     overflow-x: hidden!important;
+    scroll-behavior: smooth;
 }
 
 
@@ -75,11 +76,12 @@ body{
 
 /*Header Styles*/
 header{
-    width: 101%;
+    width: 102%;
     text-align: center;
     background-color: white;
     position: fixed;
     top: 0;
+    padding-left: 20px;
     z-index: 100;
 }
 
@@ -227,7 +229,8 @@ main{
 
 .jumbotron{
     width: 100vw!important;
-    background-color: #cacaca;
+    background: linear-gradient(0deg, #3c806c, #acd8cb, #ffffff);
+    background-size: 140% 140%;
 }
 
 .video{
@@ -235,6 +238,34 @@ main{
     justify-content: center;
 }
 
+#testimonial-tab{
+    height: 400px;
+    width: 100%;
+    background-color: #ececec;
+    border-top: 2px solid #3c806c;
+    border-bottom: 2px solid #3c806c;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#testimonial-picture{
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+
+#new-tab{
+    height: 1000px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, #5fbb9f, #e7eceb, #ffffff);
+    background-size: 140% 140%;
+}
 
 
 
@@ -275,6 +306,18 @@ footer{
 
 
 /*Media Querys*/
+
+@media (max-width: 576px){
+    body{
+        margin-top: 100px!important;
+    }
+
+    #title{
+        font-size: 1.5em!important;
+    }
+    
+}
+
 @media (max-width: 992px){
     .video2{
         display: none;
