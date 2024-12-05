@@ -1,6 +1,6 @@
 <%- include("partials/header.ejs")  %>
 
-<main style="width: 80%; display: flex; align-items: center; flex-direction: column;">
+<main style="width: 80%; display: flex; height: 100vh; align-items: center; flex-direction: column;">
 
     <div class="infoCard">
       <h1>Free Trial</h1>
@@ -8,12 +8,12 @@
       <ul style="padding: 0;">
         <li>Limited access to notes.</li>
       </ul>
-    </div>
 
     <form action="/api/create-checkout-session" method="POST">
       <input type="hidden" name="priceId" value="price_1QRyq7FArv9BTH3QK0tWVgi8">
       <button class="button" type="submit">Checkout</button>
     </form>
+  </div>
 </main>
 
 <%- include("partials/footer.ejs")  %>

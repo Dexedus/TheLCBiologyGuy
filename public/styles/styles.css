@@ -75,7 +75,7 @@ body{
 
 /*Header Styles*/
 header{
-    width: 100%;
+    width: 101%;
     text-align: center;
     background-color: white;
     position: fixed;
@@ -242,6 +242,7 @@ main{
 /*lesson/trial pages*/
 .infoCard{
     display: flex;
+    margin: auto;
     flex-direction: column;
     padding: 20px;
     justify-content: center;
@@ -258,6 +259,7 @@ main{
     background-color: rgb(85, 163, 236);
     color: white;
     transition: background-color 1s;
+    margin-top: -300px;
 }
 
 .button:hover{
