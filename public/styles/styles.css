@@ -1,6 +1,35 @@
 html{
-    overflow-x: hidden;
+    overflow-x: hidden!important;
 }
+
+
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #dddddd;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    border-radius: 10px;
+    transition: background-color 2s;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #a5a5a5;
+  }
+
+
+
 
 body{
     display: flex;
@@ -10,8 +39,30 @@ body{
     align-items: center;
     margin: 0;
     font-family: sans-serif;
-    
+    overflow-x: hidden;
+    cursor: default;
 }
+
+
+/*Fonts*/
+.unbounded-Font {
+  font-family: "Unbounded", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.syncopate-regular {
+    font-family: "Syncopate", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+
+
+
+
+
 
 .gradient-background {
     background: linear-gradient(300deg, #ffffff, #7dd4bc, #ffffff);
@@ -27,6 +78,9 @@ header{
     width: 100%;
     text-align: center;
     background-color: white;
+    position: fixed;
+    top: 0;
+    z-index: 100;
 }
 
 .nav-link{
@@ -37,10 +91,39 @@ header{
     transform: scale(1.2);
 }
 
+.img{
+    transition: transform 0.3s ease;
+}
 
+.img:hover{
+    transform: rotate(20deg);
+}
+
+#title{
+    font-size: 1.8em!important;
+    text-decoration: underline;
+    color: #3c806c;
+    transition: transform 1s, color 1s;
+}
+#title:hover{
+    color: #51a890;
+    transform:translateX(20px);
+}
+
+.button-active{
+    color: #3d3d3d!important;
+    transition: transform .6s!important;
+}
+.button-active:hover{
+    transform: scale(1.2);
+}
 
 
 /*Home Styles*/
+main{
+   padding: 0!important;
+}
+
 #homeImg{
     transform: translateX(600px);
     opacity: 0;
@@ -51,8 +134,63 @@ header{
     animation-timing-function: ease-in-out;
 }
 
+#Welcome{
+    opacity: 0%;
+    animation: pop-in 1s ease-in-out 1s forwards;
+    transform: scale(0);
+    margin-right: 10px;
+}
+
+#to{
+    opacity: 0%;
+    animation: pop-in 1s ease-in-out 1.25s forwards;
+    transform: scale(0);
+    margin-right: 10px;
+}
+
+#the{
+    opacity: 0%;
+    animation: pop-in 1s ease-in-out 1.5s forwards;
+    transform: scale(0);
+    margin-right: 10px;
+}
+
+#best{
+    opacity: 0%;
+    animation: pop-in 1s ease-in-out 1.75s forwards;
+    transform: scale(0);
+    margin-right: 10px;
+}
+
+#LCbiology{
+    opacity: 0%;
+    animation: pop-in 1s ease-in-out 2s forwards;
+    transform: scale(0);
+    margin-right: 10px;
+}
+
+#Grinds{
+    opacity: 0%;
+    animation: pop-in 1s ease-in-out 2.25s forwards;
+    transform: scale(0);
+    margin-right: 10px;
+}
+
+#School{
+    opacity: 0%;
+    animation: pop-in 1s ease-in-out 2.5s forwards;
+    transform: scale(0);
+}
+
+.hero-text{
+    opacity: 0%;
+    animation: fade-in 1s ease-in-out 2.75s forwards;
+}
+
 #LearnMore{
+    opacity: 0%;
     transition: background-color .5s;
+    animation: fade-in 1s ease-in-out 3.5s forwards;
 }
 
 #LearnMore:hover{
@@ -60,13 +198,44 @@ header{
 }
 
 #FreeTrial{
+    opacity: 0%;
     transition: background-color .5s, color .5s;
+    animation: fade-in 1s ease-in-out 4.5s forwards;
 }
 
 #FreeTrial:hover{
     background-color: #51a890!important;
     color: white;
 }
+
+#hanging-icons{
+    background-color: white;
+    margin: 0;
+    max-width: none;
+}
+
+.icon{
+    height: 50px;
+    width: 50px;
+    background-color: white;
+    color: #3c806c;
+}
+
+.feature{
+    color: #3c806c!important;
+}
+
+.jumbotron{
+    width: 100vw!important;
+    background-color: #cacaca;
+}
+
+.video{
+    display: flex;
+    justify-content: center;
+}
+
+
 
 
 
@@ -103,6 +272,17 @@ footer{
 }
 
 
+/*Media Querys*/
+@media (max-width: 992px){
+    .video2{
+        display: none;
+    }
+
+    .video3{
+        display: none;
+    }
+}
+
 
 
 /*Animations*/
@@ -132,4 +312,30 @@ footer{
 
     }
     
- }
+   }
+
+ @keyframes pop-in {
+    0% {
+        transform: scale(0);
+        opacity: 0%;
+    }
+    75% {
+        transform: scale(1.1);
+        opacity: 75%;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 100%;
+    }
+}
+
+@keyframes fade-in {
+    0%{
+        opacity: 0%;
+    }
+
+    100%{
+        opacity: 100%;
+    }
+    
+}
