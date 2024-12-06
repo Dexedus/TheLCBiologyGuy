@@ -1,6 +1,6 @@
 html{
     overflow-x: hidden!important;
-    scroll-behavior: smooth;
+    scroll-behavior: smooth!important;
 }
 
 
@@ -282,19 +282,13 @@ main{
 }
 
 
-.button{
-    border: none;
-    border-radius: 20px;
-    width: 120px;
-    height: 40px;
-    background-color: rgb(85, 163, 236);
-    color: white;
-    transition: background-color 1s;
-    margin-top: -300px;
+.checkout-btn{
+    border: none!important;
+    transition: background-color 1s!important;
 }
 
-.button:hover{
-background-color: #51a890;
+.checkout-btn:hover{
+    background-color: #51a890!important;
 }
 
 
@@ -325,6 +319,10 @@ footer{
 
     .video3{
         display: none;
+    }
+
+    #lessons-photo{
+        width: 100%;
     }
 }
 

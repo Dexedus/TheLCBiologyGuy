@@ -1,20 +1,125 @@
 <%- include("partials/header.ejs")  %>
 
-<main style="width: 80%; display: flex; height: 100vh; align-items: center; flex-direction: column;">
+<main style="display: flex; align-items: center; flex-direction: column; width: 100%;">
   
-  <div class="infoCard">
-    <h1>Zoom Class</h1>
-    <h6>What you get</h6>
-    <ul style="padding: 0;">
-      <li>A spot in my live Zoom classes.</li>
-      <li>Full access to notes.</li>
-    </ul>
+    <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg" style=" background-image: url(/images/background-biology.jpg); background-color: rgb(255, 255, 255); margin-top: 100px; width: 70%; margin-bottom: 20px;">
+      <div class="col-lg-7 p-3 p-lg-5 pt-lg-3" style="background-color: rgb(245, 245, 245); border-radius: 20px; margin-bottom: 20px;">
+        <h1 class="display-4 fw-bold lh-1 text-body-emphasis" style="color: #000000!important;">Zoom Classes + Notes</h1>
+        <p class="lead">Fast track your way to a top grade by grabbing a spot in my Zoom class. You'll also get full access to my notes.</p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+          <form action="/api/create-checkout-session" method="POST">
+            <input type="hidden" name="priceId" value="price_1QRbmKFArv9BTH3QYG3eVLX9">
+          <button type="submit" class="checkout-btn btn btn-primary btn-lg px-4 me-md-2 fw-bold">Checkout</button>
+          </form>
+        </div>
+      </div>
+      <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
+          <img id="lessons-photo" class="rounded-lg-3" src="/images/bio.jpg" alt="biology cover pic" width="720px" height="100%">
+      </div>
+    </div>
 
-    <form action="/api/create-checkout-session" method="POST">
-      <input type="hidden" name="priceId" value="price_1QRbmKFArv9BTH3QYG3eVLX9">
-      <button class="button" type="submit">Checkout</button>
-    </form>
-  </div>
+
+    <div class="p-5 text-center bg-body-tertiary" style="height: 100%!important; width: 100%!important;">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
+        <div class="col d-flex align-items-start">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon bi bi-award-fill" viewBox="0 0 16 16" style="background-color: #af737300;">
+            <path d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864z"/>
+            <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1z"/>
+          </svg>
+          <div>
+            <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Expert-Led Biology Classes</h3>
+            <p>Our experienced instructors simplify complex biology concepts, ensuring you understand and excel in every lesson.</p>
+          </div>
+        </div>
+        <div class="col d-flex align-items-start">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon bi bi-laptop" viewBox="0 0 16 16" style="background-color: #af737300;">
+            <path d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5"/>
+          </svg>
+          <div>
+            <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Flexible Online Learning</h3>
+            <p>Join our fully online Zoom Biology classes from anywhere, with flexible schedules that fit your lifestyle.</p>
+          </div>
+        </div>
+        <div class="col d-flex align-items-start">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon bi bi-bag-check-fill" viewBox="0 0 16 16" style="background-color: #af737300;">
+            <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0m-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"/>
+          </svg>
+          <div>
+            <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Comprehensive Study Materials</h3>
+            <p>Get access to high-quality lecture notes, practice questions, and downloadable resources to reinforce your learning.</p>
+          </div>
+        </div>
+        <div class="col d-flex align-items-start">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon bi bi-people-fill" viewBox="0 0 16 16" style="background-color: #af737300;">
+            <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
+          </svg>
+          <div>
+            <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Small Class Sizes for Personalized Attention</h3>
+            <p>With small class sizes, you receive personalized attention and support from instructors to ensure your success.</p>
+          </div>
+        </div>
+        <div class="col d-flex align-items-start">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon bi bi-person-raised-hand" viewBox="0 0 16 16" style="background-color: #af737300;">
+            <path d="M6 6.207v9.043a.75.75 0 0 0 1.5 0V10.5a.5.5 0 0 1 1 0v4.75a.75.75 0 0 0 1.5 0v-8.5a.25.25 0 1 1 .5 0v2.5a.75.75 0 0 0 1.5 0V6.5a3 3 0 0 0-3-3H6.236a1 1 0 0 1-.447-.106l-.33-.165A.83.83 0 0 1 5 2.488V.75a.75.75 0 0 0-1.5 0v2.083c0 .715.404 1.37 1.044 1.689L5.5 5c.32.32.5.754.5 1.207"/>
+            <path d="M8 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
+          </svg>
+          <div>
+            <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Real-Time Q&A and Feedback</h3>
+            <p>Ask questions during class and receive immediate feedback, ensuring you fully understand each concept.</p>
+          </div>
+        </div>
+        <div class="col d-flex align-items-start">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon bi bi-record-circle" viewBox="0 0 16 16" style="background-color: #af737300; padding-right: 3px">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+            <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+          </svg>
+          <div>
+            <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Access to Recorded Sessions</h3>
+            <p>Miss a class? Access recorded sessions anytime, so you can learn at your own pace and review material when needed.</p>
+          </div>
+        </div>
+        <div class="col d-flex align-items-start">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon bi bi-journal-text" viewBox="0 0 16 16" style="background-color: #af737300;">
+            <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+            <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2"/>
+            <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z"/>
+          </svg>
+          <div>
+            <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Exam-Ready Preparation</h3>
+            <p>Our classes are designed to thoroughly prepare you for exams with practice questions, mock tests, and exam strategies.</p>
+          </div>
+        </div>
+        <div class="col d-flex align-items-start">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon bi bi-check2" viewBox="0 0 16 16" style="background-color: #af737300;">
+            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"/>
+          </svg>
+          <div>
+            <h3 class="fw-bold mb-0 fs-4 text-body-emphasis feature">Affordable and Accessible</h3>
+            <p>We offer competitive pricing and flexible payment plans to make our Zoom Biology classes accessible to all students.</p>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="px-4 pt-5 my-5 text-center">
+        <h1 class="display-4 fw-bold  feature">Get Started</h1>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-4"> Placements are limited, so book your place in the class before spots are full!</p>
+          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+            <form action="/api/create-checkout-session" method="POST">
+            <input type="hidden" name="priceId" value="price_1QRbmKFArv9BTH3QYG3eVLX9">
+              <button type="submit" class="checkout-btn btn btn-primary btn-lg px-4 me-sm-3">Checkout</button>
+            </form>
+          </div>
+        </div>
+        <div class="overflow-hidden" style="max-height: 30vh;">
+        </div>
+      </div>
+
+    </div>
+
+
 </main>
 
 <%- include("partials/footer.ejs")  %>
