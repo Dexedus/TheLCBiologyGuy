@@ -100,7 +100,6 @@ app.post('/stripe/webhook', async (req, res) => {
 
     // Send the custom email via SendGrid
     sendEmail(customerEmail, subject, message);
-    sendEmail("testemail64lol@gmail.com", "test", "test");
   }
 
   // Acknowledge receipt of the event
