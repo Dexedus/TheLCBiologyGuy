@@ -79,22 +79,22 @@ app.post('/stripe/webhook', async (req, res) => {
       // Check product ID to determine which product was purchased
       if (productId === 'prod_RKGIXPoDtTir6V') {
         subject = 'Thank you for purchasing a Zoom class Week One placement!';
-        message = `Dear customer,\n\nThank you for purchasing Week One! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nMax Grind School`;
+        message = `Dear customer,\n\nThank you for purchasing Week One! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nThe LC Biology Guy`;
       } else if (productId === 'prod_RKGTn7KzbAJk6u') {
         subject = 'Thank you for choosing the Free Trial';
-        message = `Dear customer,\n\nThank you for choosing the Free Trial! Here is the link to my notes: \n\nBest regards,\nMax Grind School`;
+        message = `Dear customer,\n\nThank you for choosing the Free Trial! Here is the link to my notes: \n\nBest regards,\nThe LC Biology Guy`;
       } else if (productId === 'prod_RNcNcp6u1bhksR') {
         subject = 'Thank you for purchasing a Zoom class Week Two placement!';
-        message = `Dear customer,\n\nThank you for purchasing Week Two! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nMax Grind School`;
+        message = `Dear customer,\n\nThank you for purchasing Week Two! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nThe LC Biology Guy`;
       } else if (productId === 'prod_RNcOy3SkrDdX6H') {
         subject = 'Thank you for purchasing a Zoom class Week Three placement!';
-        message = `Dear customer,\n\nThank you for purchasing Week Three! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nMax Grind School`;
+        message = `Dear customer,\n\nThank you for purchasing Week Three! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nThe LC Biology Guy`;
       } else if (productId === 'prod_RNcOLGk9UPWx0I') {
         subject = 'Thank you for purchasing a Zoom class Week Four placement!';
-        message = `Dear customer,\n\nThank you for purchasing Week Four! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nMax Grind School`;
+        message = `Dear customer,\n\nThank you for purchasing Week Four! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nThe LC Biology Guy`;
       } else {
-        subject = 'Thank you for the purchase';
-        message = `thanks`
+        subject = 'Thank you for your purchase';
+        message = `Hi, \n\nYour payment went through, but unfortunately the server failed to fetch the product ID. This means I could not find the invite code for the class you purchased. Please email me back letting me know what class/s you purchased and I will send on the info you need. Thanks! \n\nBest regards,\nThe LC Biology Guy`
       }
     }
 
