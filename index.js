@@ -78,11 +78,20 @@ app.post('/stripe/webhook', async (req, res) => {
 
       // Check product ID to determine which product was purchased
       if (productId === 'prod_RKGIXPoDtTir6V') {
-        subject = 'Thank you for purchasing a Zoom class placement!';
-        message = `Dear customer,\n\nThank you for purchasing Zoom Class! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nMax Grind School`;
+        subject = 'Thank you for purchasing a Zoom class Week One placement!';
+        message = `Dear customer,\n\nThank you for purchasing Week One! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nMax Grind School`;
       } else if (productId === 'prod_RKGTn7KzbAJk6u') {
         subject = 'Thank you for choosing the Free Trial';
         message = `Dear customer,\n\nThank you for choosing the Free Trial! Here is the link to my notes: \n\nBest regards,\nMax Grind School`;
+      } else if (productId === 'prod_RNcNcp6u1bhksR') {
+        subject = 'Thank you for purchasing a Zoom class Week Two placement!';
+        message = `Dear customer,\n\nThank you for purchasing Week Two! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nMax Grind School`;
+      } else if (productId === 'prod_RNcOy3SkrDdX6H') {
+        subject = 'Thank you for purchasing a Zoom class Week Three placement!';
+        message = `Dear customer,\n\nThank you for purchasing Week Three! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nMax Grind School`;
+      } else if (productId === 'prod_RNcOLGk9UPWx0I') {
+        subject = 'Thank you for purchasing a Zoom class Week Four placement!';
+        message = `Dear customer,\n\nThank you for purchasing Week Four! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nMax Grind School`;
       }
     }
 

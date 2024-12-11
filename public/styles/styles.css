@@ -291,6 +291,15 @@ main{
     background-color: #51a890!important;
 }
 
+.checkout-btn-2{
+    border: none!important;
+    transition: color 1s, background-color 1s!important;
+}
+
+.checkout-btn-2:hover{
+    background-color: #ffffff!important;
+    color: #3d3d3d!important;
+}
 
 
 /*Footer Styles*/
@@ -323,6 +332,10 @@ footer{
 
     #lessons-photo{
         width: 100%;
+    }
+
+    .finger-down{
+        display: none;
     }
 }
 
