@@ -302,6 +302,16 @@ main{
 }
 
 
+
+/*Success Page*/
+.email{
+    background-color: white;
+    border-radius: 20px;
+    padding: 3px;
+}
+
+
+
 /*Footer Styles*/
 footer{
     background-color: white;
