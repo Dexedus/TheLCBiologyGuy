@@ -67,6 +67,8 @@ app.post('/stripe/webhook', async (req, res) => {
 
     const customerEmail = session.receipt_email || session.customer_details.email; // Get the customer email
 
+    if(customerEmail){
+      console.log(customerEmail)
     const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 10 }); // Get line items
 
     let subject = '';
@@ -104,7 +106,7 @@ app.post('/stripe/webhook', async (req, res) => {
 
   // Acknowledge receipt of the event
   res.json({ received: true });
-});
+}});
 
 
 
