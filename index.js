@@ -92,6 +92,9 @@ app.post('/stripe/webhook', async (req, res) => {
       } else if (productId === 'prod_RNcOLGk9UPWx0I') {
         subject = 'Thank you for purchasing a Zoom class Week Four placement!';
         message = `Dear customer,\n\nThank you for purchasing Week Four! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nMax Grind School`;
+      } else {
+        subject = 'Thank you for the purchase';
+        message = `thanks`
       }
     }
 
