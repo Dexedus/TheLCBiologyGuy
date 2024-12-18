@@ -280,7 +280,8 @@ main{
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Adjust to truly center it */
+    transform: translate(-52%, -50%); /* Adjust to truly center it */
+    margin-right: 10px!important;
 }
 
 .closingAnimation{
