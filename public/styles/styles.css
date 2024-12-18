@@ -239,9 +239,10 @@ main{
 }
 
 #testimonial-tab{
+    font-size: larger;
     height: 400px;
     width: 100%;
-    background-color: #ececec;
+    background-size: cover;
     border-top: 2px solid #3c806c;
     border-bottom: 2px solid #3c806c;
     display: flex;
@@ -283,7 +284,7 @@ main{
 }
 
 .closingAnimation{
-    animation: fade-out 1s ease-in-out forwards;
+    animation: fade-out 0.5s ease-in-out forwards;
 }
 
 .infoCard{
@@ -294,6 +295,9 @@ main{
     justify-content: center;
     align-items: center;
     border-radius: 20px;
+    font-size: 1.5em;
+    text-align: center;
+    max-width: 500px;
 }
 
 
@@ -318,15 +322,6 @@ main{
 
 
 
-/*Success Page*/
-.email{
-    background-color: white;
-    border-radius: 20px;
-    padding: 3px;
-}
-
-
-
 /*Footer Styles*/
 footer{
     background-color: white;
@@ -338,6 +333,10 @@ footer{
 @media (max-width: 576px){
     body{
         margin-top: 100px!important;
+    }
+
+    #testimonial-text{
+        width: 300px;
     }
 
     #title{
@@ -361,6 +360,19 @@ footer{
 
     .finger-down{
         display: none;
+    }
+
+    #contentMain{
+        flex-direction: column;
+    }
+
+    #contentRight{
+        width: 100%!important;
+    }
+
+    #contentLeft{
+        width: 100%!important;
+        margin-top: 100px
     }
 }
 
