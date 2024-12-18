@@ -1,6 +1,30 @@
 <%- include("partials/header.ejs")  %>
 
 <main style="display: flex; align-items: center; flex-direction: column; width: 100%;">
+
+<div id="popup">
+  
+  <div class="modal modal-sheet position-static d-block p-4 py-md-5" tabindex="-1" role="dialog" id="modalSheet">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content rounded-4 shadow">
+        <div class="modal-header border-bottom-0">
+          <h1 class="modal-title fs-5"><%= title %></h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body py-0">
+          <p><%= message %></p>
+        </div>
+        <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+          <button type="button" id="close" class="btn btn-lg btn-secondary" data-bs-dismiss="modal"><%= button %></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
   
     <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg" style=" background-image: url(/images/background-biology.jpg); background-color: rgb(255, 255, 255); margin-top: 100px; width: 70%; margin-bottom: 20px;">
       <div class="col-lg-7 p-3 p-lg-5 pt-lg-3" style="background-color: rgb(245, 245, 245); border-radius: 20px; margin-bottom: 20px;">
@@ -107,7 +131,19 @@
         <div class="overflow-hidden" style="max-height: 30vh;">
         </div>
       </div>
+    </div>
 
+    <div class="p-5 text-center bg-body-tertiary" style="width: 100%;">
+      <div class="container py-5">
+        <h1>Full Package!</h1>
+        <p class="col-lg-8 mx-auto lead">
+          This is a placeholder text until I am informed on what to insert into this paragraph element. This is to give an idea of how this looks with text.
+        </p>
+        <form action="/api/create-checkout-session" method="POST">
+          <input type="hidden" name="priceId" value="price_1QVD5sFArv9BTH3Qglv8z6uT">
+            <button type="submit" class="checkout-btn btn btn-primary btn-lg px-4 me-sm-3">Checkout</button>
+          </form>
+      </div>
     </div>
 
     <div class="p-5 text-center bg-body-tertiary" style="width: 100%; background-color: #61b39a!important;">

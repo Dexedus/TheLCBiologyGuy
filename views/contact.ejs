@@ -1,10 +1,21 @@
 <%- include("partials/header.ejs")  %>
 
-<main style="width: 80%; display: flex; height: 100vh; align-items: center; flex-direction: column;">
-    <div class="infoCard">
-        <h2>Contact Me</h2>
-        <p>Any questions, please contact me at <span class="email">thelcbiologyguy@gmail.com</span>, thank you.</p>
-    </div>
+<main style="width: 100%; display: flex; height: 100vh; align-items: center; justify-content: space-between; margin-block: -55px;">
+
+      <div id="contentLeft" style="width: 50vw; height: 100vh; display: flex; align-items: center; background-color: #f3f3f3;">
+        <div class="infoCard">
+          <h2>Contact Me</h2>
+          <p>Any questions, please contact me at <span class="email">thelcbiologyguy@gmail.com</span>, thank you.</p>
+        </div>
+      </div>
+       
+        <div id="contentRight" style="width: 50vw; height: 100vh; display: flex; align-items: center;">
+         <div class="infoCard">
+           <h2>Right side</h2>
+           <p>This is on the right side.</p>
+         </div>
+       </div>
+
 </main>
 
 <%- include("partials/footer.ejs")  %>

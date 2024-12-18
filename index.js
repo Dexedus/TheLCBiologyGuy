@@ -94,6 +94,9 @@ app.post('/stripe/webhook', async (req, res) => {
       } else if (productId === 'prod_RNcOLGk9UPWx0I') {
         subject = 'Thank you for purchasing a Zoom class Week Four placement!';
         message = `Dear customer,\n\nThank you for purchasing Week Four! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nThe LC Biology Guy`;
+      } else if (productId === 'prod_RNz4sHcI0k4MYM'){
+        subject = 'Thank you for purchasing a placement in all classes next month!'
+        message = `Dear customer,\n\nThank you for purchasing the Full Package of classes for next month! Your payment has been successfully processed. Here are the details for the classes: \n\nBest regards,\nThe LC Biology Guy`
       } else {
         subject = 'Thank you for your purchase';
         message = `Hi, \n\nYour payment went through, but unfortunately the server failed to fetch the product ID. This means I could not find the invite code for the class you purchased. Please email me back letting me know what class/s you purchased and I will send on the info you need. Thanks! \n\nBest regards,\nThe LC Biology Guy`
@@ -119,7 +122,11 @@ app.get('/', (req, res) => {
 })
 
 app.get('/lesson', (req, res) => {
-    res.render("lesson.ejs")
+    res.render("lesson.ejs", {
+      title: "Warning",
+      message: "Using the same invite code for a zoom class as another student will result in both accounts receiving a ban. By closing this pop-up or clicking the button below, you acknowledge this warning and wish to proceed.",
+      button: "Understood",
+    })
 })
 
 app.get('/trial', (req, res) => {
@@ -131,7 +138,11 @@ app.get('/contact', (req, res) => {
 })
 
 app.get("/done", (req, res) => {
-    res.render("success.ejs")
+  res.render("lesson.ejs", {
+    title: "Success!",
+    message: "You should recieve the details for the zoom class via an email sent to the address you entered at checkout. If you do not recieve an email after 24 hours please contact me at: thelcbiologyguy@gmail.com Thanks.",
+    button: "Close",
+  })
 })
 
 
