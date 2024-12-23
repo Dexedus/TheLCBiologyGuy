@@ -82,9 +82,9 @@ app.post('/stripe/webhook', async (req, res) => {
       if (productId === 'prod_RKGIXPoDtTir6V') {
         subject = 'Thank you for purchasing a Zoom class Week One placement!';
         message = `Dear customer,\n\nThank you for purchasing Week One! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nThe LC Biology Guy`;
-      } else if (productId === 'prod_RKGTn7KzbAJk6u') {
-        subject = 'Thank you for choosing the Free Trial';
-        message = `Dear customer,\n\nThank you for choosing the Free Trial! Here is the link to my notes: \n\nBest regards,\nThe LC Biology Guy`;
+      } else if (productId === 'prod_RRl0T5qS265k7U') {
+        subject = 'Thank you for choosing the Free Resources!';
+        message = `Dear customer,\n\Thank you for choosing the free resources package. Here is the link to the google drive containing the resources: https://drive.google.com/drive/folders/1Vsr3aMvK8qGR8b1c7s6y7XK4oRKalvNW?usp=sharing  \n\nBest regards,\nThe LC Biology Guy`;
       } else if (productId === 'prod_RNcNcp6u1bhksR') {
         subject = 'Thank you for purchasing a Zoom class Week Two placement!';
         message = `Dear customer,\n\nThank you for purchasing Week Two! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nThe LC Biology Guy`;
