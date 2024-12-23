@@ -131,7 +131,7 @@ app.get('/lesson', (req, res) => {
 
 app.get('/trial', (req, res) => {
     res.render("trial.ejs")
-    sendEmail("karlfleming64@gmail.com", "This is working", "Test email.")
+    //Fixed
 })
 
 app.get('/contact', (req, res) => {
