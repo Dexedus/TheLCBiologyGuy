@@ -120,18 +120,62 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon bi bi-check2" viewBox="0 0 16 16" style="background-color: #af737300;">
             <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"/>
           </svg>
-          <div id="browse">
+          <div>
             <h3 class="fw-bold mb-0 fs-4 text-body-emphasis feature">Affordable and Accessible</h3>
             <p>We offer competitive pricing and flexible payment plans to make our Zoom Biology classes accessible to all students.</p>
           </div>
         </div>
       </div>
+    </div>
+
+
+      <!-- Testimonials -->
+
+      <div id="carouselExample" class="carousel slide" style="width: 100vw; padding-bottom: 100px; background-color: white;">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div id="testimonial-tab" style="background-image: url(/images/benner_2.jpg);">
+              <img id="testimonial-picture" src="/images/default-avatar-photo-placeholder.jpg" alt="profile picture">
+              <h2 style="font-weight: 700;">Bill - Parent</h2>
+              <p id="testimonial-text" style="text-align: center; max-width: 700px; font-weight: 500;">“Max recently gave my son lessons in leaving cert Biology over Zoom. My son found them most helpful. Topics that had been difficult to grasp were made clear by Max's clear presentation of the subject. Though an expert in the field, it's not that long since Max has been through the leaving cert cycle so he knows what is required. Sample exam questions were done for each topic. I would have no hesitation in recommending Max for Biology lessons”</p>
+              
+            </div>      
+          </div>
+          <div class="carousel-item">
+            <div id="testimonial-tab" style="background-image: url(/images/benner_2.jpg);">
+              <img id="testimonial-picture" src="/images/default-avatar-photo-placeholder.jpg" alt="profile picture">
+              <h2 style="font-weight: 700;">Kitty - Former Student</h2>
+              <p id="testimonial-text" style="text-align: center; max-width: 800px; font-weight: 500;">“Max had a very good knowledge of the topics he was teaching us and he explained them in a detailed and clear manner. I also really enjoyed when Max went over exam questions at the end of class to make sure we have understood the material and if we did not understand the material correctly he would explain it again.”</p>
+             
+            </div> 
+          </div>
+          <div class="carousel-item">
+            <div id="testimonial-tab" style="background-image: url(/images/benner_2.jpg);">
+              <img id="testimonial-picture" src="/images/default-avatar-photo-placeholder.jpg" alt="profile picture">
+              <h2 style="font-weight: 700;">Emma - Student</h2>
+              <p id="testimonial-text" style="text-align: center; max-width: 700px; font-weight: 500;">“Hi Max
+                Just wanted to say thank you for biology class on experiments. The biology class provided outstanding preparation for the experiment section in the leaving cert paper. It was really helpful to get guidance as well as additional notes to look back on making me feel both well prepared and confident for my exam. Overall this class gave me a strong foundation in the lc experiments and really improved my understanding. Thanks again!“
+                </p>
+              
+            </div> 
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
 
 
       <!-- Package Differences -->
 
 
-      <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+      <div class="row row-cols-1 row-cols-md-3 px-4 text-center" style="width: 100vw; background-color: rgb(248 249 250); padding-bottom: 60px;">
         <div class="col">
           <div class="card mb-4 rounded-3 shadow-sm">
             <div class="card-header py-3">
@@ -142,7 +186,7 @@
               <ul class="list-unstyled mt-3 mb-4">
                 <li>Unit 1 and Cell Biology</li>
               </ul>
-              <button type="button" class="w-100 btn btn-lg buttonFree" style="border: 1px solid #51a890;">Learn More</button>
+              <a href="/trial"><button type="button" class="w-100 btn btn-lg buttonFree" style="border: 1px solid #51a890;">Learn More</button></a>
             </div>
           </div>
         </div>
@@ -158,7 +202,7 @@
                 <li>Key Human Systems worth 18%</li>
                 <li>Comprehensive notes and recordings of classes.</li>
               </ul>
-              <button type="button" class="w-100 btn btn-lg buttonGreen" style="background-color: #51a890; color: white;">Browse</button>
+              <a href="#browse"><button type="button" class="w-100 btn btn-lg buttonGreen" style="background-color: #51a890; color: white;">Coming Soon</button></a>
             </div>
           </div>
         </div>
@@ -175,7 +219,7 @@
                 <li>Access to ALL notes </li>
                 <li>Additional supports</li>
               </ul>
-              <button type="button" class="w-100 btn btn-lg buttonGreen" style="background-color: #51a890; color: white;">Buy Now</button>
+              <button type="button" class="w-100 btn btn-lg buttonGreen" style="background-color: #51a890; color: white;">Coming Soon</button>
             </div>
           </div>
         </div>
@@ -183,81 +227,31 @@
 
 
       <!-- Product list -->
+    
 
-      <div class="px-4 pt-5 my-5 text-center">
-        <h1 class="display-4 fw-bold  feature"><span class="finger-down">👇</span>Choose One or Several Classes<span class="finger-down">👇</span></h1>
-        <div class="col-lg-6 mx-auto">
-          <p class="lead mb-4">*All class purchases come with full access to notes*</p>
-        </div>
-        <div class="overflow-hidden" style="max-height: 30vh;">
+      <div style="width: 100vw;">
+        <div class="p-5 text-center bg-body-tertiary">
+          <div class="container py-5">
+            <h1 class="display-4 fw-bold  feature"><span class="finger-down">👇</span>Choose One or Several Classes<span class="finger-down">👇</span></h1>
+            <p class="lead mb-4" id="browse">*All class purchases come with full access to notes*</p>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="p-5 text-center bg-body-tertiary" style="width: 100%;">
-      <div class="container py-5">
-        <h1>Full Package!</h1>
-        <p class="col-lg-8 mx-auto lead">
-          
-        </p>
-        <form action="/api/create-checkout-session" method="POST">
-          <input type="hidden" name="priceId" value="price_1QXkvgGUne0h98JD2WAtkeVS">
-            <button type="submit" class="checkout-btn btn btn-primary btn-lg px-4 me-sm-3">Checkout</button>
-          </form>
-      </div>
-    </div>
 
     <div class="p-5 text-center bg-body-tertiary" style="width: 100%; background-color: #61b39a!important;">
       <div class="container py-5" style="color: white!important;">
-        <h1>Week One</h1>
+        <h1>January Labs</h1>
         <p class="col-lg-8 mx-auto lead">
-          
+          These 'labs' are my weekly classes. They will be available to purchase in the new year.
         </p>
-        <form action="/api/create-checkout-session" method="POST">
-          <input type="hidden" name="priceId" value="price_1QRbmKFArv9BTH3QYG3eVLX9">
-            <button type="submit" class="checkout-btn-2 btn btn-primary btn-lg px-4 me-sm-3">Checkout</button>
-          </form>
+      </div>
+      <div>
+        <h2 style="color: white;">Coming Soon!</h2>
       </div>
     </div>
 
-    <div class="p-5 text-center bg-body-tertiary" style="width: 100%;">
-      <div class="container py-5">
-        <h1 class="text-body-emphasis">Week Two</h1>
-        <p class="col-lg-8 mx-auto lead">
-          
-        </p>
-        <form action="/api/create-checkout-session" method="POST">
-          <input type="hidden" name="priceId" value="price_1QUr93FArv9BTH3Q8VRd4IWr">
-            <button type="submit" class="checkout-btn btn btn-primary btn-lg px-4 me-sm-3">Checkout</button>
-          </form>
-      </div>
-    </div>
 
-    <div class="p-5 text-center bg-body-tertiary" style="width: 100%; background-color: #61b39a!important;">
-      <div class="container py-5" style="color: white!important;">
-        <h1>Week Three</h1>
-        <p class="col-lg-8 mx-auto lead">
-          
-        </p>
-        <form action="/api/create-checkout-session" method="POST">
-          <input type="hidden" name="priceId" value="price_1QUr9QFArv9BTH3QU1qJyK7N">
-            <button type="submit" class="checkout-btn-2 btn btn-primary btn-lg px-4 me-sm-3">Checkout</button>
-          </form>
-      </div>
-    </div>
-
-    <div class="p-5 text-center bg-body-tertiary" style="width: 100%;">
-      <div class="container py-5">
-        <h1 class="text-body-emphasis">Week Four</h1>
-        <p class="col-lg-8 mx-auto lead">
-         
-        </p>
-        <form action="/api/create-checkout-session" method="POST">
-          <input type="hidden" name="priceId" value="price_1QUr9lFArv9BTH3Qd5MTGmth">
-            <button type="submit" class="checkout-btn btn btn-primary btn-lg px-4 me-sm-3">Checkout</button>
-          </form>
-      </div>
-    </div>
 
 
 </main>
