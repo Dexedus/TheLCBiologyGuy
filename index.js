@@ -94,7 +94,7 @@ app.post('/stripe/webhook', async (req, res) => {
       } else if (productId === 'prod_RNcOLGk9UPWx0I') {
         subject = 'Thank you for purchasing a Zoom class Week Four placement!';
         message = `Dear customer,\n\nThank you for purchasing Week Four! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nThe LC Biology Guy`;
-      } else if (productId === 'prod_RNz4sHcI0k4MYM'){
+      } else if (productId === 'prod_RNz4sHcI0k4MYM') {
         subject = 'Thank you for purchasing a placement in all classes next month!'
         message = `Dear customer,\n\nThank you for purchasing the Full Package of classes for next month! Your payment has been successfully processed. Here are the details for the classes: \n\nBest regards,\nThe LC Biology Guy`
       } else {
