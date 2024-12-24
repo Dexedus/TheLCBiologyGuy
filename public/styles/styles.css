@@ -352,7 +352,7 @@ main{
     animation-name: fromTheSide;
     animation-delay: .5s;
     animation-fill-mode: forwards;
-    animation-duration: 3.5s;
+    animation-duration: 1.8s;
     animation-timing-function: ease-in-out;
 }
 
@@ -362,7 +362,7 @@ main{
     animation-name: fromTheSide;
     animation-delay: .5s;
     animation-fill-mode: forwards;
-    animation-duration: 3.5s;
+    animation-duration: 1.8s;
     animation-timing-function: ease-in-out;
 }
 
