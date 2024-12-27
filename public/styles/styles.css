@@ -136,6 +136,14 @@ main{
     animation-timing-function: ease-in-out;
 }
 
+.homeImgAnimation{
+    animation-name: fromTheSide;
+    animation-delay: 1s;
+    animation-fill-mode: forwards;
+    animation-duration: 3s;
+    animation-timing-function: ease-in-out;
+}
+
 #Welcome{
     opacity: 0%;
     animation: pop-in 1s ease-in-out 1s forwards;
