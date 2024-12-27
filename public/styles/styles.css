@@ -396,6 +396,16 @@ footer{
         font-size: 1.5em!important;
     }
 
+    .img{
+        width: 45px;
+        height: 45px!important;
+        margin-inline: 10px!important;
+    }
+
+    .nav-item{
+        height: 35px;
+    }
+
     #testimonial-picture{
         display: none;
     }
