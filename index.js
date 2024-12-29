@@ -130,7 +130,6 @@ app.post('/stripe/webhook', async (req, res) => {
               role: 'viewer',
             }
           ],
-          access_level: 'viewer', 
           folder: {
             id: FOLDER_ID,
           },
