@@ -146,7 +146,9 @@ app.post('/stripe/webhook', async (req, res) => {
         });
 
         if (!dropboxResponse.ok) {
-          throw new Error('Failed to add email to Dropbox folder');
+          const errorBody = await dropboxResponse.text();
+          console.error('Failed to add email to Dropbox folder:', errorBody);
+          throw new Error(`Failed to add email to Dropbox folder: ${errorBody}`);
         }
 
         const dropboxData = await dropboxResponse.json();
