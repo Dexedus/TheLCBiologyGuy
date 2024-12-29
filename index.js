@@ -6,21 +6,21 @@ const app = express();
 const router = express.Router();
 const sgMail = require("@sendgrid/mail")
 const bodyParser = require("body-parser");
-const pg = require("pg")
+// const pg = require("pg")
 
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 const port = 3000
 
-const db = new pg.Client({
-  user: process.env.un,
-  host: process.env.host,
-  database: "TheLCBiologyGuy",
-  password: process.env.pw,
-  port: 5432,
-  ssl: true,
-});
-db.connect();
+// const db = new pg.Client({
+//   user: process.env.un,
+//   host: process.env.host,
+//   database: "TheLCBiologyGuy",
+//   password: process.env.pw,
+//   port: 5432,
+//   ssl: true,
+// });
+// db.connect();
 
 //Middleware
 app.use(bodyParser.raw({ type: 'application/json' }));
@@ -117,7 +117,7 @@ app.post('/stripe/webhook', async (req, res) => {
       }
 
       // Add new customer email to the database
-      await db.query("INSERT INTO emails (email) VALUES ($1)", [customerEmail]);
+      // await db.query("INSERT INTO emails (email) VALUES ($1)", [customerEmail]);
 
       // Send the custom email via SendGrid
       sendEmail(customerEmail, subject, message);
