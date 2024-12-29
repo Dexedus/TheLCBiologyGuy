@@ -1,14 +1,26 @@
 require("dotenv").config();
+const fetch = require('node-fetch');
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const express = require("express");
 const app = express();
 const router = express.Router();
 const sgMail = require("@sendgrid/mail")
 const bodyParser = require("body-parser");
+const pg = require("pg")
 
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 const port = 3000
+
+const db = new pg.Client({
+  user: process.env.un,
+  host: process.env.host,
+  database: "TheLCBiologyGuy",
+  password: process.env.pw,
+  port: 5432,
+  ssl: true,
+});
+db.connect();
 
 //Middleware
 app.use(bodyParser.raw({ type: 'application/json' }));
@@ -18,6 +30,8 @@ app.use(express.json());
 const endpointSecret = process.env.WEBHOOK_SECRET
 const API_KEY = process.env.SEND_GRID_KEY
 const SendgridSender = process.env.EMAIL
+const DROPBOX_ACCESS_TOKEN = process.env.DROPBOX_ACCESS_TOKEN;
+const FOLDER_ID = process.env.FOLDER_ID;
 
 sgMail.setApiKey(`${API_KEY}`)
 
@@ -45,8 +59,6 @@ const sendEmail = (toEmail, subject, message) => {
 
 
 
-
-
 // Stripe webhook handler
 app.post('/stripe/webhook', async (req, res) => {
   const sig = req.headers['stripe-signature'];
@@ -67,49 +79,88 @@ app.post('/stripe/webhook', async (req, res) => {
 
     const customerEmail = session.receipt_email || session.customer_details.email; // Get the customer email
 
-    if(customerEmail){
-      console.log(customerEmail)
-    const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 10 }); // Get line items
+    if (customerEmail) {
+      console.log(customerEmail);
+      
+      const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 10 }); // Get line items
 
-    let subject = '';
-    let message = '';
+      let subject = '';
+      let message = '';
 
-    // Loop through line items to determine the product
-    for (const item of lineItems.data) {
-      const productId = item.price.product; // Extract the product ID
+      // Loop through line items to determine the product
+      for (const item of lineItems.data) {
+        const productId = item.price.product; // Extract the product ID
 
-      // Check product ID to determine which product was purchased
-      if (productId === 'prod_RKGIXPoDtTir6V') {
-        subject = 'Thank you for purchasing a Zoom class Week One placement!';
-        message = `Dear customer,\n\nThank you for purchasing Week One! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nThe LC Biology Guy`;
-      } else if (productId === 'prod_RRl0T5qS265k7U') {
-        subject = 'Thank you for choosing the Free Resources!';
-        message = `Dear customer,\n\Thank you for choosing the free resources package. Here is the link to the google drive containing the resources: https://drive.google.com/drive/folders/1Vsr3aMvK8qGR8b1c7s6y7XK4oRKalvNW?usp=sharing  \n\nBest regards,\nThe LC Biology Guy`;
-      } else if (productId === 'prod_RNcNcp6u1bhksR') {
-        subject = 'Thank you for purchasing a Zoom class Week Two placement!';
-        message = `Dear customer,\n\nThank you for purchasing Week Two! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nThe LC Biology Guy`;
-      } else if (productId === 'prod_RNcOy3SkrDdX6H') {
-        subject = 'Thank you for purchasing a Zoom class Week Three placement!';
-        message = `Dear customer,\n\nThank you for purchasing Week Three! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nThe LC Biology Guy`;
-      } else if (productId === 'prod_RNcOLGk9UPWx0I') {
-        subject = 'Thank you for purchasing a Zoom class Week Four placement!';
-        message = `Dear customer,\n\nThank you for purchasing Week Four! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nThe LC Biology Guy`;
-      } else if (productId === 'prod_RNz4sHcI0k4MYM') {
-        subject = 'Thank you for purchasing a placement in all classes next month!'
-        message = `Dear customer,\n\nThank you for purchasing the Full Package of classes for next month! Your payment has been successfully processed. Here are the details for the classes: \n\nBest regards,\nThe LC Biology Guy`
-      } else {
-        subject = 'Thank you for your purchase';
-        message = `Hi, \n\nYour payment went through, but unfortunately the server failed to fetch the product ID. This means I could not find the invite code for the class you purchased. Please email me back letting me know what class/s you purchased and I will send on the info you need. Thanks! \n\nBest regards,\nThe LC Biology Guy`
+        // Check product ID to determine which product was purchased
+        if (productId === 'prod_RKGIXPoDtTir6V') {
+          subject = 'Thank you for purchasing a Zoom class Week One placement!';
+          message = `Dear customer,\n\nThank you for purchasing Week One! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nThe LC Biology Guy`;
+        } else if (productId === 'prod_RRl0T5qS265k7U') {
+          subject = 'Thank you for choosing the Free Resources!';
+          message = `Dear customer,\n\nThank you for choosing the free resources package. Here is the link to the google drive containing the resources: https://drive.google.com/drive/folders/1Vsr3aMvK8qGR8b1c7s6y7XK4oRKalvNW?usp=sharing  \n\nBest regards,\nThe LC Biology Guy`;
+        } else if (productId === 'prod_RNcNcp6u1bhksR') {
+          subject = 'Thank you for purchasing a Zoom class Week Two placement!';
+          message = `Dear customer,\n\nThank you for purchasing Week Two! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nThe LC Biology Guy`;
+        } else if (productId === 'prod_RNcOy3SkrDdX6H') {
+          subject = 'Thank you for purchasing a Zoom class Week Three placement!';
+          message = `Dear customer,\n\nThank you for purchasing Week Three! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nThe LC Biology Guy`;
+        } else if (productId === 'prod_RNcOLGk9UPWx0I') {
+          subject = 'Thank you for purchasing a Zoom class Week Four placement!';
+          message = `Dear customer,\n\nThank you for purchasing Week Four! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nThe LC Biology Guy`;
+        } else if (productId === 'prod_RNz4sHcI0k4MYM') {
+          subject = 'Thank you for purchasing a placement in all classes next month!';
+          message = `Dear customer,\n\nThank you for purchasing the Full Package of classes for next month! Your payment has been successfully processed. Here are the details for the classes: \n\nBest regards,\nThe LC Biology Guy`;
+        } else {
+          subject = 'Thank you for your purchase';
+          message = `Hi, \n\nYour payment went through, but unfortunately the server failed to fetch the product ID. This means I could not find the invite code for the class you purchased. Please email me back letting me know what class/s you purchased and I will send on the info you need. Thanks! \n\nBest regards,\nThe LC Biology Guy`;
+        }
+      }
+
+      // Add new customer email to the database
+      await db.query("INSERT INTO emails (email) VALUES ($1)", [customerEmail]);
+
+      // Send the custom email via SendGrid
+      sendEmail(customerEmail, subject, message);
+
+      // Add the customer email to the Dropbox folder permissions
+      try {
+        const dropboxRequestBody = {
+          members: [
+            {
+              email: customerEmail,
+              role: 'viewer', // 'viewer' or 'editor' or 'owner'
+            }
+          ],
+          access_level: 'viewer',  // Can be 'viewer', 'editor', or 'owner'
+          folder: {
+            id: FOLDER_ID,
+          },
+        };
+
+        const dropboxResponse = await fetch('https://api.dropboxapi.com/2/sharing/add_folder_member', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${DROPBOX_ACCESS_TOKEN}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(dropboxRequestBody),
+        });
+
+        if (!dropboxResponse.ok) {
+          throw new Error('Failed to add email to Dropbox folder');
+        }
+
+        const dropboxData = await dropboxResponse.json();
+        console.log('Dropbox response:', dropboxData);
+      } catch (error) {
+        console.error('Error adding email to Dropbox folder:', error);
       }
     }
-
-    // Send the custom email via SendGrid
-    sendEmail(customerEmail, subject, message);
   }
 
   // Acknowledge receipt of the event
   res.json({ received: true });
-}});
+});
 
 
 
