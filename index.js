@@ -126,9 +126,12 @@ app.post('/stripe/webhook', async (req, res) => {
         const dropboxRequestBody = {
           members: [
             {
-              email: customerEmail,
-              role: 'viewer',
-            }
+            member: {
+              email: customerEmail, // email field is nested under 'member'
+              // Optional: You can also add 'user' field if you're adding a Dropbox user (not just an email)
+            },
+            role: 'viewer', // or 'editor' based on your needs
+          }
           ],
           shared_folder_id: FOLDER_ID,
         };
