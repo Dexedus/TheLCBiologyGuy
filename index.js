@@ -126,14 +126,13 @@ app.post('/stripe/webhook', async (req, res) => {
         const dropboxRequestBody = {
           members: [
             {
-            member: {
-              email: customerEmail, // email field is nested under 'member'
-              // Optional: You can also add 'user' field if you're adding a Dropbox user (not just an email)
-            },
-            role: 'viewer', // or 'editor' based on your needs
-          }
+              member: {
+                email: customerEmail, // email field is nested under 'member'
+              },
+              role: 'viewer', // or 'editor' based on your needs
+            }
           ],
-          shared_folder_id: FOLDER_ID,
+          shared_folder_id: FOLDER_ID, // Use 'shared_folder_id' instead of 'folder'
         };
 
         const dropboxResponse = await fetch('https://api.dropboxapi.com/2/sharing/add_folder_member', {
