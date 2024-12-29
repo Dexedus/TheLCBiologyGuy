@@ -130,9 +130,7 @@ app.post('/stripe/webhook', async (req, res) => {
               role: 'viewer',
             }
           ],
-          folder: {
-            id: FOLDER_ID,
-          },
+          shared_folder_id: FOLDER_ID,
         };
 
         const dropboxResponse = await fetch('https://api.dropboxapi.com/2/sharing/add_folder_member', {
