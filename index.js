@@ -33,7 +33,6 @@ const SendgridSender = process.env.EMAIL
 const DROPBOX_ACCESS_TOKEN = process.env.DROPBOX_ACCESS_TOKEN;
 const FOLDER_ID = process.env.FOLDER_ID;
 
-
 sgMail.setApiKey(`${API_KEY}`)
 
 
