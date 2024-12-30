@@ -85,6 +85,7 @@ app.post('/stripe/webhook', async (req, res) => {
 
       let subject = '';
       let message = '';
+      let productTable = ''; // Variable to hold the product table name
 
       // Loop through line items to determine the product
       for (const item of lineItems.data) {
@@ -94,29 +95,46 @@ app.post('/stripe/webhook', async (req, res) => {
         if (productId === 'prod_RKGIXPoDtTir6V') {
           subject = 'Thank you for purchasing a Zoom class Week One placement!';
           message = `Dear customer,\n\nThank you for purchasing Week One! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nThe LC Biology Guy`;
+          productTable = 'week_one_emails'; // table for Week One
         } else if (productId === 'prod_RRl0T5qS265k7U') {
           subject = 'Thank you for choosing the Free Resources!';
           message = `Dear customer,\n\nThank you for choosing the free resources package. Here is the link to the google drive containing the resources: https://drive.google.com/drive/folders/1Vsr3aMvK8qGR8b1c7s6y7XK4oRKalvNW?usp=sharing  \n\nBest regards,\nThe LC Biology Guy`;
+          productTable = 'free_resources_emails'; // table for Free Resources
         } else if (productId === 'prod_RNcNcp6u1bhksR') {
           subject = 'Thank you for purchasing a Zoom class Week Two placement!';
           message = `Dear customer,\n\nThank you for purchasing Week Two! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nThe LC Biology Guy`;
+          productTable = 'week_two_emails'; // table for Week Two
         } else if (productId === 'prod_RNcOy3SkrDdX6H') {
           subject = 'Thank you for purchasing a Zoom class Week Three placement!';
           message = `Dear customer,\n\nThank you for purchasing Week Three! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nThe LC Biology Guy`;
+          productTable = 'week_three_emails'; // table for Week Three
         } else if (productId === 'prod_RNcOLGk9UPWx0I') {
           subject = 'Thank you for purchasing a Zoom class Week Four placement!';
           message = `Dear customer,\n\nThank you for purchasing Week Four! Your payment has been successfully processed. Here are the details for the class: \n\nBest regards,\nThe LC Biology Guy`;
+          productTable = 'week_four_emails'; // table for Week Four
         } else if (productId === 'prod_RNz4sHcI0k4MYM') {
           subject = 'Thank you for purchasing a placement in all classes next month!';
           message = `Dear customer,\n\nThank you for purchasing the Full Package of classes for next month! Your payment has been successfully processed. Here are the details for the classes: \n\nBest regards,\nThe LC Biology Guy`;
+          productTable = 'full_package_emails'; // table for Full Package
         } else {
           subject = 'Thank you for your purchase';
           message = `Hi, \n\nYour payment went through, but unfortunately the server failed to fetch the product ID. This means I could not find the invite code for the class you purchased. Please email me back letting me know what class/s you purchased and I will send on the info you need. Thanks! \n\nBest regards,\nThe LC Biology Guy`;
+          productTable = 'emails'; // tables for emails where the product id couldn't be found
         }
-      }
 
-      // Add new customer email to the database
-      await db.query("INSERT INTO emails (email) VALUES ($1)", [customerEmail]);
+        // Check if the email already exists in the product's table
+        const checkEmailQuery = `SELECT email FROM ${productTable} WHERE email = $1`;
+        const result = await db.query(checkEmailQuery, [customerEmail]);
+
+        if (result.rows.length > 0) {
+          return res.status(400).json({ message: "Sorry, this email has already been used to purchase this product." });
+        } else {
+
+        // If the email does not exist, add it to the product table
+        const insertEmailQuery = `INSERT INTO ${productTable} (email) VALUES ($1)`;
+        await db.query(insertEmailQuery, [customerEmail]);
+
+        }
 
       // Send the custom email via SendGrid
       sendEmail(customerEmail, subject, message);
@@ -160,7 +178,7 @@ app.post('/stripe/webhook', async (req, res) => {
 
   // Acknowledge receipt of the event
   res.json({ received: true });
-});
+}});
 
 
 
