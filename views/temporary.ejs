@@ -1,0 +1,41 @@
+<%- include("partials/header.ejs")  %>
+
+<main style="display: flex; height: 100vh; align-items: center; justify-content: center; flex-direction: column; width: 100%;">
+
+<div id="popup">
+
+    <!-- temporary pop up page -->
+  
+    <div class="modal modal-sheet position-static d-block p-4 py-md-5" tabindex="-1" role="dialog" id="modalSheet">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-4 shadow">
+          <div class="modal-header border-bottom-0">
+            <h1 class="modal-title fs-5"><%= title %></h1>
+            <button type="button" class="btn-close" id="quit" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body py-0">
+            <p><%= message %></p>
+          </div>
+          <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+            <button type="button" id="close" class="btn btn-lg btn-secondary" data-bs-dismiss="modal"><%= button %></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+
+
+  <div class="px-4 py-5 my-5 text-center">
+    <img class="d-block mx-auto mb-4" src="/images/Coming-Soon-PNG.png" alt="Coming Soon" width="40%">
+    <h1 class="display-5 fw-bold text-body-emphasis">Paid Products</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">Launching this month! Keep posted on my socials for more updates</p>
+
+    </div>
+  </div>
+
+  </main>
+
+
+<%- include("partials/footer.ejs")  %>

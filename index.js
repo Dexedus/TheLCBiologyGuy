@@ -98,7 +98,7 @@ app.post('/stripe/webhook', async (req, res) => {
           productTable = 'week_one_emails'; // table for Week One
         } else if (productId === 'prod_RRl0T5qS265k7U') {
           subject = 'Thank you for choosing the Free Resources!';
-          message = `Dear customer,\n\nThank you for choosing the free resources package. Here is the link to the google drive containing the resources: https://drive.google.com/drive/folders/1Vsr3aMvK8qGR8b1c7s6y7XK4oRKalvNW?usp=sharing  \n\nBest regards,\nThe LC Biology Guy`;
+          message = `Dear customer,\n\nThank you for choosing the free Unit 1 and Cell chapter notes. Here is the link to the Google Drive containing the resources: <a href="https://u48917275.ct.sendgrid.net/ls/click?upn=u001.gb1oIQZYL4vnMZkgmvEgigzFl42rVVPLGu-2Fe519Dvun9tuRbO-2FbM7IplLEtFJNpQ05TKwRq03odmolpArth0ldjiurLFB4dCM-2B4tixT-2F0TJ1ELxqIhhbS32gO3hKFnrEIFcd_4pE3C559McDKAd-2Fg3v7vn7eIndNn6ci9X9Lg05SN5hd0HqQd0CGpTiKRONJude4-2BSsNEXmpTWFbVn7KIYUZRVHAyrUpW7MXxjc-2FqCDWugVFXx574jVw6J7AuqIMN8xCK0iv3bPZjXrabb-2BWXwezZpQFLZE34yn6CVbJCQvmrQ3rjg5a43SNZwK-2BgAipFyVeR3EkkRmw-2B21-2FGCOBGcKlZTw-3D-3D" target="_blank">Here</a>  \n\nBest regards,\nThe LC Biology Guy`;
           productTable = 'free_resources_emails'; // table for Free Resources
         } else if (productId === 'prod_RNcNcp6u1bhksR') {
           subject = 'Thank you for purchasing a Zoom class Week Two placement!';
@@ -129,56 +129,19 @@ app.post('/stripe/webhook', async (req, res) => {
         if (result.rows.length > 0) {
           return res.status(400).json({ message: "Sorry, this email has already been used to purchase this product." });
         } else {
-
         // If the email does not exist, add it to the product table
         const insertEmailQuery = `INSERT INTO ${productTable} (email) VALUES ($1)`;
         await db.query(insertEmailQuery, [customerEmail]);
-
         }
 
       // Send the custom email via SendGrid
       sendEmail(customerEmail, subject, message);
-
-      // Add the customer email to the Dropbox folder permissions
-      try {
-        const dropboxRequestBody = {
-          members: [
-            {
-              member: {
-                email: customerEmail, // email field is nested under 'member'
-              },
-              role: 'viewer', // or 'editor' based on your needs
-            }
-          ],
-          shared_folder_id: FOLDER_ID, // Use 'shared_folder_id' instead of 'folder'
-        };
-
-        const dropboxResponse = await fetch('https://api.dropboxapi.com/2/sharing/add_folder_member', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${DROPBOX_ACCESS_TOKEN}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(dropboxRequestBody),
-        });
-
-        if (!dropboxResponse.ok) {
-          const errorBody = await dropboxResponse.text();
-          console.error('Failed to add email to Dropbox folder:', errorBody);
-          throw new Error(`Failed to add email to Dropbox folder: ${errorBody}`);
-        }
-
-        const dropboxData = await dropboxResponse.json();
-        console.log('Dropbox response:', dropboxData);
-      } catch (error) {
-        console.error('Error adding email to Dropbox folder:', error);
-      }
     }
+   }
   }
-
   // Acknowledge receipt of the event
   res.json({ received: true });
-}});
+});
 
 
 
@@ -190,11 +153,18 @@ app.get('/', (req, res) => {
     res.render("home.ejs")
 })
 
+//uncomment the old code when products page is finished
 app.get('/lesson', (req, res) => {
-    res.render("lesson.ejs", {
-      title: "Warning",
-      message: "Using the same invite code for a zoom class as another student will result in both accounts receiving a ban. By closing this pop-up or clicking the button below, you acknowledge this warning and wish to proceed.",
-      button: "Understood",
+    // res.render("temporary.ejs", {
+    //   title: "Warning",
+    //   message: "Using the same invite code for a zoom class as another student will result in both accounts receiving a ban. By closing this pop-up or clicking the button below, you acknowledge this warning and wish to proceed.",
+    //   button: "Understood",
+    // })
+
+    res.render("temporary.ejs", {
+      title: "Coming Soon",
+      message: "My paid products will launch soon. Please check out the free resources page to get H1 quality notes in the meantime!",
+      button: "Close",
     })
 })
 
@@ -207,8 +177,9 @@ app.get('/contact', (req, res) => {
     res.render("contact.ejs")
 })
 
+//Change back to lesson.ejs when products page is ready
 app.get("/done", (req, res) => {
-  res.render("lesson.ejs", {
+  res.render("temporary.ejs", {
     title: "Success!",
     message: "You should recieve the details for the zoom class via an email sent to the address you entered at checkout. Be sure to check your spam just in case it gets filtered there. If you do not recieve an email after 24 hours please contact me at: thelcbiologyguy@gmail.com Thanks.",
     button: "Close",
@@ -220,7 +191,7 @@ app.get("/done", (req, res) => {
 // Create checkout session
 router.post("/create-checkout-session", async (req, res) => {
     const { priceId } = req.body;
-    console.log("the price of this product is " + priceId)
+    // console.log("the price of this product is " + priceId)
   
     const session = await stripe.checkout.sessions.create({
       line_items: [
