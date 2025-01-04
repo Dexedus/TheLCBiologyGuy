@@ -42,7 +42,7 @@ const sendEmail = (toEmail, subject, message) => {
     to: toEmail,
     from: `${SendgridSender}`, // Verified SendGrid sender email
     subject: subject,
-    text: message,
+    html: message,
   };
 
   // Send the email via SendGrid
@@ -98,7 +98,7 @@ app.post('/stripe/webhook', async (req, res) => {
           productTable = 'week_one_emails'; // table for Week One
         } else if (productId === 'prod_RRl0T5qS265k7U') {
           subject = 'Thank you for choosing the Free Resources!';
-          message = `Dear customer,\n\nThank you for choosing the free Unit 1 and Cell chapter notes. Here is the link to the Google Drive containing the resources: <a href="https://u48917275.ct.sendgrid.net/ls/click?upn=u001.gb1oIQZYL4vnMZkgmvEgigzFl42rVVPLGu-2Fe519Dvun9tuRbO-2FbM7IplLEtFJNpQ05TKwRq03odmolpArth0ldjiurLFB4dCM-2B4tixT-2F0TJ1ELxqIhhbS32gO3hKFnrEIFcd_4pE3C559McDKAd-2Fg3v7vn7eIndNn6ci9X9Lg05SN5hd0HqQd0CGpTiKRONJude4-2BSsNEXmpTWFbVn7KIYUZRVHAyrUpW7MXxjc-2FqCDWugVFXx574jVw6J7AuqIMN8xCK0iv3bPZjXrabb-2BWXwezZpQFLZE34yn6CVbJCQvmrQ3rjg5a43SNZwK-2BgAipFyVeR3EkkRmw-2B21-2FGCOBGcKlZTw-3D-3D" target="_blank">Here</a>  \n\nBest regards,\nThe LC Biology Guy`;
+          message = `Dear customer,<br><br>Thank you for choosing the free Unit 1 and Cell chapter notes. Here is the link to the Google Drive containing the resources: <a href="https://u48917275.ct.sendgrid.net/ls/click?upn=u001.gb1oIQZYL4vnMZkgmvEgigzFl42rVVPLGu-2Fe519Dvun9tuRbO-2FbM7IplLEtFJNpQ05TKwRq03odmolpArth0ldjiurLFB4dCM-2B4tixT-2F0TJ1ELxqIhhbS32gO3hKFnrEIFcd_4pE3C559McDKAd-2Fg3v7vn7eIndNn6ci9X9Lg05SN5hd0HqQd0CGpTiKRONJude4-2BSsNEXmpTWFbVn7KIYUZRVHAyrUpW7MXxjc-2FqCDWugVFXx574jVw6J7AuqIMN8xCK0iv3bPZjXrabb-2BWXwezZpQFLZE34yn6CVbJCQvmrQ3rjg5a43SNZwK-2BgAipFyVeR3EkkRmw-2B21-2FGCOBGcKlZTw-3D-3D" target="_blank">Here</a><br><br>Best regards,<br>The LC Biology Guy`;
           productTable = 'free_resources_emails'; // table for Free Resources
         } else if (productId === 'prod_RNcNcp6u1bhksR') {
           subject = 'Thank you for purchasing a Zoom class Week Two placement!';
