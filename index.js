@@ -127,6 +127,7 @@ app.post('/stripe/webhook', async (req, res) => {
         const result = await db.query(checkEmailQuery, [customerEmail]);
 
         if (result.rows.length > 0) {
+          console.log("This email already exists in database")
           return res.status(400).json({ message: "Sorry, this email has already been used to purchase this product." });
         } else {
         // If the email does not exist, add it to the product table
@@ -138,10 +139,10 @@ app.post('/stripe/webhook', async (req, res) => {
       sendEmail(customerEmail, subject, message);
     }
    }
-  }
+  
   // Acknowledge receipt of the event
   res.json({ received: true });
-});
+}});
 
 
 
