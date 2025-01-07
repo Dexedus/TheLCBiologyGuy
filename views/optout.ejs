@@ -1,0 +1,15 @@
+<%- include("partials/header.ejs")  %>
+
+<div style="height: 100%; display: flex; justify-content: center; align-items: center; margin: 40px;">
+<div class="row" style="background-color: white; padding: 30px; border-radius: 30px;">
+    <div class="col">
+      <h3>To opt-out of marketing emails, submit your email here.</h3>
+      <form action="/submit" method="post" style="display: flex;">
+        <input type="email" name="Email" class="form-control" placeholder="Email Address" aria-label="Email Address" required>
+        <input type="submit" id="submit" class="checkout-btn-2" style="border-radius: 20px; margin-left: 30px; padding: 10px;">
+      </form>
+    </div>
+</div>
+</div>
+
+<%- include("partials/footer.ejs")  %>

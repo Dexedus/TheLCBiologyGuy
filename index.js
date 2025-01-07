@@ -98,7 +98,13 @@ app.post('/stripe/webhook', async (req, res) => {
           productTable = 'week_one_emails'; // table for Week One
         } else if (productId === 'prod_RRl0T5qS265k7U') {
           subject = 'Thank you for choosing the Free Resources!';
-          message = `Dear customer,<br><br>Thank you for choosing the free Unit 1 and Cell chapter notes. Here is the link to the Google Drive containing the resources: <a href="https://u48917275.ct.sendgrid.net/ls/click?upn=u001.gb1oIQZYL4vnMZkgmvEgigzFl42rVVPLGu-2Fe519Dvun9tuRbO-2FbM7IplLEtFJNpQ05TKwRq03odmolpArth0ldjiurLFB4dCM-2B4tixT-2F0TJ1ELxqIhhbS32gO3hKFnrEIFcd_4pE3C559McDKAd-2Fg3v7vn7eIndNn6ci9X9Lg05SN5hd0HqQd0CGpTiKRONJude4-2BSsNEXmpTWFbVn7KIYUZRVHAyrUpW7MXxjc-2FqCDWugVFXx574jVw6J7AuqIMN8xCK0iv3bPZjXrabb-2BWXwezZpQFLZE34yn6CVbJCQvmrQ3rjg5a43SNZwK-2BgAipFyVeR3EkkRmw-2B21-2FGCOBGcKlZTw-3D-3D" target="_blank">Here</a><br><br>Best regards,<br>The LC Biology Guy`;
+          message = `Dear ${customerEmail},<br><br>Thank you for choosing the free Unit 1 and Cell chapter notes. Here is the link to the Google Drive containing the resources: <a href="https://u48917275.ct.sendgrid.net/ls/click?upn=u001.gb1oIQZYL4vnMZkgmvEgigzFl42rVVPLGu-2Fe519Dvun9tuRbO-2FbM7IplLEtFJNpQ05TKwRq03odmolpArth0ldjiurLFB4dCM-2B4tixT-2F0TJ1ELxqIhhbS32gO3hKFnrEIFcd_4pE3C559McDKAd-2Fg3v7vn7eIndNn6ci9X9Lg05SN5hd0HqQd0CGpTiKRONJude4-2BSsNEXmpTWFbVn7KIYUZRVHAyrUpW7MXxjc-2FqCDWugVFXx574jVw6J7AuqIMN8xCK0iv3bPZjXrabb-2BWXwezZpQFLZE34yn6CVbJCQvmrQ3rjg5a43SNZwK-2BgAipFyVeR3EkkRmw-2B21-2FGCOBGcKlZTw-3D-3D" target="_blank">Here</a><br><br>We would like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
+          <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
+            <input type="checkbox" name="unsubscribe">
+            <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
+            <input type="hidden" name="email" value="${customerEmail}">
+            <button type="submit">Submit</button>
+          </form><br><br>Best regards,<br>The LC Biology Guy`;
           productTable = 'free_resources_emails'; // table for Free Resources
         } else if (productId === 'prod_RNcNcp6u1bhksR') {
           subject = 'Thank you for purchasing a Zoom class Week Two placement!';
@@ -122,27 +128,32 @@ app.post('/stripe/webhook', async (req, res) => {
           productTable = 'emails'; // tables for emails where the product id couldn't be found
         }
 
-        // Check if the email already exists in the product's table
+        // check if email is already in database
         const checkEmailQuery = `SELECT email FROM ${productTable} WHERE email = $1`;
         const result = await db.query(checkEmailQuery, [customerEmail]);
+        const unsubbedresult = await db.query('SELECT email FROM unsubbed WHERE email = $1', [customerEmail])
 
-        if (result.rows.length > 0) {
-          console.log("This email already exists in database")
-          return res.status(400).json({ message: "Sorry, this email has already been used to purchase this product." });
-        } else {
-        // If the email does not exist, add it to the product table
-        const insertEmailQuery = `INSERT INTO ${productTable} (email) VALUES ($1)`;
-        await db.query(insertEmailQuery, [customerEmail]);
+        // If the email isn't in the unsubbed list then add to promotions list
+        if(unsubbedresult.rows.length === 0){
+          await db.query('INSERT INTO promotions (email) VALUES ($1)', [customerEmail])
         }
 
-      // Send the custom email via SendGrid
-      sendEmail(customerEmail, subject, message);
+        if(result.rows.length === 0){
+        //add email to the product table
+          const insertEmailQuery = `INSERT INTO ${productTable} (email) VALUES ($1)`;
+          await db.query(insertEmailQuery, [customerEmail]);
+        //send the email.        
+          sendEmail(customerEmail, subject, message);
+          
+        } else {
+          sendEmail(customerEmail, "Sorry", "You have already purchased this product. You should recieve the correct email shortly")
+          console.log("email already exists in the database table of this product")
     }
    }
   
   // Acknowledge receipt of the event
   res.json({ received: true });
-}});
+}}});
 
 
 
@@ -154,11 +165,30 @@ app.get('/', (req, res) => {
     res.render("home.ejs")
 })
 
+app.post('/unsubscribe', async (req, res) => {
+  const email = req.body.email;
+
+  // Check if the unsubscribe checkbox is checked
+  if (req.body.unsubscribe) {
+    try {
+      // Insert the email into the 'unsubbed' table
+      await db.query('DELETE FROM promotions WHERE email = $1', [email]);
+      await db.query('INSERT INTO unsubbed (email) VALUES ($1)', [email]);
+      res.send('You have been unsubscribed.');
+    } catch (err) {
+      console.error(err);
+      res.status(400).send('You have already unsubscribed from our promotions.');
+    }
+  } else {
+    res.send('No action taken.');
+  }
+});
+
 //uncomment the old code when products page is finished
 app.get('/lesson', (req, res) => {
     // res.render("temporary.ejs", {
     //   title: "Warning",
-    //   message: "Using the same invite code for a zoom class as another student will result in both accounts receiving a ban. By closing this pop-up or clicking the button below, you acknowledge this warning and wish to proceed.",
+    //   message: "By closing this pop up or clicking the button below, you agree to not share any of my paid for material after purchasing it yourself. ",
     //   button: "Understood",
     // })
 
@@ -167,6 +197,17 @@ app.get('/lesson', (req, res) => {
       message: "My paid products will launch soon. Please check out the free resources page to get H1 quality notes in the meantime!",
       button: "Close",
     })
+})
+
+//remove these routes if not needed anymore
+app.get('/optout', (req, res) => {
+    res.render("optout.ejs")
+})
+
+app.post('/submit', (req, res) => {
+  let Email = req.body.Email;
+  console.log(Email)
+  
 })
 
 app.get('/trial', (req, res) => {
