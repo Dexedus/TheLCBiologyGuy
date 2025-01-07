@@ -142,7 +142,7 @@ app.post('/stripe/webhook', async (req, res) => {
           sendEmail(customerEmail, subject, message);
           
         } else {
-          sendEmail(customerEmail, "Sorry", "Dear customer,\n\nYou have already purchased this product. I don't allow multiple purchases of my products. If you purchased something and still haven't recieved an email with the necessary links, please make sure to check your spam and promotion folders. If you still don't have it, then please contact me at my email address: thelcbiologyguy@gmail.com \n\nBest regards,\nThe LC Biology Guy")
+          sendEmail(customerEmail, "Sorry", "Dear customer,\n\nYou have already purchased this product. I don't allow multiple purchases of my products. If you purchased something and still haven't recieved an email with the necessary links, please make sure to check your spam and promotion folders. If you still don't have it after 24 hours, then please contact me at my email address: thelcbiologyguy@gmail.com \n\nBest regards,\nThe LC Biology Guy")
           console.log("email already exists in the database table of this product")
     }
    }
