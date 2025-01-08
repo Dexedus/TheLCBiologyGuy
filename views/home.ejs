@@ -151,9 +151,9 @@
 
       <div id="new-tab">
 
-        <h1 style="color: white; font-size: 4em; margin-top: -100px;">F.A.Q.</h1>
+        <h1 style="color: white; font-size: 4em; margin-top: 50px;">F.A.Q.</h1>
 
-        <div class="accordion" id="accordionExample" style="width: 50%; min-width: 300px; margin-top: 100px;">
+        <div class="accordion" id="accordionExample" style="width: 50%; min-width: 300px; margin-top: 50px;">
           <div class="accordion-item">
             <h2 class="accordion-header">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
@@ -215,6 +215,27 @@
             </div>
           </div>
         </div>
+
+        <div style="height: 100%; display: flex; justify-content: center; align-items: center; margin: 40px;">
+          <div class="row flex" style="background-color: white; padding: 30px; border-radius: 30px; flex-direction: column;">
+              <div class="col" style="margin-bottom: 40px;">
+                <h3>To opt-out of marketing emails, submit your email here.</h3>
+                <form id="myForm" action="/submit-optout" method="post" style="display: flex;">
+                  <input type="email" name="Email" class="form-control" placeholder="Email Address" aria-label="Email Address" required>
+                  <input type="submit" id="submit" class="checkout-btn-2" style="border-radius: 20px; margin-left: 30px; padding: 10px;">
+                </form>
+              </div>
+              <div class="col">
+                <h3>To opt-in to marketing emails, submit your email here.</h3>
+                <form action="/submit-optin" method="post" style="display: flex;">
+                  <input type="email" name="Email" class="form-control" placeholder="Email Address" aria-label="Email Address" required>
+                  <input type="submit" id="submit" class="checkout-btn-2" style="border-radius: 20px; margin-left: 30px; padding: 10px;">
+                </form>
+              </div>
+              <p style="font-weight: 100; margin-top: 20px;">*When you purchase a product, you are automatically added to our promotions list, but you can opt out at any time.*</p>
+          </div>
+          </div>
+
       </div> 
 
 

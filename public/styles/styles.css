@@ -319,6 +319,10 @@ main{
     max-width: 500px;
 }
 
+.product-title{
+    color: #3c806c!important;
+}
+
 
 .checkout-btn{
     border: none!important;
@@ -416,6 +420,10 @@ footer{
 
     .secondary-disapear{
         display: none!important;
+    }
+
+    .product-title{
+        font-size: 2em!important;
     }
 }
 
