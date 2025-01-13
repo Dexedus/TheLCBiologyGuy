@@ -246,7 +246,7 @@ app.post('/stripe/webhook', async (req, res) => {
             <button type="submit">Submit</button>
           </form><br><br>Best of luck with your revision!<br>Max`;
     
-            sendEmail(customerEmail, secondSubject, secondMessage, emailSent, db);
+            sendEmail(customerEmail, secondSubject, secondMessage, `Marketing email sent to ${customerEmail}`, db);
         }, 300000); // 300000 milliseconds = 5 minutes
       }
       }
