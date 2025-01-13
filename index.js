@@ -342,6 +342,17 @@ router.post("/create-checkout-session", async (req, res) => {
           quantity: 1,
         },
       ],
+      custom_fields: [
+        {
+          key: 'engraving',
+          label: {
+            type: 'custom',
+            custom: 'Personalized engraving',
+          },
+          type: 'text',
+        },
+      ],
+      
       // The mode is set to handle single payments based on your business needs
       mode: "payment",
       // Defines where Stripe will redirect a customer after successful payment
