@@ -89,6 +89,54 @@ const sendEmail = (toEmail, subject, message, emailSent, db) => {
 };
 
 
+// function for checking if the email is in the database table
+async function isEmailInDatabase(email, table) {
+  const checkEmailQuery = `SELECT email FROM ${table} WHERE email = $1`;
+  console.log(table)
+  const result = await db.query(checkEmailQuery, [email]);
+  return result
+}
+
+
+// Stripe webhook handler for intent
+app.post('/stripe/webhook-intent', async (req, res) => {
+  const sig = req.headers['stripe-signature'];
+
+  let event;
+
+  // Verify the Stripe webhook signature
+  try {
+    event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+  } catch (err) {
+    console.error('Error verifying webhook signature:', err);
+    return res.status(400).send(`Webhook Error: ${err.message}`);
+  }
+
+
+  if (event.type === 'payment_intent.created'){
+    const paymentIntent = event.data.object;
+    const customerEmail = paymentIntent.metadata?.email;
+  }
+
+  const paymentIntent = event.data.object;
+
+  // If the payment intent is associated with an invoice, we can get the product ID via the invoice
+  if (paymentIntent.invoice) {
+    try {
+      const invoice = await stripe.invoices.retrieve(paymentIntent.invoice);
+      
+      // Now get the line items associated with the invoice
+      const lineItems = await stripe.invoices.listLineItems(invoice.id);
+
+      lineItems.data.forEach(item => {
+        console.log('Product ID:', item.price.product);
+      });
+    } catch (err) {
+      console.error('Error retrieving invoice details:', err);
+    }
+  }
+})
+
 
 // Stripe webhook handler
 app.post('/stripe/webhook', async (req, res) => {
@@ -214,11 +262,8 @@ app.post('/stripe/webhook', async (req, res) => {
         }
 
 
-        // check if email is already in database
-        const checkEmailQuery = `SELECT email FROM ${productTable} WHERE email = $1`;
-        console.log(productTable)
+        isEmailInDatabase(customerEmail, productTable)
         let emailSent = (`email sent and added to ${productTable}`)
-        const result = await db.query(checkEmailQuery, [customerEmail]);
         const unsubbedresult = await db.query('SELECT email FROM unsubbed WHERE email = $1', [customerEmail])
         const promotionsresult = await db.query('SELECT email FROM promotions WHERE email = $1', [customerEmail])
 
