@@ -74,16 +74,11 @@ const sendEmail = (toEmail, subject, message, emailSent, db) => {
   sgMail
     .send(msg)
     .then(async () => {
-      console.log(`${emailSent}`);
-      
-      // Assuming you have a variable `columnValue` to insert into a database column
-      const columnValue = 'Some value to be added to the table';  // Replace with actual variable to insert
-      
       // Add the value to the database table (example for PostgreSQL)
       try {
-        const insertQuery = 'INSERT INTO  (column_name) VALUES ($1)';
-        await db.query(insertQuery, [columnValue]);  // Use `db.query` to run the query
-        console.log('Successfully added to the database');
+        const insertQuery = 'INSERT INTO emails (email) VALUES ($1)';
+        await db.query(insertQuery, [`${toEmail} was sent an email`]);  // Use `db.query` to run the query
+        console.log(`${emailSent}`);
       } catch (err) {
         console.error('Error inserting into database:', err);
       }
