@@ -76,7 +76,7 @@ const sendEmail = (toEmail, subject, message, emailSent, db) => {
     .then(async () => {
       // Add the value to the database table (example for PostgreSQL)
       try {
-        const insertQuery = 'INSERT INTO emails (email) VALUES ($1)';
+        const insertQuery = 'INSERT INTO emails_sent (email) VALUES ($1)';
         await db.query(insertQuery, [`${toEmail} was sent an email`]);  // Use `db.query` to run the query
         console.log(`${emailSent}`);
       } catch (err) {
@@ -110,7 +110,8 @@ app.post('/stripe/webhook', async (req, res) => {
     console.log(session)
 
     const customerEmail = session.receipt_email || session.customer_details.email; // Get the customer email
-    const firstName = session.receipt_first_name || session.customer_details.first_name;
+    const firstNameField = session.custom_fields.find(field => field.key === 'first_name');
+    const firstName = firstNameField ? firstNameField.text.value : 'Default Name';
 
     
     if (customerEmail) {
