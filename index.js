@@ -62,7 +62,7 @@ sgMail.setApiKey(`${API_KEY}`)
 
 
 // SendGrid email template
-const sendEmail = (toEmail, subject, message) => {
+const sendEmail = (toEmail, subject, message, emailSent, db) => {
   const msg = {
     to: toEmail,
     from: `${SendgridSender}`, // Verified SendGrid sender email
@@ -73,8 +73,20 @@ const sendEmail = (toEmail, subject, message) => {
   // Send the email via SendGrid
   sgMail
     .send(msg)
-    .then(() => {
-      console.log('Email sent successfully');
+    .then(async () => {
+      console.log(`${emailSent}`);
+      
+      // Assuming you have a variable `columnValue` to insert into a database column
+      const columnValue = 'Some value to be added to the table';  // Replace with actual variable to insert
+      
+      // Add the value to the database table (example for PostgreSQL)
+      try {
+        const insertQuery = 'INSERT INTO  (column_name) VALUES ($1)';
+        await db.query(insertQuery, [columnValue]);  // Use `db.query` to run the query
+        console.log('Successfully added to the database');
+      } catch (err) {
+        console.error('Error inserting into database:', err);
+      }
     })
     .catch((error) => {
       console.error('Error sending email:', error);
@@ -209,6 +221,8 @@ app.post('/stripe/webhook', async (req, res) => {
 
         // check if email is already in database
         const checkEmailQuery = `SELECT email FROM ${productTable} WHERE email = $1`;
+        console.log(productTable)
+        let emailSent = (`email sent and added to ${productTable}`)
         const result = await db.query(checkEmailQuery, [customerEmail]);
         const unsubbedresult = await db.query('SELECT email FROM unsubbed WHERE email = $1', [customerEmail])
 
@@ -222,7 +236,7 @@ app.post('/stripe/webhook', async (req, res) => {
           const insertEmailQuery = `INSERT INTO ${productTable} (email, "first name") VALUES ($1, $2)`;
           await db.query(insertEmailQuery, [customerEmail, firstName]);
         //send the email.        
-          sendEmail(customerEmail, subject, message);
+          sendEmail(customerEmail, subject, message, emailSent, db);
 
           if (productId === 'prod_RKGTn7KzbAJk6u') {
           {
