@@ -387,6 +387,21 @@ footer{
 
 /*Media Querys*/
 
+@media (max-width: 399px){
+    #LogoTitle{
+        font-size: 0.8em!important;
+    }
+
+    .img{
+        height: 10px!important;
+    }
+
+    #navbar{
+        font-size: 0.9em;
+        margin-bottom: -10px!important;
+    }
+}
+
 @media (max-width: 576px){
     body{
         margin-top: 100px!important;
@@ -454,7 +469,7 @@ footer{
 
     #contentLeft{
         width: 100%!important;
-        margin-top: 100px
+        margin-top: -100px
     }
 }
 
