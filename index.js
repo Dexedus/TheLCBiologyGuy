@@ -110,7 +110,7 @@ app.post('/stripe/webhook', async (req, res) => {
     console.log(session)
 
     const customerEmail = session.receipt_email || session.customer_details.email; // Get the customer email
-    const firstName = session.customer_details.first_name || session.metadata.first_name || "Unknown";
+    const firstName = session.receipt_first_name || session.customer_details.first_name;
 
     
     if (customerEmail) {
