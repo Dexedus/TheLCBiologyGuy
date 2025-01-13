@@ -220,9 +220,10 @@ app.post('/stripe/webhook', async (req, res) => {
         let emailSent = (`email sent and added to ${productTable}`)
         const result = await db.query(checkEmailQuery, [customerEmail]);
         const unsubbedresult = await db.query('SELECT email FROM unsubbed WHERE email = $1', [customerEmail])
+        const promotionsresult = await db.query('SELECT email FROM promotions WHERE email = $1', [customerEmail])
 
         // If the email isn't in the unsubbed list then add to promotions list
-        if(unsubbedresult.rows.length === 0){
+        if(unsubbedresult.rows.length === 0 && promotionsresult.rows.length === 0){
           await db.query('INSERT INTO promotions (email) VALUES ($1)', [customerEmail])
         }
 
