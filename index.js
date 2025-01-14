@@ -117,29 +117,12 @@ app.post('/stripe/webhook-intent', async (req, res) => {
 
   // Handle the 'payment_intent.created' event
   if (event.type === 'payment_intent.created') {
-    const paymentIntent = event.data.object;
-    const customerEmail = paymentIntent.metadata?.email;
+    const customerEmail = session.receipt_email || session.customer_details.email; // Get the customer email
     console.log('Payment Intent Created:', customerEmail);
-
-    // Check for items directly in the payment intent (if applicable)
-    if (paymentIntent.charges && paymentIntent.charges.data.length > 0) {
-      const charge = paymentIntent.charges.data[0];
-      if (charge.invoice) {
-        try {
-          const invoice = await stripe.invoices.retrieve(charge.invoice);
-          const lineItems = await stripe.invoices.listLineItems(invoice.id);
-
-          lineItems.data.forEach(item => {
-            console.log('Product ID:', item.price.product);
-            // You can add additional logic here based on the product ID
-          });
-        } catch (err) {
-          console.error('Error retrieving invoice details:', err);
-          return res.status(500).send(`Error retrieving invoice details: ${err.message}`);
-        }
-      }
-    } else {
-      console.log('No charge data found in the payment intent.');
+    const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 10 }); // Get line items
+    for (const item of lineItems.data) {
+      const productId = item.price.product; // Extract the product ID
+      console.log(productId)
     }
   }
 
