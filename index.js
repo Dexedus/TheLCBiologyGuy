@@ -92,6 +92,45 @@ const sendEmail = (toEmail, subject, message, emailSent, db) => {
 };
 
 
+// Create checkout session
+router.post("/create-checkout-session", async (req, res) => {
+  const { priceId } = req.body;
+  // console.log("the price of this product is " + priceId)
+
+  const session = await stripe.checkout.sessions.create({
+    line_items: [
+      {
+        price: priceId,
+        quantity: 1,
+      },
+    ],
+    custom_fields: [
+      {
+        key: 'first_name',
+        label: {
+          type: 'custom',
+          custom: 'First Name',
+        },
+        type: 'text',
+      },
+    ],
+    
+    // The mode is set to handle single payments based on your business needs
+    mode: "payment",
+    // Defines where Stripe will redirect a customer after successful payment
+    success_url: `${process.env.DOMAIN}/done`,
+    // Defines where Stripe will redirect if a customer cancels payment
+    cancel_url: `${process.env.DOMAIN}`,
+    metadata: {
+      checkout_session_id: session.id  // Store the session ID in metadata
+    }
+  });
+
+
+  res.redirect(303, session.url);
+});
+
+
 // function for checking if the email is in the database table
 async function isEmailInDatabase(email, table) {
   const checkEmailQuery = `SELECT email FROM ${table} WHERE email = $1`;
@@ -391,46 +430,6 @@ app.get("/done", (req, res) => {
     button: "Close",
   })
 })
-
-
-
-// Create checkout session
-router.post("/create-checkout-session", async (req, res) => {
-    const { priceId } = req.body;
-    // console.log("the price of this product is " + priceId)
-  
-    const session = await stripe.checkout.sessions.create({
-      line_items: [
-        {
-          price: priceId,
-          quantity: 1,
-        },
-      ],
-      custom_fields: [
-        {
-          key: 'first_name',
-          label: {
-            type: 'custom',
-            custom: 'First Name',
-          },
-          type: 'text',
-        },
-      ],
-      
-      // The mode is set to handle single payments based on your business needs
-      mode: "payment",
-      // Defines where Stripe will redirect a customer after successful payment
-      success_url: `${process.env.DOMAIN}/done`,
-      // Defines where Stripe will redirect if a customer cancels payment
-      cancel_url: `${process.env.DOMAIN}`,
-      metadata: {
-        checkout_session_id: session.id  // Store the session ID in metadata
-      }
-    });
-  
-  
-    res.redirect(303, session.url);
-  });
 
 
   app.use("/api", router);
