@@ -252,7 +252,7 @@ app.post('/stripe/webhook', async (req, res) => {
       }
           
         } else {
-          sendEmail(customerEmail, "Sorry", "Dear customer,\n\nYou have already purchased this product. I don't allow multiple purchases of my products from the same customer. If you purchased something and still haven't recieved an email with the necessary links, please make sure to check your spam and promotion folders. If you still don't have it after 24 hours, then please contact me at my email address: thelcbiologyguy@gmail.com \n\nBest regards,\nThe LC Biology Guy")
+          sendEmail(customerEmail, "Sorry", "Dear customer,<br><br>It looks like you might have purchased one of my products twice.<br>If this was a paid product, then it must have been a mistake. Please contact me if this was the case.<br><br>If you purchased my free resources package, and tried to do it again, and still haven't recieved an email with the necessary links, please make sure to check your spam and promotion folders. If you still don't have it after 24 hours, then please contact me at my email address: thelcbiologyguy@gmail.com<br><br>Best regards,<br>The LC Biology Guy", "Double product purchase email", db)
           console.log("email already exists in the database table of this product")
     }
    }
