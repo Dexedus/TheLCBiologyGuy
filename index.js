@@ -94,7 +94,7 @@ async function isEmailInDatabase(email, table) {
   const checkEmailQuery = `SELECT email FROM ${table} WHERE email = $1`;
   console.log(table)
   const result = await db.query(checkEmailQuery, [email]);
-  return result
+  return result.rows
 }
 
 
@@ -262,7 +262,7 @@ app.post('/stripe/webhook', async (req, res) => {
         }
 
 
-        let result = isEmailInDatabase(customerEmail, productTable)
+        let result = await isEmailInDatabase(customerEmail, productTable)
         let emailSent = (`email sent and added to ${productTable}`)
         const unsubbedresult = await db.query('SELECT email FROM unsubbed WHERE email = $1', [customerEmail])
         const promotionsresult = await db.query('SELECT email FROM promotions WHERE email = $1', [customerEmail])
@@ -272,7 +272,7 @@ app.post('/stripe/webhook', async (req, res) => {
           await db.query('INSERT INTO promotions (email) VALUES ($1)', [customerEmail])
         }
 
-        if(result.rows.length === 0){
+        if(result.length === 0){
         //add email to the product table
           const insertEmailQuery = `INSERT INTO ${productTable} (email, "first name") VALUES ($1, $2)`;
           await db.query(insertEmailQuery, [customerEmail, firstName]);
