@@ -121,26 +121,25 @@ app.post('/stripe/webhook-intent', async (req, res) => {
     const customerEmail = paymentIntent.metadata?.email;
     console.log('Payment Intent Created:', customerEmail);
 
-  
+    // Check for items directly in the payment intent (if applicable)
+    if (paymentIntent.charges && paymentIntent.charges.data.length > 0) {
+      const charge = paymentIntent.charges.data[0];
+      if (charge.invoice) {
+        try {
+          const invoice = await stripe.invoices.retrieve(charge.invoice);
+          const lineItems = await stripe.invoices.listLineItems(invoice.id);
 
-    // If the payment intent is associated with an invoice
-    if (paymentIntent.invoice) {
-      try {
-        const invoice = await stripe.invoices.retrieve(paymentIntent.invoice);
-
-        // Get the line items associated with the invoice
-        const lineItems = await stripe.invoices.listLineItems(invoice.id);
-
-        lineItems.data.forEach(item => {
-          console.log('Product ID:', item.price.product);
-          // You can add additional logic here based on the product ID
-        });
-      } catch (err) {
-        console.error('Error retrieving invoice details:', err);
-        return res.status(500).send(`Error retrieving invoice details: ${err.message}`);
+          lineItems.data.forEach(item => {
+            console.log('Product ID:', item.price.product);
+            // You can add additional logic here based on the product ID
+          });
+        } catch (err) {
+          console.error('Error retrieving invoice details:', err);
+          return res.status(500).send(`Error retrieving invoice details: ${err.message}`);
+        }
       }
     } else {
-      console.log("No invoice associated with this payment intent");
+      console.log('No charge data found in the payment intent.');
     }
   }
 
