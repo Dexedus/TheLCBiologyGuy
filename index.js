@@ -24,13 +24,10 @@ db.connect();
 
 //Middleware
 app.use(bodyParser.raw({ type: 'application/json' }));
-app.use('/stipe/webhook-intent', express.raw({ type: 'application/json' }));
-app.use('/stripe/webhook', express.raw({ type: 'application/json' }));
 app.use(express.json());
 
 
 const endpointSecret = process.env.WEBHOOK_SECRET
-const endpointSecret2 = process.env.WEBHOOK_SECRET2
 const API_KEY = process.env.SEND_GRID_KEY
 const SendgridSender = process.env.EMAIL
 const DROPBOX_ACCESS_TOKEN = process.env.DROPBOX_ACCESS_TOKEN;
@@ -92,60 +89,6 @@ const sendEmail = (toEmail, subject, message, emailSent, db) => {
 };
 
 
-// function for checking if the email is in the database table
-async function isEmailInDatabase(email, table) {
-  const checkEmailQuery = `SELECT email FROM ${table} WHERE email = $1`;
-  console.log(table)
-  const result = await db.query(checkEmailQuery, [email]);
-  return result.rows
-}
-
-
-app.post('/stripe/webhook-intent', async (req, res) => {
-  const sig = req.headers['stripe-signature'];
-  let event;
-
-  // Verify the Stripe webhook signature
-  try {
-    const body = req.rawBody || req.body;
-    event = stripe.webhooks.constructEvent(body, sig, endpointSecret2);
-  } catch (err) {
-    console.error('Error verifying webhook signature:', err);
-    return res.status(400).send(`Webhook Error: ${err.message}`);
-  }
-
-  // Handle the 'payment_intent.created' event
-  if (event.type === 'payment_intent.created') {
-    const paymentIntent = event.data.object;
-
-    // Retrieve checkout_session_id from metadata
-    const checkoutSessionId = paymentIntent.metadata?.checkout_session_id;
-
-    if (!checkoutSessionId) {
-      console.error("No checkout_session_id found in payment intent metadata");
-      return res.status(400).send("No checkout_session_id in metadata");
-    }
-
-    console.log('Checkout Session ID:', checkoutSessionId);
-
-    // Retrieve the checkout session and line items
-    try {
-      const session = await stripe.checkout.sessions.retrieve(checkoutSessionId);
-      const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 10 });
-
-      lineItems.data.forEach(item => {
-        console.log('Product ID:', item.price.product);
-      });
-    } catch (err) {
-      console.error('Error retrieving checkout session or line items:', err);
-      return res.status(500).send(`Error: ${err.message}`);
-    }
-  }
-
-  res.json({ received: true });
-});
-
-
 
 // Stripe webhook handler
 app.post('/stripe/webhook', async (req, res) => {
@@ -184,7 +127,7 @@ app.post('/stripe/webhook', async (req, res) => {
         const productId = item.price.product; // Extract the product ID
 
         // Check product ID to determine which product was purchased
-        if (productId === 'prod_RKGIXPoDtTir6V') {
+        if (productId === 'prod_RXmjWQSOFcm6Zv') {
           subject = 'Thanks for choosing the the Photosynthesis Masterclass'
           message = `Dear ${firstName},<br><br>Thank you for purchasing the Photosynthesis Masterclass! You can join the live Zoom session using the link below. The notes and recording will be shared via Google Drive after the live session:<br><br>Photosynthesis Masterclass<br>Time: Jan 14, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_1_link}<br><br>Meeting ID: ${zoom_1_id} 4231<br>Passcode: ${zoom_1_passcode}<br><br>You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
           <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
@@ -194,7 +137,7 @@ app.post('/stripe/webhook', async (req, res) => {
             <button type="submit">Submit</button>
           </form><br><br>Best of luck with your revision!<br>Max`;
           productTable = 'photosynthesis_masterclass';
-        } else if (productId === 'prod_RKGTn7KzbAJk6u') {
+        } else if (productId === 'prod_RRl0T5qS265k7U') {
           subject = 'Thank you for choosing the Free Resources!';
           message = `Dear ${firstName},<br><br>Thank you for choosing the free Unit 1 and Cell chapter notes. Here is the link to the Google Drive containing the resources: <a href="https://u48917275.ct.sendgrid.net/ls/click?upn=u001.gb1oIQZYL4vnMZkgmvEgigzFl42rVVPLGu-2Fe519Dvun9tuRbO-2FbM7IplLEtFJNpQ05TKwRq03odmolpArth0ldjiurLFB4dCM-2B4tixT-2F0TJ1ELxqIhhbS32gO3hKFnrEIFcd_4pE3C559McDKAd-2Fg3v7vn7eIndNn6ci9X9Lg05SN5hd0HqQd0CGpTiKRONJude4-2BSsNEXmpTWFbVn7KIYUZRVHAyrUpW7MXxjc-2FqCDWugVFXx574jVw6J7AuqIMN8xCK0iv3bPZjXrabb-2BWXwezZpQFLZE34yn6CVbJCQvmrQ3rjg5a43SNZwK-2BgAipFyVeR3EkkRmw-2B21-2FGCOBGcKlZTw-3D-3D" target="_blank">Here</a><br><br>We would like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
           <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
@@ -204,7 +147,7 @@ app.post('/stripe/webhook', async (req, res) => {
             <button type="submit">Submit</button>
           </form><br><br>Best regards,<br>The LC Biology Guy`;
           productTable = 'free_resources_emails';
-        } else if (productId === 'prod_RNcNcp6u1bhksR') {
+        } else if (productId === 'prod_RXmmWoklq55vCR') {
           subject = 'Thanks for choosing the Respiration Masterclass'
           message = `Dear ${firstName},<br><br>Thank you for purchasing the Respiration Masterclass! You can join the live Zoom session using the link below. The notes and recording will be shared via Google Drive after the live session:<br><br>Respiration Masterclass<br>Time: Jan 15, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_2_link}<br><br>Meeting ID: ${zoom_2_id} 4891<br>Passcode: ${zoom_2_passcode}<br><br>You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
           <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
@@ -214,7 +157,7 @@ app.post('/stripe/webhook', async (req, res) => {
             <button type="submit">Submit</button>
           </form><br><br>Best of luck with your revision!<br>Max`;
           productTable = 'respiration_masterclass';
-        } else if (productId === 'prod_RNcOy3SkrDdX6H') {
+        } else if (productId === 'prod_RXmn78khy1Nvlp') {
           subject = 'Thanks for choosing the Genetics Masterclass'
           message = `Dear ${firstName},<br><br>Thank you for purchasing the Genetics Masterclass! You can join the live Zoom session using the link below. The notes and recording will be shared via Google Drive after the live session:<br><br>Genetics Masterclass<br>Time: Jan 19, 2025, 03:00 PM London<br>Join Zoom Meeting<br>${zoom_3_link}<br><br>Meeting ID: ${zoom_3_id} 2818<br>Passcode: ${zoom_3_passcode}<br><br>You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
           <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
@@ -224,7 +167,7 @@ app.post('/stripe/webhook', async (req, res) => {
             <button type="submit">Submit</button>
           </form><br><br>Best of luck with your revision!<br>Max`;
           productTable = 'genetics_masterclass';
-        } else if (productId === 'prod_RNcOLGk9UPWx0I') {
+        } else if (productId === 'prod_RXmn0zHOZtlpwj') {
           subject = 'Thanks for choosing the DNA Masterclass'
           message = `Dear ${firstName},<br><br>Thank you for purchasing the DNA Masterclass! You can join the live Zoom session using the link below. The notes and recording will be shared via Google Drive after the live session:<br><br>DNA Masterclass<br>Time: Jan 21, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_4_link}<br><br>Meeting ID: ${zoom_4_id} 0178<br>Passcode: ${zoom_4_passcode}<br><br>You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
           <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
@@ -234,7 +177,7 @@ app.post('/stripe/webhook', async (req, res) => {
             <button type="submit">Submit</button>
           </form><br><br>Best of luck with your revision!<br>Max`;
           productTable = 'dna_masterclass';
-        } else if (productId === 'prod_RY6qE79EhchkOt') {
+        } else if (productId === 'prod_RXmojuJYIFAWqU') {
           subject = 'Thanks for choosing the Human Reproduction Masterclass'
           message = `Dear ${firstName},<br><br>Thank you for purchasing the Human Reproduction Masterclass! You can join the live Zoom session using the link below. The notes and recording will be shared via Google Drive after the live session:<br><br>Human Reproduction Masterclass<br>Time: Jan 22, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_5_link}<br><br>Meeting ID: ${zoom_5_id}<br>Passcode: ${zoom_5_passcode}<br><br>You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
           <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
@@ -244,7 +187,7 @@ app.post('/stripe/webhook', async (req, res) => {
             <button type="submit">Submit</button>
           </form><br><br>Best of luck with your revision!<br>Max`;
           productTable = 'human_reproduction';
-        } else if (productId === 'prod_RY6qAfNNsEUl6Z') {
+        } else if (productId === 'prod_RXmoDNYmM66p5L') {
           subject = 'Thanks for choosing the Plant Reproduction Masterclass'
           message = `Dear ${firstName},<br><br>Thank you for purchasing the Plant Reproduction Masterclass! You can join the live Zoom session using the link below. The notes and recording will be shared via Google Drive after the live session:<br><br>Plant Reproduction Masterclass<br>Time: Jan 26, 2025, 03:00 PM London<br>Join Zoom Meeting<br>${zoom_6_link}<br><br>Meeting ID: ${zoom_6_id}<br>Passcode: ${zoom_6_passcode}<br><br>You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
           <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
@@ -254,7 +197,7 @@ app.post('/stripe/webhook', async (req, res) => {
             <button type="submit">Submit</button>
           </form><br><br>Best of luck with your revision!<br>Max`;
           productTable = 'plant_reproduction';
-        } else if (productId === 'prod_RNz4sHcI0k4MYM') {
+        } else if (productId === 'prod_RXmsodti50pHO8') {
           subject = 'Thanks for choosing the Mock Prep Bundle'
           message = `Dear ${firstName},<br><br>Thank you for purchasing the Mock Prep Bundle! You can join the live Zoom sessions using the links below. The notes and recording for each class will be sent after the live session for that class concludes:<br><br>Photosynthesis Masterclass<br>Time: Jan 14, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_1_link}<br><br>Meeting ID: ${zoom_1_id}<br>Passcode: ${zoom_1_passcode}<br><br>Respiration Masterclass<br>Time: Jan 15, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_2_link}<br><br>Meeting ID: ${zoom_2_id}<br>Passcode: ${zoom_2_passcode}<br><br>Genetics Masterclass<br>Time: Jan 19, 2025, 03:00 PM London<br>Join Zoom Meeting<br>${zoom_3_link}<br><br>Meeting ID: ${zoom_3_id}<br>Passcode: ${zoom_3_passcode}<br><br>DNA Masterclass<br>Time: Jan 21, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_4_link}<br><br>Meeting ID: ${zoom_4_id}<br>Passcode: ${zoom_4_passcode}<br><br>Human Reproduction Masterclass<br>Time: Jan 22, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_5_link}<br><br>Meeting ID: ${zoom_5_id}<br>Passcode: ${zoom_5_passcode}<br><br>Plant Reproduction Masterclass<br>Time: Jan 26, 2025, 03:00 PM London<br>Join Zoom Meeting<br>${zoom_6_link}<br><br>Meeting ID: ${zoom_6_id}<br>Passcode: ${zoom_6_passcode}<br><br>You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
           <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
@@ -271,8 +214,11 @@ app.post('/stripe/webhook', async (req, res) => {
         }
 
 
-        let result = await isEmailInDatabase(customerEmail, productTable)
+        // check if email is already in database
+        const checkEmailQuery = `SELECT email FROM ${productTable} WHERE email = $1`;
+        console.log(productTable)
         let emailSent = (`email sent and added to ${productTable}`)
+        const result = await db.query(checkEmailQuery, [customerEmail]);
         const unsubbedresult = await db.query('SELECT email FROM unsubbed WHERE email = $1', [customerEmail])
         const promotionsresult = await db.query('SELECT email FROM promotions WHERE email = $1', [customerEmail])
 
@@ -281,14 +227,14 @@ app.post('/stripe/webhook', async (req, res) => {
           await db.query('INSERT INTO promotions (email) VALUES ($1)', [customerEmail])
         }
 
-        if(result.length === 0){
+        if(result.rows.length === 0){
         //add email to the product table
           const insertEmailQuery = `INSERT INTO ${productTable} (email, "first name") VALUES ($1, $2)`;
           await db.query(insertEmailQuery, [customerEmail, firstName]);
         //send the email.        
           sendEmail(customerEmail, subject, message, emailSent, db);
 
-          if (productId === 'prod_RKGTn7KzbAJk6u') {
+          if (productId === 'prod_RRl0T5qS265k7U') {
           {
           setTimeout(() => {
             const secondSubject = 'We also sell paid products!';
@@ -306,9 +252,8 @@ app.post('/stripe/webhook', async (req, res) => {
       }
           
         } else {
-          sendEmail(customerEmail, "Sorry", "Dear customer,\n\nYou have already purchased this product. I don't allow multiple purchases of my products from the same customer. If you purchased something and still haven't recieved an email with the necessary links, please make sure to check your spam and promotion folders. If you still don't have it after 24 hours, then please contact me at my email address: thelcbiologyguy@gmail.com \n\nBest regards,\nThe LC Biology Guy", "Double purchase made", db)
+          sendEmail(customerEmail, "Sorry", "Dear customer,\n\nYou have already purchased this product. I don't allow multiple purchases of my products from the same customer. If you purchased something and still haven't recieved an email with the necessary links, please make sure to check your spam and promotion folders. If you still don't have it after 24 hours, then please contact me at my email address: thelcbiologyguy@gmail.com \n\nBest regards,\nThe LC Biology Guy")
           console.log("email already exists in the database table of this product")
-          return res.status(400).send('You cannot purchase the same product twice.');
     }
    }
   
@@ -398,11 +343,11 @@ app.get("/done", (req, res) => {
 
 
 
-//create checkout session
+// Create checkout session
 router.post("/create-checkout-session", async (req, res) => {
-  const { priceId } = req.body;
-
-  try {
+    const { priceId } = req.body;
+    // console.log("the price of this product is " + priceId)
+  
     const session = await stripe.checkout.sessions.create({
       line_items: [
         {
@@ -415,27 +360,23 @@ router.post("/create-checkout-session", async (req, res) => {
           key: 'first_name',
           label: {
             type: 'custom',
-            custom: 'First Name',
+            custom: 'Parent First Name',
           },
           type: 'text',
         },
       ],
+      
+      // The mode is set to handle single payments based on your business needs
       mode: "payment",
+      // Defines where Stripe will redirect a customer after successful payment
       success_url: `${process.env.DOMAIN}/done`,
+      // Defines where Stripe will redirect if a customer cancels payment
       cancel_url: `${process.env.DOMAIN}`,
-      metadata: {},
     });
-
-    // Set the session.id in the metadata after the session is created
-    session.metadata.checkout_session_id = session.id;
-
-    // Redirect the user to the Stripe checkout page
-    res.json({ url: session.url });
-  } catch (err) {
-    console.error('Error creating checkout session:', err);
-    res.status(500).send(`Error creating checkout session: ${err.message}`);
-  }
-});
+  
+  
+    res.redirect(303, session.url);
+  });
 
 
   app.use("/api", router);
