@@ -117,6 +117,7 @@ app.post('/stripe/webhook-intent', async (req, res) => {
 
   // Handle the 'payment_intent.created' event
   if (event.type === 'payment_intent.created') {
+    const session = event.data.object;
     const customerEmail = session.receipt_email || session.customer_details.email; // Get the customer email
     console.log('Payment Intent Created:', customerEmail);
     const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 10 }); // Get line items
