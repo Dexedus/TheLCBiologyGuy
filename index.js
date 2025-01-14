@@ -120,9 +120,17 @@ app.post('/stripe/webhook-intent', async (req, res) => {
     const customerEmail = paymentIntent.receipt_email || paymentIntent.customer_details?.email; // Get the customer email
     console.log('Payment Intent Created:', customerEmail);
 
-    // Retrieve the checkout session associated with the payment intent
+    // Check if checkout_session_id exists in paymentIntent.metadata
+    const checkoutSessionId = paymentIntent.metadata?.checkout_session_id;
+
+    if (!checkoutSessionId) {
+      console.error('No checkout_session_id found in payment intent metadata');
+      return res.status(400).send('Error: No checkout_session_id in metadata');
+    }
+
     try {
-      const session = await stripe.checkout.sessions.retrieve(paymentIntent.metadata.checkout_session_id);
+      // Retrieve the checkout session using the session ID
+      const session = await stripe.checkout.sessions.retrieve(checkoutSessionId);
 
       // Get the line items associated with the checkout session
       const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 10 });
@@ -141,6 +149,7 @@ app.post('/stripe/webhook-intent', async (req, res) => {
   // Respond with a success status
   res.json({ received: true });
 });
+
 
 
 // Stripe webhook handler
@@ -394,11 +403,11 @@ app.get("/done", (req, res) => {
 
 
 
-// Create checkout session
+//create checkout session
 router.post("/create-checkout-session", async (req, res) => {
-    const { priceId } = req.body;
-    // console.log("the price of this product is " + priceId)
-  
+  const { priceId } = req.body;
+
+  try {
     const session = await stripe.checkout.sessions.create({
       line_items: [
         {
@@ -416,23 +425,24 @@ router.post("/create-checkout-session", async (req, res) => {
           type: 'text',
         },
       ],
-      
-      // The mode is set to handle single payments based on your business needs
       mode: "payment",
-      // Defines where Stripe will redirect a customer after successful payment
       success_url: `${process.env.DOMAIN}/done`,
-      // Defines where Stripe will redirect if a customer cancels payment
       cancel_url: `${process.env.DOMAIN}`,
       metadata: {
-        checkout_session_id: ''  // Store the session ID in metadata
+        checkout_session_id: '',  // We'll replace this with session.id
       }
     });
 
+    // Set the session.id in the metadata after the session is created
     session.metadata.checkout_session_id = session.id;
-  
-  
-    res.redirect(303, session.url);
-  });
+
+    // Redirect the user to the Stripe checkout page
+    res.json({ url: session.url });
+  } catch (err) {
+    console.error('Error creating checkout session:', err);
+    res.status(500).send(`Error creating checkout session: ${err.message}`);
+  }
+});
 
 
   app.use("/api", router);
