@@ -117,36 +117,31 @@ app.post('/stripe/webhook-intent', async (req, res) => {
   // Handle the 'payment_intent.created' event
   if (event.type === 'payment_intent.created') {
     const paymentIntent = event.data.object;
-    const customerEmail = paymentIntent.receipt_email || paymentIntent.customer_details?.email; // Get the customer email
-    console.log('Payment Intent Created:', customerEmail);
 
-    // Check if checkout_session_id exists in paymentIntent.metadata
+    // Retrieve checkout_session_id from metadata
     const checkoutSessionId = paymentIntent.metadata?.checkout_session_id;
 
     if (!checkoutSessionId) {
-      console.error('No checkout_session_id found in payment intent metadata');
-      return res.status(400).send('Error: No checkout_session_id in metadata');
+      console.error("No checkout_session_id found in payment intent metadata");
+      return res.status(400).send("No checkout_session_id in metadata");
     }
 
-    try {
-      // Retrieve the checkout session using the session ID
-      const session = await stripe.checkout.sessions.retrieve(checkoutSessionId);
+    console.log('Checkout Session ID:', checkoutSessionId);
 
-      // Get the line items associated with the checkout session
+    // Retrieve the checkout session and line items
+    try {
+      const session = await stripe.checkout.sessions.retrieve(checkoutSessionId);
       const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 10 });
 
-      // Loop through the line items and log product IDs
-      for (const item of lineItems.data) {
-        const productId = item.price.product; // Extract the product ID
-        console.log('Product ID:', productId);
-      }
+      lineItems.data.forEach(item => {
+        console.log('Product ID:', item.price.product);
+      });
     } catch (err) {
       console.error('Error retrieving checkout session or line items:', err);
       return res.status(500).send(`Error: ${err.message}`);
     }
   }
 
-  // Respond with a success status
   res.json({ received: true });
 });
 
@@ -428,9 +423,7 @@ router.post("/create-checkout-session", async (req, res) => {
       mode: "payment",
       success_url: `${process.env.DOMAIN}/done`,
       cancel_url: `${process.env.DOMAIN}`,
-      metadata: {
-        checkout_session_id: '',  // We'll replace this with session.id
-      }
+      metadata: {},
     });
 
     // Set the session.id in the metadata after the session is created
