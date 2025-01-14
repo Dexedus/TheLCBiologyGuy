@@ -25,6 +25,7 @@ db.connect();
 //Middleware
 app.use(bodyParser.raw({ type: 'application/json' }));
 app.use('/stipe/webhook-intent', express.raw({ type: 'application/json' }));
+app.use('/stripe/webhook', express.raw({ type: 'application/json' }));
 app.use(express.json());
 
 
@@ -107,7 +108,8 @@ app.post('/stripe/webhook-intent', async (req, res) => {
 
   // Verify the Stripe webhook signature
   try {
-    event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret2);
+    const body = req.rawBody || req.body;
+    event = stripe.webhooks.constructEvent(body, sig, endpointSecret2);
   } catch (err) {
     console.error('Error verifying webhook signature:', err);
     return res.status(400).send(`Webhook Error: ${err.message}`);
@@ -143,7 +145,7 @@ app.post('/stripe/webhook-intent', async (req, res) => {
   }
 
   // Respond with a success status
-  res.status(200).send('Event received');
+  res.json({ received: true });
 });
 
 
