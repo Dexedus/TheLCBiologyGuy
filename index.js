@@ -102,7 +102,6 @@ async function isEmailInDatabase(email, table) {
 // Stripe webhook handler for intent
 app.post('/stripe/webhook-intent', async (req, res) => {
   const sig = req.headers['stripe-signature'];
-
   let event;
 
   // Verify the Stripe webhook signature
@@ -113,30 +112,37 @@ app.post('/stripe/webhook-intent', async (req, res) => {
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
-
-  if (event.type === 'payment_intent.created'){
+  // Handle the 'payment_intent.created' event
+  if (event.type === 'payment_intent.created') {
     const paymentIntent = event.data.object;
     const customerEmail = paymentIntent.metadata?.email;
-  }
+    console.log('Payment Intent Created:', customerEmail);
 
-  const paymentIntent = event.data.object;
+    // Further processing with customerEmail if needed
+  
 
-  // If the payment intent is associated with an invoice, we can get the product ID via the invoice
-  if (paymentIntent.invoice) {
-    try {
-      const invoice = await stripe.invoices.retrieve(paymentIntent.invoice);
-      
-      // Now get the line items associated with the invoice
-      const lineItems = await stripe.invoices.listLineItems(invoice.id);
+    // If the payment intent is associated with an invoice
+    if (paymentIntent.invoice) {
+      try {
+        const invoice = await stripe.invoices.retrieve(paymentIntent.invoice);
 
-      lineItems.data.forEach(item => {
-        console.log('Product ID:', item.price.product);
-      });
-    } catch (err) {
-      console.error('Error retrieving invoice details:', err);
+        // Get the line items associated with the invoice
+        const lineItems = await stripe.invoices.listLineItems(invoice.id);
+
+        lineItems.data.forEach(item => {
+          console.log('Product ID:', item.price.product);
+          // You can add additional logic here based on the product ID
+        });
+      } catch (err) {
+        console.error('Error retrieving invoice details:', err);
+        return res.status(500).send(`Error retrieving invoice details: ${err.message}`);
+      }
     }
   }
-})
+
+  // Respond with a success status
+  res.status(200).send('Event received');
+});
 
 
 // Stripe webhook handler
