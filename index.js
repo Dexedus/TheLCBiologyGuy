@@ -101,7 +101,6 @@ async function isEmailInDatabase(email, table) {
 }
 
 
-// Stripe webhook handler for intent
 app.post('/stripe/webhook-intent', async (req, res) => {
   const sig = req.headers['stripe-signature'];
   let event;
@@ -117,13 +116,25 @@ app.post('/stripe/webhook-intent', async (req, res) => {
 
   // Handle the 'payment_intent.created' event
   if (event.type === 'payment_intent.created') {
-    const session = event.data.object;
-    const customerEmail = session.receipt_email || session.customer_details.email; // Get the customer email
+    const paymentIntent = event.data.object;
+    const customerEmail = paymentIntent.receipt_email || paymentIntent.customer_details?.email; // Get the customer email
     console.log('Payment Intent Created:', customerEmail);
-    const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 10 }); // Get line items
-    for (const item of lineItems.data) {
-      const productId = item.price.product; // Extract the product ID
-      console.log(productId)
+
+    // Retrieve the checkout session associated with the payment intent
+    try {
+      const session = await stripe.checkout.sessions.retrieve(paymentIntent.metadata.checkout_session_id);
+
+      // Get the line items associated with the checkout session
+      const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 10 });
+
+      // Loop through the line items and log product IDs
+      for (const item of lineItems.data) {
+        const productId = item.price.product; // Extract the product ID
+        console.log('Product ID:', productId);
+      }
+    } catch (err) {
+      console.error('Error retrieving checkout session or line items:', err);
+      return res.status(500).send(`Error: ${err.message}`);
     }
   }
 
