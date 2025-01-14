@@ -262,7 +262,7 @@ app.post('/stripe/webhook', async (req, res) => {
         }
 
 
-        isEmailInDatabase(customerEmail, productTable)
+        let result = isEmailInDatabase(customerEmail, productTable)
         let emailSent = (`email sent and added to ${productTable}`)
         const unsubbedresult = await db.query('SELECT email FROM unsubbed WHERE email = $1', [customerEmail])
         const promotionsresult = await db.query('SELECT email FROM promotions WHERE email = $1', [customerEmail])
