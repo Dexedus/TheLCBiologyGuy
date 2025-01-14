@@ -24,11 +24,12 @@ db.connect();
 
 //Middleware
 app.use(bodyParser.raw({ type: 'application/json' }));
+app.use('/stipe/webhook-intent', express.raw({ type: 'application/json' }));
 app.use(express.json());
 
 
 const endpointSecret = process.env.WEBHOOK_SECRET
-const endpointSecret2= process.env.WEBHOOK_SECRET2
+const endpointSecret2 = process.env.WEBHOOK_SECRET2
 const API_KEY = process.env.SEND_GRID_KEY
 const SendgridSender = process.env.EMAIL
 const DROPBOX_ACCESS_TOKEN = process.env.DROPBOX_ACCESS_TOKEN;
@@ -118,7 +119,6 @@ app.post('/stripe/webhook-intent', async (req, res) => {
     const customerEmail = paymentIntent.metadata?.email;
     console.log('Payment Intent Created:', customerEmail);
 
-    // Further processing with customerEmail if needed
   
 
     // If the payment intent is associated with an invoice
@@ -137,6 +137,8 @@ app.post('/stripe/webhook-intent', async (req, res) => {
         console.error('Error retrieving invoice details:', err);
         return res.status(500).send(`Error retrieving invoice details: ${err.message}`);
       }
+    } else {
+      console.log("No invoice associated with this payment intent");
     }
   }
 
