@@ -423,6 +423,9 @@ router.post("/create-checkout-session", async (req, res) => {
       success_url: `${process.env.DOMAIN}/done`,
       // Defines where Stripe will redirect if a customer cancels payment
       cancel_url: `${process.env.DOMAIN}`,
+      metadata: {
+        checkout_session_id: session.id  // Store the session ID in metadata
+      }
     });
   
   
