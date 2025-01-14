@@ -28,6 +28,7 @@ app.use(express.json());
 
 
 const endpointSecret = process.env.WEBHOOK_SECRET
+const endpointSecret2= process.env.WEBHOOK_SECRET2
 const API_KEY = process.env.SEND_GRID_KEY
 const SendgridSender = process.env.EMAIL
 const DROPBOX_ACCESS_TOKEN = process.env.DROPBOX_ACCESS_TOKEN;
@@ -106,7 +107,7 @@ app.post('/stripe/webhook-intent', async (req, res) => {
 
   // Verify the Stripe webhook signature
   try {
-    event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+    event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret2);
   } catch (err) {
     console.error('Error verifying webhook signature:', err);
     return res.status(400).send(`Webhook Error: ${err.message}`);
