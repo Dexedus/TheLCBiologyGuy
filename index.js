@@ -336,7 +336,7 @@ app.get('/contact', (req, res) => {
 app.get("/done", (req, res) => {
   res.render("lesson.ejs", {
     title: "Success!",
-    message: "You should recieve the details for the zoom class via an email sent to the address you entered at checkout. Be sure to check your spam just in case it gets filtered there. If you do not recieve an email after 24 hours please contact me at: thelcbiologyguy@gmail.com Thanks.",
+    message: "You should recieve the details for these resources via an email sent to the address you entered at checkout. Be sure to check your spam just in case it gets filtered there. If you do not recieve an email after 24 hours please contact me at: thelcbiologyguy@gmail.com Thanks.",
     button: "Close",
   })
 })
