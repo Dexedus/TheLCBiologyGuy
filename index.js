@@ -237,8 +237,8 @@ app.post('/stripe/webhook', async (req, res) => {
           if (productId === 'prod_RRl0T5qS265k7U') {
           {
           setTimeout(() => {
-            const secondSubject = 'We also sell paid products!';
-            const secondMessage = `Dear ${firstName},<br><br>Thank you so much for supporting my page! I’m reaching out because you just got my free notes for your child. It's great that you're taking their study seriously. The best performing students I have seen have this support so keep it up! We also offer paid masterclasses that cover a range of topics. Feel free to check them out on our website: <a href="https://www.thelcbiologyguy.ie/lesson" target="_blank">The LC Biology Guy</a>.<br><br>How is child finding the notes so far?<br><br>Best regards,<br>The LC Biology Guy<br><br>We would like to send you more promotional emails in the future but if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
+            const secondSubject = 'Is your child struggling with LC Biology?';
+            const secondMessage = `Dear ${firstName},<br><br>Thank you so much for supporting my page! I’m reaching out because you just got my free notes for your child. It's great that you're taking their study seriously. The best performing students I have seen have this support so keep it up!<br><br>How is child finding the notes so far?<br><br>Best regards,<br>The LC Biology Guy<br><br>We would like to send you more promotional emails in the future but if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
           <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
             <input type="checkbox" name="unsubscribe">
             <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
