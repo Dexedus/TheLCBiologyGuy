@@ -234,22 +234,22 @@ app.post('/stripe/webhook', async (req, res) => {
         //send the email.        
           sendEmail(customerEmail, subject, message, emailSent, db);
 
-          if (productId === 'prod_RRl0T5qS265k7U') {
-          {
-          setTimeout(() => {
-            const secondSubject = 'Is your child struggling with LC Biology?';
-            const secondMessage = `Dear ${firstName},<br><br>Thank you so much for supporting my page! I’m reaching out because you just got my free notes for your child. It's great that you're taking their study seriously. The best performing students I have seen have this support so keep it up!<br><br>How is your child finding the notes so far?<br><br>Best regards,<br>The LC Biology Guy<br><br>We would like to send you more promotional emails in the future but if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
-          <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
-            <input type="checkbox" name="unsubscribe">
-            <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
-            <input type="hidden" name="email" value="${customerEmail}">
-            <button type="submit">Submit</button>
-          </form><br><br>Best of luck with your revision!<br>Max`;
+      //     if (productId === 'prod_RRl0T5qS265k7U') {
+      //     {
+      //     setTimeout(() => {
+      //       const secondSubject = 'Is your child struggling with LC Biology?';
+      //       const secondMessage = `Dear ${firstName},<br><br>Thank you so much for supporting my page! I’m reaching out because you just got my free notes for your child. It's great that you're taking their study seriously. The best performing students I have seen have this support so keep it up!<br><br>How is your child finding the notes so far?<br><br>Best regards,<br>The LC Biology Guy<br><br>We would like to send you more promotional emails in the future but if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
+      //     <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
+      //       <input type="checkbox" name="unsubscribe">
+      //       <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
+      //       <input type="hidden" name="email" value="${customerEmail}">
+      //       <button type="submit">Submit</button>
+      //     </form><br><br>Best of luck with your revision!<br>Max`;
     
-            sendEmail(customerEmail, secondSubject, secondMessage, `Marketing email sent to ${customerEmail}`, db);
-        }, 300000); // 300000 milliseconds = 5 minutes
-      }
-      }
+      //       sendEmail(customerEmail, secondSubject, secondMessage, `Marketing email sent to ${customerEmail}`, db);
+      //   }, 300000); // 300000 milliseconds = 5 minutes
+      // }
+      // }
           
         } else {
           sendEmail(customerEmail, "Sorry", "Dear customer,<br><br>It looks like you might have purchased one of my products twice.<br>If this was a paid product, then it must have been a mistake. Please contact me if this was the case.<br><br>If you purchased my free resources package, and tried to do it again, and still haven't recieved an email with the necessary links, please make sure to check your spam and promotion folders. If you still don't have it after 24 hours, then please contact me at my email address: thelcbiologyguy@gmail.com<br><br>Best regards,<br>The LC Biology Guy", "Double product purchase email", db)
