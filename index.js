@@ -234,22 +234,22 @@ app.post('/stripe/webhook', async (req, res) => {
         //send the email.        
           sendEmail(customerEmail, subject, message, emailSent, db);
 
-      //     if (productId === 'prod_RRl0T5qS265k7U') {
-      //     {
-      //     setTimeout(() => {
-      //       const secondSubject = 'Is your child struggling with LC Biology?';
-      //       const secondMessage = `Dear ${firstName},<br><br>Thank you so much for supporting my page! I’m reaching out because you just got my free notes for your child. It's great that you're taking their study seriously. The best performing students I have seen have this support so keep it up!<br><br>How is your child finding the notes so far?<br><br>Best regards,<br>The LC Biology Guy<br><br>We would like to send you more promotional emails in the future but if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
-      //     <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
-      //       <input type="checkbox" name="unsubscribe">
-      //       <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
-      //       <input type="hidden" name="email" value="${customerEmail}">
-      //       <button type="submit">Submit</button>
-      //     </form><br><br>Best of luck with your revision!<br>Max`;
+          if (productId === 'prod_RRl0T5qS265k7U' && unsubbedresult.rows.length === 0) {
+          {
+          setTimeout(() => {
+            const secondSubject = 'Is your child struggling with LC Biology?';
+            const secondMessage = `Hi ${firstName},<br><br>Your child recently received my free H1 highlighted notes for Unit 1 and the 3 Cell topics. As I write this over 1200 students have downloaded the notes, which is truly incredible! Thank you for your support.<br><br>I have received many positive emails, but I would love to hear from you!<br><br>I have opened a Google reviews page and it would mean the world to me if you could leave me a 5-star Google review mentioning the free H1 Highlighted notes:<a href="https://www.google.com/maps/place//data=!4m3!3m2!1s0x6cad1d58dd492631:0xa7fc2af1a72b181d!12e1?source=g.page.m.ia._&laa=nmx-review-solicitation-ia2" target="_blank">HERE</a><br><br>I wish your child the very best with their study!<br>Best regards,<br>Max (The LC Biology Guy)<br><br>We would like to send you more promotional emails in the future but if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
+          <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
+            <input type="checkbox" name="unsubscribe">
+            <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
+            <input type="hidden" name="email" value="${customerEmail}">
+            <button type="submit">Submit</button>
+          </form><br><br>Best of luck with your revision!<br>Max`;
     
-      //       sendEmail(customerEmail, secondSubject, secondMessage, `Marketing email sent to ${customerEmail}`, db);
-      //   }, 300000); // 300000 milliseconds = 5 minutes
-      // }
-      // }
+            sendEmail(customerEmail, secondSubject, secondMessage, `Marketing email sent to ${customerEmail}`, db);
+        }, 1800000); // 300000 milliseconds = 5 minutes
+      }
+      }
           
         } else {
           sendEmail(customerEmail, "Sorry", "Dear customer,<br><br>It looks like you might have purchased one of my products twice.<br>If this was a paid product, then it must have been a mistake. Please contact me if this was the case.<br><br>If you purchased my free resources package, and tried to do it again, and still haven't recieved an email with the necessary links, please make sure to check your spam and promotion folders. If you still don't have it after 24 hours, then please contact me at my email address: thelcbiologyguy@gmail.com<br><br>Best regards,<br>The LC Biology Guy", "Double product purchase email", db)
@@ -280,7 +280,7 @@ app.post('/unsubscribe', async (req, res) => {
     try {
       // Insert the email into the 'unsubbed' table
       await db.query('DELETE FROM promotions WHERE email = $1', [email]);
-      await db.query('INSERT INTO unsubbed (email) VALUES ($1)', [email])
+      await db.query('INSERT INTO unsubbed (email) VALUES ($1)', [email]);
       res.render("optout.ejs")
     } catch (err) {
       console.error(err);
@@ -340,6 +340,54 @@ app.get("/done", (req, res) => {
     button: "Close",
   })
 })
+
+
+
+
+
+
+app.get("/sendemail", async (req, res) => {
+
+
+  //     // Fetch emails from the database
+  //     const result = await db.query(`
+  //         SELECT free_resources_emails.email, free_resources_emails.timestamp
+  //         FROM free_resources_emails
+  //         JOIN promotions ON free_resources_emails.email = promotions.email
+  //         WHERE free_resources_emails.timestamp > '2025-01-13';
+  //     `);
+  
+  //     const emails = result.rows.map(row => row.email); // Extract email addresses
+  
+  //     if (emails.length === 0) {
+  //       console.log('No emails found to send.');
+  //     } else {
+  //       console.log('Emails sent')
+  //     }
+
+
+  // const msg = {
+  //   to: emails, // Array of recipients
+  //   from: SendgridSender, // Verified sender
+  //   subject: 'Did My Free H1 Notes Help? A Quick Favor to Ask!',
+  //   html: `Hi<br><br>Your child recently received my free H1 highlighted notes for Unit 1 and the 3 Cell topics. As I write this over 1200 students have downloaded the notes, which is truly incredible! Thank you for your support.<br><br>I have received many positive emails, but I would love to hear from you!<br><br>I have opened a Google reviews page and it would mean the world to me if you could leave me a 5-star Google review mentioning the free H1 Highlighted notes: <a href="https://www.google.com/maps/place//data=!4m3!3m2!1s0x6cad1d58dd492631:0xa7fc2af1a72b181d!12e1?source=g.page.m.ia._&laa=nmx-review-solicitation-ia2" target="_blank">HERE</a><br><br>I wish your child the very best with their study!<br>Best Regards,<br>Max (The LC Biology Guy)`,
+  // };
+
+  // sgMail
+  // .sendMultiple(msg)
+  // .then(() => {
+  //   console.log('Emails sent successfully!');
+  // })
+  // .catch((error) => {
+  //   console.error('Error sending emails:', error);
+  // });
+
+
+  // res.redirect("/")
+})
+
+
+
 
 
 
