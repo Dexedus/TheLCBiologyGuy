@@ -199,7 +199,7 @@ app.post('/stripe/webhook', async (req, res) => {
           productTable = 'plant_reproduction';
         } else if (productId === 'prod_RXmsodti50pHO8') {
           subject = 'Thanks for choosing the Mock Prep Bundle'
-          message = `Dear ${firstName},<br><br>***ALL CLASSES HAVE ENDED. To get access to the recordings, please email me and I will confirm your purchase before giving you access to the google drive.***<br>Thank you for purchasing the Mock Prep Bundle! You can join the live Zoom sessions using the links below. The notes and recording for each class will be sent after the live session for that class concludes:<br><br>Photosynthesis Masterclass<br>Time: Jan 14, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_1_link}<br><br>Meeting ID: ${zoom_1_id}<br>Passcode: ${zoom_1_passcode}<br><br>Respiration Masterclass<br>Time: Jan 15, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_2_link}<br><br>Meeting ID: ${zoom_2_id}<br>Passcode: ${zoom_2_passcode}<br><br>Genetics Masterclass<br>Time: Jan 19, 2025, 03:00 PM London<br>Join Zoom Meeting<br>${zoom_3_link}<br><br>Meeting ID: ${zoom_3_id}<br>Passcode: ${zoom_3_passcode}<br><br>DNA Masterclass<br>Time: Jan 21, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_4_link}<br><br>Meeting ID: ${zoom_4_id}<br>Passcode: ${zoom_4_passcode}<br><br>Human Reproduction Masterclass<br>Time: Jan 22, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_5_link}<br><br>Meeting ID: ${zoom_5_id}<br>Passcode: ${zoom_5_passcode}<br><br>Plant Reproduction Masterclass<br>Time: Jan 26, 2025, 03:00 PM London<br>Join Zoom Meeting<br>${zoom_6_link}<br><br>Meeting ID: ${zoom_6_id}<br>Passcode: ${zoom_6_passcode}<br><br>You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
+          message = `Dear ${firstName},<br><br>Thank you for your purchase!<br><br>The Google Drive can be accessed <a href="https://drive.google.com/drive/folders/1Cu7TUE7uWIsgLjPIwW19VJcR-VCZAIw9?usp=sharing" target="_blank">here.</a><br>This folder is set to restricted access, I will grant you access as soon as possible.<br><br>If you have made a request and not received access within 30 minutes please respond to this email<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
           <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
             <input type="checkbox" name="unsubscribe">
             <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
@@ -307,8 +307,8 @@ app.post('/submit-optin', async (req, res) => {
 })
 
 
-app.get('/lesson', (req, res) => {
-    res.render("lesson.ejs", {
+app.get('/landing', (req, res) => {
+    res.render("landing.ejs", {
       title: "Warning",
       message: "By closing this pop up or clicking the button below, you agree to not share any of my paid for material after purchasing it yourself.",
       button: "Understood",
@@ -347,6 +347,17 @@ app.get("/done", (req, res) => {
 
 
 app.get("/sendemail", async (req, res) => {
+
+  // const firstName = "Karl"
+  // const customerEmail = "karlfleming64@gmail.com"
+
+  // sendEmail(customerEmail, "subject", `Dear ${firstName},<br><br>Thank you for your purchase!<br><br>The Google Drive can be accessed <a href="https://drive.google.com/drive/folders/1Cu7TUE7uWIsgLjPIwW19VJcR-VCZAIw9?usp=sharing" target="_blank">here.</a><br>This folder is set to restricted access, I will grant you access as soon as possible.<br><br>If you have made a request and not received access within 30 minutes please respond to this email<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
+  //         <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
+  //           <input type="checkbox" name="unsubscribe">
+  //           <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
+  //           <input type="hidden" name="email" value="${customerEmail}">
+  //           <button type="submit">Submit</button>
+  //         </form><br><br>Best of luck with your revision!<br>Max`, "testWorked", db);
 
 
   //     // Fetch emails from the database
