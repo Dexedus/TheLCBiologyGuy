@@ -360,41 +360,42 @@ app.get("/sendemail", async (req, res) => {
   //         </form><br><br>Best of luck with your revision!<br>Max`, "testWorked", db);
 
 
-  //     // Fetch emails from the database
-  //     const result = await db.query(`
-  //         SELECT free_resources_emails.email, free_resources_emails.timestamp
-  //         FROM free_resources_emails
-  //         JOIN promotions ON free_resources_emails.email = promotions.email
-  //         WHERE free_resources_emails.timestamp > '2025-01-13';
-  //     `);
+      // Fetch emails from the database
+      const result = await db.query(`
+          SELECT free_resources_emails.email, free_resources_emails.timestamp
+          FROM free_resources_emails
+          JOIN promotions ON free_resources_emails.email = promotions.email
+          WHERE free_resources_emails.timestamp > '2025-01-14';
+      `);
   
-  //     const emails = result.rows.map(row => row.email); // Extract email addresses
+      const emails = result.rows.map(row => row.email); // Extract email addresses
   
-  //     if (emails.length === 0) {
-  //       console.log('No emails found to send.');
-  //     } else {
-  //       console.log('Emails sent')
-  //     }
+      if (emails.length === 0) {
+        console.log('No emails found to send.');
+      } else {
+        console.log('Emails sent')
+      }
+
+  // const emails = ["karlfleming64@gmail.com", "ksfwebdesigns@gmail.com"]
+
+  const msg = {
+    to: emails, // Array of recipients
+    from: SendgridSender, // Verified sender
+    subject: 'Missed My Mock Prep Classes? Get All The Resources Before Feb 16!',
+    html: `Hello,<br><br>The January Mock Prep classes may be over, but your child can still get the same expert guidance my students received!<br><br>The Mock Prep Bundle includes recordings, notes, and worksheets covering 6 key topics that come up in exams every year (or nearly every year):<br>✅ Photosynthesis<br>✅ Respiration<br>✅ Genetics & Genetic Engineering<br>✅ DNA<br>✅ Human Reproduction<br>✅ Plant Reproduction<br><br>Plus, I’m also including bonus notes on two more essential chapters:<br>📖 Enzymes<br>📖 Osmosis<br><br>With these resources, your child can revise at their own pace, receive personalized feedback from me, and build confidence for the mocks while laying the foundation to maximize their score in June.<br><br>The topics included can make up more than 50% of their grade and this bundle will only be available until <b>February 16th!</b><br><br>👉 Click <a href="https://www.thelcbiologyguy.ie/landing" target="_blank">here</a> to learn more and get access!<br><br>Best of luck with the upcoming exams!<br>Max (The LC Biology Guy)`,
+  };
+
+  sgMail
+  .sendMultiple(msg)
+  .then(() => {
+    console.log('Emails sent successfully!');
+  })
+  .catch((error) => {
+    console.error('Error sending emails:', error);
+  });
 
 
-  // const msg = {
-  //   to: emails, // Array of recipients
-  //   from: SendgridSender, // Verified sender
-  //   subject: 'Did My Free H1 Notes Help? A Quick Favor to Ask!',
-  //   html: `Hi<br><br>Your child recently received my free H1 highlighted notes for Unit 1 and the 3 Cell topics. As I write this over 1200 students have downloaded the notes, which is truly incredible! Thank you for your support.<br><br>I have received many positive emails, but I would love to hear from you!<br><br>I have opened a Google reviews page and it would mean the world to me if you could leave me a 5-star Google review mentioning the free H1 Highlighted notes: <a href="https://www.google.com/maps/place//data=!4m3!3m2!1s0x6cad1d58dd492631:0xa7fc2af1a72b181d!12e1?source=g.page.m.ia._&laa=nmx-review-solicitation-ia2" target="_blank">HERE</a><br><br>I wish your child the very best with their study!<br>Best Regards,<br>Max (The LC Biology Guy)`,
-  // };
-
-  // sgMail
-  // .sendMultiple(msg)
-  // .then(() => {
-  //   console.log('Emails sent successfully!');
-  // })
-  // .catch((error) => {
-  //   console.error('Error sending emails:', error);
-  // });
-
-
-  // res.redirect("/")
+  res.redirect("/")
 })
 
 

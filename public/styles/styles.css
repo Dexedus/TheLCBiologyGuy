@@ -455,111 +455,200 @@ footer{
 
 /*Media Querys*/
 
-@media (max-width: 399px){
-    #LogoTitle{
-        font-size: 0.8em!important;
+@media (min-width: 1401px) {
+    #notebook {
+        max-width: 240px;
+        top: 150px;
+        right: 40px;
     }
 
-    .img{
-        height: 10px!important;
-    }
-
-    #navbar{
-        font-size: 0.9em;
-        margin-bottom: -10px!important;
-    }
-}
-
-@media (max-width: 576px){
-    body{
-        margin-top: 100px!important;
-    }
-
-    #testimonial-text{
-        width: 300px;
-    }
-
-    #title{
-        font-size: 1.5em!important;
-    }
-
-    .img{
-        width: 45px;
-        height: 45px!important;
-        margin-inline: 10px!important;
-    }
-
-    .nav-item{
-        height: 35px;
-    }
-
-    #testimonial-picture{
-        display: none;
-    }
-    
-    #LogoTitle{
-        margin-right: 50px;
-    }
-
-    .secondary-disapear{
-        display: none!important;
-    }
-
-    .product-title{
-        font-size: 2em!important;
-    }
-    
-    /* #urgencyText{
-        font-size: smaller!important;
-    } */
-}
-
-@media (max-width: 992px){
-    .video1{
-        display: none;
-    }
-
-    .video3{
-        display: none;
-    }
-
-    #lessons-photo{
-        width: 100%;
-    }
-
-    .finger-down{
-        display: none;
-    }
-
-    #contentMain{
-        flex-direction: column;
-    }
-
-    #contentRight{
-        width: 100%!important;
-    }
-
-    #contentLeft{
-        width: 100%!important;
-        margin-top: -100px
-    }
-
-    #phoneMock{
-        display: none!important;
-    }
-}
-
-@media (max-width: 1200px) {
-    #phoneMock{
-        right: 20px!important;
+    #worksheets {
+        max-width: 200px;
+        top: 100px;
+        left: 90px;
     }
 }
 
 @media (max-width: 1400px) {
-    #phoneMock{
-        right: 270px!important;
+    #phoneMock {
+        right: 270px !important;
+    }
+
+    #notebook {
+        right: 10px;
+        width: 240px;
+        top: 150px;
+    }
+
+    #worksheets {
+        left: 60px;
+        width: 200px;
+        top: 100px;
     }
 }
+
+@media (max-width: 1200px) {
+    #phoneMock {
+        right: 20px !important;
+    }
+
+    #notebook {
+        right: 0px;
+        width: 160px;
+        top: 130px;
+    }
+
+    #worksheets {
+        left: 40px;
+        width: 140px;
+    }
+}
+
+@media (max-width: 992px) {
+    .video1,
+    .video3,
+    .finger-down,
+    #phoneMock {
+        display: none !important;
+    }
+
+    #lessons-photo {
+        width: 100%;
+    }
+
+    #contentMain {
+        flex-direction: column;
+    }
+
+    #contentRight {
+        width: 100% !important;
+    }
+
+    #contentLeft {
+        width: 100% !important;
+        margin-top: -100px;
+    }
+
+    #notebook {
+        right: 40px;
+        width: 240px;
+        top: 160px;
+    }
+
+    #worksheets {
+        top: 120px;
+        left: 90px;
+        width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    #notebook {
+        right: 40px;
+        width: 160px;
+        top: 135px;
+    }
+
+    #worksheets {
+        top: 120px;
+        left: 90px;
+        width: 120px;
+    }
+}
+
+@media (max-width: 576px) {
+    body {
+        margin-top: 100px !important;
+    }
+
+    #testimonial-text {
+        width: 300px;
+    }
+
+    #title {
+        font-size: 1.5em !important;
+    }
+
+    .img {
+        width: 45px;
+        height: 45px !important;
+        margin-inline: 10px !important;
+    }
+
+    .nav-item {
+        height: 35px;
+    }
+
+    #testimonial-picture {
+        display: none;
+    }
+
+    #LogoTitle {
+        margin-right: 50px;
+    }
+
+    .secondary-disapear {
+        display: none !important;
+    }
+
+    .product-title {
+        font-size: 2em !important;
+    }
+
+    #notebook {
+        right: 40px;
+        width: 160px;
+        top: 130px;
+    }
+
+    #worksheets {
+        top: 120px;
+        left: 90px;
+        width: 120px;
+    }
+}
+
+@media (max-width: 490px) {
+    #notebook {
+        right: 30px;
+        width: 120px;
+        top: 90px;
+    }
+
+    #worksheets {
+        top: 80px;
+        left: 70px;
+        width: 90px;
+    }
+}
+
+
+@media (max-width: 399px) {
+    #LogoTitle {
+        font-size: 0.8em !important;
+    }
+
+
+    #navbar {
+        font-size: 0.9em;
+        margin-bottom: -10px !important;
+    }
+}
+
+@media (max-width: 370px) {
+    #notebook {
+        right: 30px;
+        width: 100px;
+        top: 60px;
+    }
+
+    #worksheets {
+        top: 60px;
+        left: 65px;
+        width: 70px;
+    }
+}
+
 
 
 /*Animations*/
