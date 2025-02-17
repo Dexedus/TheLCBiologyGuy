@@ -308,11 +308,14 @@ app.post('/submit-optin', async (req, res) => {
 
 
 app.get('/landing', (req, res) => {
-    res.render("landing.ejs", {
-      title: "Warning",
-      message: "By closing this pop up or clicking the button below, you agree to not share any of my paid for material after purchasing it yourself.",
-      button: "Understood",
-    })
+    // res.render("landing.ejs", {
+    //   title: "Warning",
+    //   message: "By closing this pop up or clicking the button below, you agree to not share any of my paid for material after purchasing it yourself.",
+    //   button: "Understood",
+    // })
+
+
+    res.render("temporary.ejs");
 })
 
 app.get('/optout', (req, res) => {
@@ -334,11 +337,13 @@ app.get('/contact', (req, res) => {
 })
 
 app.get("/done", (req, res) => {
-  res.render("lesson.ejs", {
-    title: "Success!",
-    message: "You should recieve the details for these resources via an email sent to the address you entered at checkout. Be sure to check your spam just in case it gets filtered there. If you do not recieve an email after 24 hours please contact me at: thelcbiologyguy@gmail.com Thanks.",
-    button: "Close",
-  })
+  // res.render("landing.ejs", {
+  //   title: "Success!",
+  //   message: "You should recieve the details for these resources via an email sent to the address you entered at checkout. Be sure to check your spam just in case it gets filtered there. If you do not recieve an email after 24 hours please contact me at: thelcbiologyguy@gmail.com Thanks.",
+  //   button: "Close",
+  // })
+
+  res.render("temporary.ejs");
 })
 
 
@@ -346,57 +351,59 @@ app.get("/done", (req, res) => {
 
 
 
-app.get("/sendemail", async (req, res) => {
+// app.get("/sendemail", async (req, res) => {
 
-  // const firstName = "Karl"
-  // const customerEmail = "karlfleming64@gmail.com"
+//   // const firstName = "Karl"
+//   // const customerEmail = "karlfleming64@gmail.com"
 
-  // sendEmail(customerEmail, "subject", `Dear ${firstName},<br><br>Thank you for your purchase!<br><br>The Google Drive can be accessed <a href="https://drive.google.com/drive/folders/1Cu7TUE7uWIsgLjPIwW19VJcR-VCZAIw9?usp=sharing" target="_blank">here.</a><br>This folder is set to restricted access, I will grant you access as soon as possible.<br><br>If you have made a request and not received access within 30 minutes please respond to this email<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
-  //         <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
-  //           <input type="checkbox" name="unsubscribe">
-  //           <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
-  //           <input type="hidden" name="email" value="${customerEmail}">
-  //           <button type="submit">Submit</button>
-  //         </form><br><br>Best of luck with your revision!<br>Max`, "testWorked", db);
+//   // sendEmail(customerEmail, "subject", `Dear ${firstName},<br><br>Thank you for your purchase!<br><br>The Google Drive can be accessed <a href="https://drive.google.com/drive/folders/1Cu7TUE7uWIsgLjPIwW19VJcR-VCZAIw9?usp=sharing" target="_blank">here.</a><br>This folder is set to restricted access, I will grant you access as soon as possible.<br><br>If you have made a request and not received access within 30 minutes please respond to this email<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
+//   //         <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
+//   //           <input type="checkbox" name="unsubscribe">
+//   //           <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
+//   //           <input type="hidden" name="email" value="${customerEmail}">
+//   //           <button type="submit">Submit</button>
+//   //         </form><br><br>Best of luck with your revision!<br>Max`, "testWorked", db);
 
 
-      // Fetch emails from the database
-      const result = await db.query(`
-          SELECT free_resources_emails.email, free_resources_emails.timestamp
-          FROM free_resources_emails
-          JOIN promotions ON free_resources_emails.email = promotions.email
-          WHERE free_resources_emails.timestamp > '2025-01-14';
-      `);
+//       // Fetch emails from the database
+//       const result = await db.query(`
+// SELECT free_resources_emails.email, free_resources_emails.timestamp
+// FROM free_resources_emails
+// JOIN promotions ON free_resources_emails.email = promotions.email
+// WHERE free_resources_emails.timestamp >= '2025-02-01';
+//       `);
   
-      const emails = result.rows.map(row => row.email); // Extract email addresses
+//       const emails = result.rows.map(row => row.email); // Extract email addresses
   
-      if (emails.length === 0) {
-        console.log('No emails found to send.');
-      } else {
-        console.log('Emails sent')
-      }
 
-  // const emails = ["karlfleming64@gmail.com", "ksfwebdesigns@gmail.com"]
+//   // const emails = ["karlfleming64@gmail.com", "ksfwebdesigns@gmail.com"]
 
-  const msg = {
-    to: emails, // Array of recipients
-    from: SendgridSender, // Verified sender
-    subject: 'Missed My Mock Prep Classes? Get All The Resources Before Feb 16!',
-    html: `Hello,<br><br>The January Mock Prep classes may be over, but your child can still get the same expert guidance my students received!<br><br>The Mock Prep Bundle includes recordings, notes, and worksheets covering 6 key topics that come up in exams every year (or nearly every year):<br>✅ Photosynthesis<br>✅ Respiration<br>✅ Genetics & Genetic Engineering<br>✅ DNA<br>✅ Human Reproduction<br>✅ Plant Reproduction<br><br>Plus, I’m also including bonus notes on two more essential chapters:<br>📖 Enzymes<br>📖 Osmosis<br><br>With these resources, your child can revise at their own pace, receive personalized feedback from me, and build confidence for the mocks while laying the foundation to maximize their score in June.<br><br>The topics included can make up more than 50% of their grade and this bundle will only be available until <b>February 16th!</b><br><br>👉 Click <a href="https://www.thelcbiologyguy.ie/landing" target="_blank">here</a> to learn more and get access!<br><br>Best of luck with the upcoming exams!<br>Max (The LC Biology Guy)`,
-  };
-
-  sgMail
-  .sendMultiple(msg)
-  .then(() => {
-    console.log('Emails sent successfully!');
-  })
-  .catch((error) => {
-    console.error('Error sending emails:', error);
-  });
+//         if (emails.length === 0) {
+//         console.log('No emails found to send.');
+//       } else {
+//         console.log('Emails sent')
+//       }
 
 
-  res.redirect("/")
-})
+//   const msg = {
+//     to: emails, // Array of recipients
+//     from: SendgridSender, // Verified sender
+//     subject: '🚨 Final Chance! Biology Mock Prep Bundle Disappears Tonight!',
+//     html: `This is your <b>last reminder</b> – <b>the Mock Prep Bundle offer expires tonight at midnight!</b>⏳<br><br>I want to share an amazing testimonial from one of my students, Daniel who attended my final class on plant reproduction.<br><br>“The class was on plant reproduction and we went through all the relevant exam questions and corrected them thoroughly and it was made sure that I understood them. I would highly recommend The LC Biology Guy”<br><br>After today, the recordings, notes, and worksheets covering <b>6 key exam topics</b> will no longer be available:<br>✅ Photosynthesis<br>✅ Respiration<br>✅ Genetics & Genetic Engineering<br>✅ DNA<br>✅ Human Reproduction<br>✅ Plant Reproduction<br><br>Plus, your child will also get <b>bonus notes</b> on:<br>📖 Enzymes<br>📖 Osmosis<br><br>These resources are designed to help your child <b>revise effectively, get expert support, and build confidence</b> for the mocks while laying the foundation to <b>maximize their score in June.</b><br><br>If you want them to have access, <b>this is your final opportunity!</b><br><br>👉 <b>Get the Mock Prep Bundle before midnight! Click <a href="https://www.thelcbiologyguy.ie/landing" target="_blank">here</a>.</b><br><br>Don't let them miss out!<br><br>Best,<br>Max (The LC Biology Guy)`,
+//   };
+
+//   sgMail
+//   .sendMultiple(msg)
+//   .then(() => {
+//     console.log('Emails sent successfully!');
+//   })
+//   .catch((error) => {
+//     console.error('Error sending emails:', error);
+//   });
+
+
+//   res.redirect("/")
+// })
 
 
 
