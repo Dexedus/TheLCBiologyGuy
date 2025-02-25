@@ -129,7 +129,7 @@ app.post('/stripe/webhook', async (req, res) => {
         // Check product ID to determine which product was purchased
         if (productId === 'prod_RXmjWQSOFcm6Zv') {
           subject = 'Thanks for choosing the the Photosynthesis Masterclass'
-          message = `Dear ${firstName},<br><br>Thank you for purchasing the Photosynthesis Masterclass! You can join the live Zoom session using the link below. The notes and recording will be shared via Google Drive after the live session:<br><br>Photosynthesis Masterclass<br>Time: Jan 14, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_1_link}<br><br>Meeting ID: ${zoom_1_id} 4231<br>Passcode: ${zoom_1_passcode}<br><br>You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
+          message = `Dear ${firstName},<br><br>***THIS CLASS HAS ENDED. To get access to the recording, please email me and I will confirm your purchase before giving you access to the google drive.***<br><br>Thank you for purchasing the Photosynthesis Masterclass! You can join the live Zoom session using the link below. The notes and recording will be shared via Google Drive after the live session:<br><br>Photosynthesis Masterclass<br>Time: Jan 14, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_1_link}<br><br>Meeting ID: ${zoom_1_id} 4231<br>Passcode: ${zoom_1_passcode}<br><br>You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
           <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
             <input type="checkbox" name="unsubscribe">
             <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
@@ -149,7 +149,7 @@ app.post('/stripe/webhook', async (req, res) => {
           productTable = 'free_resources_emails';
         } else if (productId === 'prod_RXmmWoklq55vCR') {
           subject = 'Thanks for choosing the Respiration Masterclass'
-          message = `Dear ${firstName},<br><br>Thank you for purchasing the Respiration Masterclass! You can join the live Zoom session using the link below. The notes and recording will be shared via Google Drive after the live session:<br><br>Respiration Masterclass<br>Time: Jan 15, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_2_link}<br><br>Meeting ID: ${zoom_2_id} 4891<br>Passcode: ${zoom_2_passcode}<br><br>You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
+          message = `Dear ${firstName},<br><br>***THIS CLASS HAS ENDED. To get access to the recording, please email me and I will confirm your purchase before giving you access to the google drive.***<br><br>Thank you for purchasing the Respiration Masterclass! You can join the live Zoom session using the link below. The notes and recording will be shared via Google Drive after the live session:<br><br>Respiration Masterclass<br>Time: Jan 15, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_2_link}<br><br>Meeting ID: ${zoom_2_id} 4891<br>Passcode: ${zoom_2_passcode}<br><br>You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
           <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
             <input type="checkbox" name="unsubscribe">
             <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
@@ -159,7 +159,7 @@ app.post('/stripe/webhook', async (req, res) => {
           productTable = 'respiration_masterclass';
         } else if (productId === 'prod_RXmn78khy1Nvlp') {
           subject = 'Thanks for choosing the Genetics Masterclass'
-          message = `Dear ${firstName},<br><br>Thank you for purchasing the Genetics Masterclass! You can join the live Zoom session using the link below. The notes and recording will be shared via Google Drive after the live session:<br><br>Genetics Masterclass<br>Time: Jan 19, 2025, 03:00 PM London<br>Join Zoom Meeting<br>${zoom_3_link}<br><br>Meeting ID: ${zoom_3_id} 2818<br>Passcode: ${zoom_3_passcode}<br><br>You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
+          message = `Dear ${firstName},<br><br>***THIS CLASS HAS ENDED. To get access to the recording, please email me and I will confirm your purchase before giving you access to the google drive.***<br><br>Thank you for purchasing the Genetics Masterclass! You can join the live Zoom session using the link below. The notes and recording will be shared via Google Drive after the live session:<br><br>Genetics Masterclass<br>Time: Jan 19, 2025, 03:00 PM London<br>Join Zoom Meeting<br>${zoom_3_link}<br><br>Meeting ID: ${zoom_3_id} 2818<br>Passcode: ${zoom_3_passcode}<br><br>You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
           <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
             <input type="checkbox" name="unsubscribe">
             <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
@@ -169,7 +169,7 @@ app.post('/stripe/webhook', async (req, res) => {
           productTable = 'genetics_masterclass';
         } else if (productId === 'prod_RXmn0zHOZtlpwj') {
           subject = 'Thanks for choosing the DNA Masterclass'
-          message = `Dear ${firstName},<br><br>Thank you for purchasing the DNA Masterclass! You can join the live Zoom session using the link below. The notes and recording will be shared via Google Drive after the live session:<br><br>DNA Masterclass<br>Time: Jan 21, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_4_link}<br><br>Meeting ID: ${zoom_4_id} 0178<br>Passcode: ${zoom_4_passcode}<br><br>You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
+          message = `Dear ${firstName},<br><br>***THIS CLASS HAS ENDED. To get access to the recording, please email me and I will confirm your purchase before giving you access to the google drive.***<br><br>Thank you for purchasing the DNA Masterclass! You can join the live Zoom session using the link below. The notes and recording will be shared via Google Drive after the live session:<br><br>DNA Masterclass<br>Time: Jan 21, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_4_link}<br><br>Meeting ID: ${zoom_4_id} 0178<br>Passcode: ${zoom_4_passcode}<br><br>You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
           <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
             <input type="checkbox" name="unsubscribe">
             <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
@@ -179,7 +179,7 @@ app.post('/stripe/webhook', async (req, res) => {
           productTable = 'dna_masterclass';
         } else if (productId === 'prod_RXmojuJYIFAWqU') {
           subject = 'Thanks for choosing the Human Reproduction Masterclass'
-          message = `Dear ${firstName},<br><br>Thank you for purchasing the Human Reproduction Masterclass! You can join the live Zoom session using the link below. The notes and recording will be shared via Google Drive after the live session:<br><br>Human Reproduction Masterclass<br>Time: Jan 22, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_5_link}<br><br>Meeting ID: ${zoom_5_id}<br>Passcode: ${zoom_5_passcode}<br><br>You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
+          message = `Dear ${firstName},<br><br>***THIS CLASS HAS ENDED. To get access to the recording, please email me and I will confirm your purchase before giving you access to the google drive.***<br>Thank you for purchasing the Human Reproduction Masterclass! You can join the live Zoom session using the link below. The notes and recording will be shared via Google Drive after the live session:<br><br>Human Reproduction Masterclass<br>Time: Jan 22, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_5_link}<br><br>Meeting ID: ${zoom_5_id}<br>Passcode: ${zoom_5_passcode}<br><br>You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
           <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
             <input type="checkbox" name="unsubscribe">
             <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
@@ -189,7 +189,7 @@ app.post('/stripe/webhook', async (req, res) => {
           productTable = 'human_reproduction';
         } else if (productId === 'prod_RXmoDNYmM66p5L') {
           subject = 'Thanks for choosing the Plant Reproduction Masterclass'
-          message = `Dear ${firstName},<br><br>Thank you for purchasing the Plant Reproduction Masterclass! You can join the live Zoom session using the link below. The notes and recording will be shared via Google Drive after the live session:<br><br>Plant Reproduction Masterclass<br>Time: Jan 26, 2025, 03:00 PM London<br>Join Zoom Meeting<br>${zoom_6_link}<br><br>Meeting ID: ${zoom_6_id}<br>Passcode: ${zoom_6_passcode}<br><br>You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
+          message = `Dear ${firstName},<br><br>***THIS CLASS HAS ENDED. To get access to the recording, please email me and I will confirm your purchase before giving you access to the google drive.***<br>Thank you for purchasing the Plant Reproduction Masterclass! You can join the live Zoom session using the link below. The notes and recording will be shared via Google Drive after the live session:<br><br>Plant Reproduction Masterclass<br>Time: Jan 26, 2025, 03:00 PM London<br>Join Zoom Meeting<br>${zoom_6_link}<br><br>Meeting ID: ${zoom_6_id}<br>Passcode: ${zoom_6_passcode}<br><br>You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
           <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
             <input type="checkbox" name="unsubscribe">
             <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
@@ -199,7 +199,7 @@ app.post('/stripe/webhook', async (req, res) => {
           productTable = 'plant_reproduction';
         } else if (productId === 'prod_RXmsodti50pHO8') {
           subject = 'Thanks for choosing the Mock Prep Bundle'
-          message = `Dear ${firstName},<br><br>Thank you for purchasing the Mock Prep Bundle! You can join the live Zoom sessions using the links below. The notes and recording for each class will be sent after the live session for that class concludes:<br><br>Photosynthesis Masterclass<br>Time: Jan 14, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_1_link}<br><br>Meeting ID: ${zoom_1_id}<br>Passcode: ${zoom_1_passcode}<br><br>Respiration Masterclass<br>Time: Jan 15, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_2_link}<br><br>Meeting ID: ${zoom_2_id}<br>Passcode: ${zoom_2_passcode}<br><br>Genetics Masterclass<br>Time: Jan 19, 2025, 03:00 PM London<br>Join Zoom Meeting<br>${zoom_3_link}<br><br>Meeting ID: ${zoom_3_id}<br>Passcode: ${zoom_3_passcode}<br><br>DNA Masterclass<br>Time: Jan 21, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_4_link}<br><br>Meeting ID: ${zoom_4_id}<br>Passcode: ${zoom_4_passcode}<br><br>Human Reproduction Masterclass<br>Time: Jan 22, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_5_link}<br><br>Meeting ID: ${zoom_5_id}<br>Passcode: ${zoom_5_passcode}<br><br>Plant Reproduction Masterclass<br>Time: Jan 26, 2025, 03:00 PM London<br>Join Zoom Meeting<br>${zoom_6_link}<br><br>Meeting ID: ${zoom_6_id}<br>Passcode: ${zoom_6_passcode}<br><br>You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
+          message = `Dear ${firstName},<br><br>Thank you for your purchase!<br><br>The Google Drive can be accessed <a href="https://drive.google.com/drive/folders/1Cu7TUE7uWIsgLjPIwW19VJcR-VCZAIw9?usp=sharing" target="_blank">here.</a><br>This folder is set to restricted access, I will grant you access as soon as possible.<br><br>If you have made a request and not received access within 30 minutes please respond to this email<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
           <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
             <input type="checkbox" name="unsubscribe">
             <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
@@ -234,11 +234,11 @@ app.post('/stripe/webhook', async (req, res) => {
         //send the email.        
           sendEmail(customerEmail, subject, message, emailSent, db);
 
-          if (productId === 'prod_RRl0T5qS265k7U') {
+          if (productId === 'prod_RRl0T5qS265k7U' && unsubbedresult.rows.length === 0) {
           {
           setTimeout(() => {
-            const secondSubject = 'We also sell paid products!';
-            const secondMessage = `Dear ${firstName},<br><br>Thank you so much for supporting my page! I’m reaching out because you just got my free notes for your child. It's great that you're taking their study seriously. The best performing students I have seen have this support so keep it up! We also offer paid masterclasses that cover a range of topics. Feel free to check them out on our website: <a href="https://www.thelcbiologyguy.ie/lesson" target="_blank">The LC Biology Guy</a>.<br><br>How is child finding the notes so far?<br><br>Best regards,<br>The LC Biology Guy<br><br>We would like to send you more promotional emails in the future but if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
+            const secondSubject = 'Is your child struggling with LC Biology?';
+            const secondMessage = `Hi ${firstName},<br><br>Your child recently received my free H1 highlighted notes for Unit 1 and the 3 Cell topics. As I write this over 1200 students have downloaded the notes, which is truly incredible! Thank you for your support.<br><br>I have received many positive emails, but I would love to hear from you!<br><br>I have opened a Google reviews page and it would mean the world to me if you could leave me a 5-star Google review mentioning the free H1 Highlighted notes:<a href="https://www.google.com/maps/place//data=!4m3!3m2!1s0x6cad1d58dd492631:0xa7fc2af1a72b181d!12e1?source=g.page.m.ia._&laa=nmx-review-solicitation-ia2" target="_blank">HERE</a><br><br>I wish your child the very best with their study!<br>Best regards,<br>Max (The LC Biology Guy)<br><br>We would like to send you more promotional emails in the future but if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
           <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
             <input type="checkbox" name="unsubscribe">
             <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
@@ -247,12 +247,12 @@ app.post('/stripe/webhook', async (req, res) => {
           </form><br><br>Best of luck with your revision!<br>Max`;
     
             sendEmail(customerEmail, secondSubject, secondMessage, `Marketing email sent to ${customerEmail}`, db);
-        }, 300000); // 300000 milliseconds = 5 minutes
+        }, 1800000); // 300000 milliseconds = 5 minutes
       }
       }
           
         } else {
-          sendEmail(customerEmail, "Sorry", "Dear customer,\n\nYou have already purchased this product. I don't allow multiple purchases of my products from the same customer. If you purchased something and still haven't recieved an email with the necessary links, please make sure to check your spam and promotion folders. If you still don't have it after 24 hours, then please contact me at my email address: thelcbiologyguy@gmail.com \n\nBest regards,\nThe LC Biology Guy")
+          sendEmail(customerEmail, "Sorry", "Dear customer,<br><br>It looks like you might have purchased one of my products twice.<br>If this was a paid product, then it must have been a mistake. Please contact me if this was the case.<br><br>If you purchased my free resources package, and tried to do it again, and still haven't recieved an email with the necessary links, please make sure to check your spam and promotion folders. If you still don't have it after 24 hours, then please contact me at my email address: thelcbiologyguy@gmail.com<br><br>Best regards,<br>The LC Biology Guy", "Double product purchase email", db)
           console.log("email already exists in the database table of this product")
     }
    }
@@ -280,7 +280,7 @@ app.post('/unsubscribe', async (req, res) => {
     try {
       // Insert the email into the 'unsubbed' table
       await db.query('DELETE FROM promotions WHERE email = $1', [email]);
-      await db.query('INSERT INTO unsubbed (email) VALUES ($1)', [email])
+      await db.query('INSERT INTO unsubbed (email) VALUES ($1)', [email]);
       res.render("optout.ejs")
     } catch (err) {
       console.error(err);
@@ -307,12 +307,13 @@ app.post('/submit-optin', async (req, res) => {
 })
 
 
-app.get('/lesson', (req, res) => {
-    res.render("lesson.ejs", {
+app.get('/landing', (req, res) => {
+    res.render("landing.ejs", {
       title: "Warning",
       message: "By closing this pop up or clicking the button below, you agree to not share any of my paid for material after purchasing it yourself.",
       button: "Understood",
     })
+
 })
 
 app.get('/optout', (req, res) => {
@@ -334,12 +335,76 @@ app.get('/contact', (req, res) => {
 })
 
 app.get("/done", (req, res) => {
-  res.render("lesson.ejs", {
-    title: "Success!",
-    message: "You should recieve the details for the zoom class via an email sent to the address you entered at checkout. Be sure to check your spam just in case it gets filtered there. If you do not recieve an email after 24 hours please contact me at: thelcbiologyguy@gmail.com Thanks.",
-    button: "Close",
-  })
+  // res.render("landing.ejs", {
+  //   title: "Success!",
+  //   message: "You should recieve the details for these resources via an email sent to the address you entered at checkout. Be sure to check your spam just in case it gets filtered there. If you do not recieve an email after 24 hours please contact me at: thelcbiologyguy@gmail.com Thanks.",
+  //   button: "Close",
+  // })
+
+  res.render("landing.ejs");
 })
+
+
+
+
+
+
+// app.get("/sendemail", async (req, res) => {
+
+//   // const firstName = "Karl"
+//   // const customerEmail = "karlfleming64@gmail.com"
+
+//   // sendEmail(customerEmail, "subject", `Dear ${firstName},<br><br>Thank you for your purchase!<br><br>The Google Drive can be accessed <a href="https://drive.google.com/drive/folders/1Cu7TUE7uWIsgLjPIwW19VJcR-VCZAIw9?usp=sharing" target="_blank">here.</a><br>This folder is set to restricted access, I will grant you access as soon as possible.<br><br>If you have made a request and not received access within 30 minutes please respond to this email<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
+//   //         <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
+//   //           <input type="checkbox" name="unsubscribe">
+//   //           <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
+//   //           <input type="hidden" name="email" value="${customerEmail}">
+//   //           <button type="submit">Submit</button>
+//   //         </form><br><br>Best of luck with your revision!<br>Max`, "testWorked", db);
+
+
+//       // Fetch emails from the database
+//       const result = await db.query(`
+// SELECT free_resources_emails.email, free_resources_emails.timestamp
+// FROM free_resources_emails
+// JOIN promotions ON free_resources_emails.email = promotions.email
+// WHERE free_resources_emails.timestamp >= '2025-02-01';
+//       `);
+  
+//       const emails = result.rows.map(row => row.email); // Extract email addresses
+  
+
+//   // const emails = ["karlfleming64@gmail.com", "ksfwebdesigns@gmail.com"]
+
+//         if (emails.length === 0) {
+//         console.log('No emails found to send.');
+//       } else {
+//         console.log('Emails sent')
+//       }
+
+
+//   const msg = {
+//     to: emails, // Array of recipients
+//     from: SendgridSender, // Verified sender
+//     subject: '🚨 Final Chance! Biology Mock Prep Bundle Disappears Tonight!',
+//     html: `This is your <b>last reminder</b> – <b>the Mock Prep Bundle offer expires tonight at midnight!</b>⏳<br><br>I want to share an amazing testimonial from one of my students, Daniel who attended my final class on plant reproduction.<br><br>“The class was on plant reproduction and we went through all the relevant exam questions and corrected them thoroughly and it was made sure that I understood them. I would highly recommend The LC Biology Guy”<br><br>After today, the recordings, notes, and worksheets covering <b>6 key exam topics</b> will no longer be available:<br>✅ Photosynthesis<br>✅ Respiration<br>✅ Genetics & Genetic Engineering<br>✅ DNA<br>✅ Human Reproduction<br>✅ Plant Reproduction<br><br>Plus, your child will also get <b>bonus notes</b> on:<br>📖 Enzymes<br>📖 Osmosis<br><br>These resources are designed to help your child <b>revise effectively, get expert support, and build confidence</b> for the mocks while laying the foundation to <b>maximize their score in June.</b><br><br>If you want them to have access, <b>this is your final opportunity!</b><br><br>👉 <b>Get the Mock Prep Bundle before midnight! Click <a href="https://www.thelcbiologyguy.ie/landing" target="_blank">here</a>.</b><br><br>Don't let them miss out!<br><br>Best,<br>Max (The LC Biology Guy)`,
+//   };
+
+//   sgMail
+//   .sendMultiple(msg)
+//   .then(() => {
+//     console.log('Emails sent successfully!');
+//   })
+//   .catch((error) => {
+//     console.error('Error sending emails:', error);
+//   });
+
+
+//   res.redirect("/")
+// })
+
+
+
 
 
 
