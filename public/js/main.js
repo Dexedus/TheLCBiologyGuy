@@ -29,6 +29,11 @@ window.onload = function() {
 
 
 
+
+
+
+
+
 // Function to handle when an element comes into view
 const handleIntersection = (entries, observer) => {
     entries.forEach(entry => {
