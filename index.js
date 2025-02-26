@@ -43,8 +43,13 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
 
     const customerEmail = session.receipt_email || session.customer_details.email; // Get the customer email
 
-    console.log(customerEmail)
+        if (customerEmail) {
+      console.log(customerEmail);
+      
+      const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 10 }); // Get line items
+      console.log(lineItems)
     
+    }
   }
   res.status(200).json({ received: true });
 });
