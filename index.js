@@ -24,7 +24,6 @@ db.connect();
 
 //Middleware
 app.use(express.json());
-app.use(bodyParser.raw({ type: 'application/json' }));
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
