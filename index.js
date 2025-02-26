@@ -118,6 +118,16 @@ app.post('/create-checkout-session', async (req, res) => {
           mode: 'payment',
           success_url: `${process.env.DOMAIN}/done`,
           cancel_url: `${process.env.DOMAIN}/cancel`,
+          custom_fields: [
+                    {
+                      key: 'first_name',
+                      label: {
+                        type: 'custom',
+                        custom: 'Parent First Name',
+                      },
+                      type: 'text',
+                    },
+                  ],
       });
 
       // Send the session ID to the frontend
@@ -128,6 +138,37 @@ app.post('/create-checkout-session', async (req, res) => {
   }
 });
 
+
+
+
+app.post('/stripe/webhook', async (req, res) => {
+    const sig = req.headers['stripe-signature'];
+  
+    let event;
+  
+    // Verify the Stripe webhook signature
+    try {
+      event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+    } catch (err) {
+      console.error('Error verifying webhook signature:', err);
+      return res.status(400).send(`Webhook Error: ${err.message}`);
+    }
+  
+    // Handle successful payment (for both Stripe Checkout and Payment Intents)
+    if (event.type === 'checkout.session.async_payment_succeeded' || event.type === 'checkout.session.completed') {
+      const session = event.data.object;
+  
+      const customerEmail = session.receipt_email || session.customer_details.email; // Get the customer email
+      const firstNameField = session.custom_fields.find(field => field.key === 'first_name');
+      const firstName = firstNameField ? firstNameField.text.value : 'Default Name';
+
+      console.log(customerEmail)
+      console.log(firstName)
+      
+
+    }
+  }
+)
 
 
 
