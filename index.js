@@ -23,8 +23,8 @@ const db = new pg.Client({
 db.connect();
 
 //Middleware
-app.use(bodyParser.raw({ type: 'application/json' }));
 app.use(express.json());
+app.use(bodyParser.raw({ type: 'application/json' }));
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
@@ -141,7 +141,7 @@ app.post('/create-checkout-session', async (req, res) => {
 
 
 
-app.post('/stripe/webhook', async (req, res) => {
+app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature'];
   
     let event;
