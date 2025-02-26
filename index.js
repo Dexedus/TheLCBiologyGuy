@@ -46,8 +46,16 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
         if (customerEmail) {
       console.log(customerEmail);
       
+      const products = []
       const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 10 }); // Get line items
-      console.log(lineItems)
+      lineItems.data.forEach(item => {
+        products.push(item.description)
+      });
+
+      console.log(products)
+
+
+      
     
     }
   }
