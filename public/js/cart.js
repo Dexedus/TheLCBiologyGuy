@@ -6,8 +6,7 @@ function addToCart(product) {
     const existingProduct = cart.find(item => item.id === product.id);
 
     if (existingProduct) {
-        // If it exists, increase the quantity
-        existingProduct.quantity += 1;
+        alert("Item is already in your cart")
     } else {
         // If it doesn't exist, add it as a new item with quantity 1
         product.quantity = 1;
@@ -43,8 +42,8 @@ document.querySelectorAll(".add-to-cart-btn").forEach(button => {
         // Add the product to the cart
         addToCart(product);
 
-        // Optionally, display a message to the user
-        alert(`${product.name} has been added to your cart!`);
+        // // Optionally, display a message to the user
+        // alert(`${product.name} has been added to your cart!`);
     });
 });
 

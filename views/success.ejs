@@ -4,11 +4,19 @@
 
 
     <script>
-        window.onload = function() {
+        // Ensure this runs after the DOM content is loaded
+        document.addEventListener("DOMContentLoaded", function() {
+            // Clear localStorage cart item
             localStorage.removeItem("cart");
             console.log('Cart has been cleared!');
-        }
+            
+            // Update the cart count display to 0
+            const cartCount = 0;
+            document.getElementById("cart-count").textContent = cartCount;
+            console.log("Cart number set to 0");
+        });
     </script>
+    
 
 
     <div id="popup">
