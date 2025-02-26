@@ -22,9 +22,37 @@ const db = new pg.Client({
 });
 db.connect();
 
+
+
+app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
+  const sig = req.headers['stripe-signature'];
+
+  let event;
+
+  // Verify the Stripe webhook signature
+  try {
+    event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+  } catch (err) {
+    console.error('Error verifying webhook signature:', err);
+    return res.status(400).send(`Webhook Error: ${err.message}`);
+  }
+
+  // Handle successful payment (for both Stripe Checkout and Payment Intents)
+  if (event.type === 'checkout.session.async_payment_succeeded' || event.type === 'checkout.session.completed') {
+    const session = event.data.object;
+
+    const customerEmail = session.receipt_email || session.customer_details.email; // Get the customer email
+
+    console.log(customerEmail)
+    
+  }
+  res.status(200).json({ received: true });
+});
+
+
+
 //Middleware
 app.use(express.json());
-app.use(bodyParser.raw({ type: 'application/json' }));
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
@@ -91,80 +119,6 @@ const sendEmail = (toEmail, subject, message, emailSent, db) => {
 };
 
 
-
-
-
-app.post('/create-checkout-session', async (req, res) => {
-  const { cart } = req.body;
-
-  console.log('Cart after sending:', cart);  // Log the cart to ensure it's not empty or undefined
-
-  // Check if cart is empty or undefined
-  if (!cart || cart.length === 0) {
-      return res.status(400).json({ error: 'Cart is empty' });
-  }
-
-  // Create an array of line items for Stripe Checkout
-  const lineItems = cart.map(item => ({
-          price: item.priceId,  // ✅ Use Stripe's pre-defined Price ID
-          quantity: item.quantity,
-  }));
-
-  try {
-      // Create a Checkout session with Stripe
-      const session = await stripe.checkout.sessions.create({
-          payment_method_types: ['card'],
-          line_items: lineItems,
-          mode: 'payment',
-          success_url: `${process.env.DOMAIN}/done`,
-          cancel_url: `${process.env.DOMAIN}/cancel`,
-          custom_fields: [
-                    {
-                      key: 'first_name',
-                      label: {
-                        type: 'custom',
-                        custom: 'Parent First Name',
-                      },
-                      type: 'text',
-                    },
-                  ],
-      });
-
-      // Send the session ID to the frontend
-      res.json({ sessionId: session.id });
-  } catch (err) {
-      console.error('Error creating checkout session:', err);
-      res.status(500).json({ error: 'Failed to create checkout session' });
-  }
-});
-
-
-
-
-app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
-    const sig = req.headers['stripe-signature'];
-  
-    let event;
-  
-    // Verify the Stripe webhook signature
-    try {
-      event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
-    } catch (err) {
-      console.error('Error verifying webhook signature:', err);
-      return res.status(400).send(`Webhook Error: ${err.message}`);
-    }
-  
-    // Handle successful payment (for both Stripe Checkout and Payment Intents)
-    if (event.type === 'checkout.session.async_payment_succeeded' || event.type === 'checkout.session.completed') {
-      const session = event.data.object;
-  
-      const customerEmail = session.receipt_email || session.customer_details.email; // Get the customer email
-
-      console.log(customerEmail)
-      
-    }
-    res.status(200).json({ received: true });
-  });
 
 
 
@@ -498,6 +452,50 @@ app.get("/done", (req, res) => {
 
 
 
+
+app.post('/create-checkout-session', async (req, res) => {
+  const { cart } = req.body;
+
+  console.log('Cart after sending:', cart);  // Log the cart to ensure it's not empty or undefined
+
+  // Check if cart is empty or undefined
+  if (!cart || cart.length === 0) {
+      return res.status(400).json({ error: 'Cart is empty' });
+  }
+
+  // Create an array of line items for Stripe Checkout
+  const lineItems = cart.map(item => ({
+          price: item.priceId,  // ✅ Use Stripe's pre-defined Price ID
+          quantity: item.quantity,
+  }));
+
+  try {
+      // Create a Checkout session with Stripe
+      const session = await stripe.checkout.sessions.create({
+          payment_method_types: ['card'],
+          line_items: lineItems,
+          mode: 'payment',
+          success_url: `${process.env.DOMAIN}/done`,
+          cancel_url: `${process.env.DOMAIN}/cancel`,
+          custom_fields: [
+                    {
+                      key: 'first_name',
+                      label: {
+                        type: 'custom',
+                        custom: 'Parent First Name',
+                      },
+                      type: 'text',
+                    },
+                  ],
+      });
+
+      // Send the session ID to the frontend
+      res.json({ sessionId: session.id });
+  } catch (err) {
+      console.error('Error creating checkout session:', err);
+      res.status(500).json({ error: 'Failed to create checkout session' });
+  }
+});
 
 
 
