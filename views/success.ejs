@@ -1,0 +1,334 @@
+<%- include("partials/header.ejs")  %>
+
+<main style="display: flex; align-items: center; flex-direction: column; width: 100%;">
+
+
+    <script>
+        window.onload = function() {
+            clearCart()
+            console.log('Cart has been cleared!');
+        }
+    </script>
+
+
+    <div id="popup">
+  
+      <!-- EJS renders the modal text differently depending on whether the user loaded the page normally or was redirected here after purchase -->
+    
+      <div class="modal modal-sheet position-static d-block p-4 py-md-5" tabindex="-1" role="dialog" id="modalSheet">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content rounded-4 shadow">
+            <div class="modal-header border-bottom-0">
+              <h1 class="modal-title fs-5"><%= title %></h1>
+              <button type="button" class="btn-close" id="quit" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body py-0">
+              <p><%= message %></p>
+            </div>
+            <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+              <button type="button" id="close" class="btn btn-lg btn-secondary" data-bs-dismiss="modal"><%= button %></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+  
+  
+  <!-- Headline -->
+  <div class="col-xxl-8 px-4 mx-auto" style="width: 100%; background-image: url(/images/background-biology.jpg); padding-top: 100px!important; position: relative; padding-bottom: 35px;">
+  <div class="container">
+      <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+        <video style="width: 100%!important; max-width: 380px!important; margin: auto; border: solid 2px #3b7765; padding: 0px!important; border-radius: 20px;" class="col-10 col-sm-8 col-lg-6" controls autoplay>
+          <source src="/videos/LandingpageVSL.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="col-lg-6" style="background-color: white; padding: 40px; border-radius: 20px; box-shadow: 5px 8px 20px #5e5e5e;">
+          <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Master Key Exam Topics with 6 Classes, Expert Feedback & Time-Saving Notes.</h1>
+          <p class="lead">Recordings and notes covering the most frequently asked topics: Photosynthesis, Respiration, Genetics, DNA, Human and Plant Reproduction.</p>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <form action="/api/create-checkout-session" method="POST">
+              <input type="hidden" name="priceId" value="price_1QehIfGUne0h98JDTLw1J30Y">
+              <button type="submit" class="btn btn-lg btn-primary">Get Started</button>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="urgencyText"><p class="lead" id="urgencyText" style="width: 100%;">Offer Only Available Until Friday Feburary 16th</p></div>
+    </div>
+  
+  
+    <!-- Reviews -->
+    <div style="width: 100%; background-color: white; display: flex; flex-direction: column; padding-bottom: 70px;" class="pt-5">
+      <h2 style="text-align: center;" class="mb-4 d-flex justify-content-center"><div id="star1">⭐</div>Reviews<div id="star2">⭐</div></h2>
+      <div class="container">
+        <div class="row justify-content-center gap-4">  
+          
+          <div class="col-md-4 col-lg-3 col-sm-12 d-flex justify-content-center box reviewCard" id="reviewCard">
+            <div class="card" style="width: 18rem; border: solid 1px #3c806c!important; border-radius: 10px; box-shadow: 3px 7px 20px #d4d4d4;">
+              <div class="card-body">
+                <img src="/images/default-avatar-photo-placeholder.jpg" class="mb-2" height="50px" width="50px" style="border-radius: 50%;" alt="profile picture">
+                <p class="card-text" style="min-height: 55%;">I was struggling with biology but I feel far more confident and I will definitely do more of your classes in future if you do them</p>
+                <div class="d-flex align-items-center">
+                  <h5 class="card-title">Aimee Mc</h5>
+                  <h6 class="card-subtitle mb-1 mx-4 text-body-secondary">Student</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <div class="col-md-4 col-lg-3 col-sm-12 d-flex justify-content-center box reviewCard" id="reviewCard2">
+            <div class="card" style="width: 18rem; border: solid 1px #3c806c!important; border-radius: 10px; box-shadow: 3px 7px 20px #d4d4d4;">
+              <div class="card-body">
+                <img src="/images/default-avatar-photo-placeholder.jpg" class="mb-2" height="50px" width="50px" style="border-radius: 50%;" alt="profile picture">
+                <p class="card-text" style="min-height: 55%;">We went through all the relevant exam questions and corrected them thoroughly and it was made sure that I understood them. I would highly recommend The LC Biology Guy</p>
+                <div class="d-flex align-items-center">
+                  <h5 class="card-title">Daniel</h5>
+                  <h6 class="card-subtitle mb-1 mx-4 text-body-secondary">Student</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <div class="col-md-4 col-lg-3 col-sm-12 d-flex justify-content-center box reviewCard" id="reviewCard3">
+            <div class="card" style="width: 18rem; border: solid 1px #3c806c!important; border-radius: 10px; box-shadow: 3px 7px 20px #d4d4d4;">
+              <div class="card-body">
+                <img src="/images/default-avatar-photo-placeholder.jpg" class="mb-2" height="50px" width="50px" style="border-radius: 50%;" alt="profile picture">
+                <p class="card-text" style="min-height: 55%;">I understand genetics a lot better now. The way you explained it with the diagrams made it easy to understand. Thank you again</p>
+                <div class="d-flex align-items-center">
+                  <h5 class="card-title">Rachel</h5>
+                  <h6 class="card-subtitle mb-1 mx-4 text-body-secondary">Student</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
+    <!-- Your Story -->
+    <div class="px-4 pt-5 text-center" style="border-top: solid 2px #3c806c; border-bottom: solid 2px #3c806c; width: 100%;">
+      <h1 class="display-4 fw-bold box" style="color: #3b7765;" id="storyTitle">My Story</h1>
+      <div class="col-lg-6 mx-auto box" id="storyText">
+        <p class="lead mb-4" style="color: #205242;">Students ask me all the time how to study hard biology chapters. I get questions in comments, emails, and messages. So, in Novemeber, I began teaching the most requested chapters. These chapters:</p>
+        <ol class="lead mb-4 mx-4" style="color: #205242!important; text-align: start; display: flex; flex-direction: column; align-items: center; padding: 0px!important; text-align: center;">
+          <li>Seem the hardest</li>
+          <li>Show up the most in exams,</li>
+          <li>Make up over 50% of your grade (Yes, they matter a lot!)</li>
+        </ol>
+      </div>
+      <div class="container overflow-hidden" style="max-height: 30vh; border-bottom: solid 1px #91d3c0!important; position: relative!important;">
+        <div class="container px-5 box" id="storyImage">
+          <img src="/images/mockup.png" class="img-fluid mb-4" alt="Example image" width="700" height="500" loading="lazy">
+          <img src="/images/smallerPhone.png" style="position: absolute!important; width: 170px; height: auto; max-width: 100%; top: 20px; right: 400px; object-fit: contain;" id="phoneMock" class="img-fluid mb-4" alt="Example image">      
+        </div>
+      </div>
+      <div class="col-lg-6 mx-auto box" id="storyText2">
+        <p class="lead my-4" style="color: #205242;">I love teaching biology and want to make it easy to understand. I made these topics easier to understand. I use simple diagrams to show ideas. When students see what’s happening, it makes sense.<br><br>Students also love practicing exam questions. This helps them remember and feel ready.<br><br>Over 30 students now feel more confident with these chapters!</p>
+      </div>
+      <form action="/api/create-checkout-session" method="POST">
+        <input type="hidden" name="priceId" value="price_1QehIfGUne0h98JDTLw1J30Y">
+        <button type="submit" class="my-3 btn btn-lg btn-primary box" style="transform: translateY(0px)!important;" id="myStoryButton">Get Started</button>
+        </form>
+    </div>
+    
+  
+    <!-- social proof 2 -->
+    <div class="px-3 pt-5" style="background-color: white; width: 100%;">
+    <div class="my-5 container box" id="testimonialTab" style="background-color: #fdfdfd; border: solid 1px #d4d4d4; border-radius: 20px; box-shadow: 3px 7px 20px #d4d4d4;">
+      <div class="p-5 rounded-3">
+        <h1 class="text-body-emphasis">Testimonials</h1>
+        <div class="row">
+          <p class="lead" style=" width: 80%; margin-bottom: -20px;">
+            <i>“It was really helpful as I've only done DNA in class but still wanted to know Genetics for the mocks. Even though it was a recording, every question I had was quickly explained .Overall I'm very happy with it as I was going to use the class to try learn the basics, but I genuinely feel confident in the topic now from just 1 class!”</i>
+          </p>
+          <h3 style="text-align: end; width: 100%; align-self: flex-end;">- Agne</h3>
+        </div>
+        <div class="divider" style="margin-bottom: 10px; background-color: rgb(36, 36, 36);"></div>
+        <div class="row">
+          <p class="lead" style=" width: 80%;">
+            <i>“In the recordings the way you broke everything down made it easier for me to understand everything especially the simple diagrams!! I also loved the notes there was a lot of useful information on them but it was broken down easily not just loads of information at once”</i>
+          </p>
+          <h3 style="text-align: end; width: 100%; align-self: flex-end;">- Aimee D</h3>
+        </div>
+      </div>
+    </div>
+    </div>
+  
+  
+    <!-- What you get -->
+    <div class="col-xxl-8 px-4 pt-5" style="background-color: white; width: 100%;">
+      <div class="container">
+      <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3 box" style="text-align: center; margin-top: 50px!important;" id="whatYouGetTitle">🔬What You Get🔬</h1>
+      <div class="row flex-lg-row-reverse align-items-center g-5 py-5 box" id="whatYouGet">
+        <div class="col-12 col-sm-12 col-lg-6" style="display: flex; justify-content: center; position: relative;">
+          <img src="/images/monitor.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" id="monitor" height="500" loading="lazy">
+          <img src="/images/Worksheets-portrait.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" id="worksheets" loading="lazy" style="position: absolute;">
+          <img src="/images/Notes.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" id="notebook" loading="lazy" style="position: absolute;">
+        </div>
+        <div class="col-lg-6">
+          <ul>
+              <h5><li>Each Masterclass has a video. It is 90 to 120 minutes long. In total, there are about 11 hours of lessons. Each class covers a full chapter and exam questions.</li></h5>
+              <h5><li>You also get special notes. Important past-examined content is marked in yellow. This helps you study faster!</li></h5>
+              <h5><li>For Unit 2, you get worksheets with common exam questions. This excludes human and plant reproduction (for now!)</li></h5>
+              <h5><li>Send me your answers, and I will give you feedback.</li></h5>
+              <h5><li>You also get 2 bonus notes on Enzymes and Osmosis!</li></h5>
+          </ul>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <form action="/api/create-checkout-session" method="POST">
+              <input type="hidden" name="priceId" value="price_1QehIfGUne0h98JDTLw1J30Y">
+              <button type="submit" class="btn btn-lg btn-primary">Get Started</button>
+              </form>
+          </div>
+        </div>
+        </div>
+      </div>
+      </div>
+  
+      <!-- Classes -->
+      <div class="col-xxl-8 px-4 py-2" style="background-color: white; width: 100%; padding-top: 50px;">
+          <div class="container">
+          <div class="row flex-lg-row align-items-center g-5 py-5 box" id="offer">
+            <div class="col-12 col-sm-8 col-lg-6">
+              <img src="/images/MOCKPREPBUNDLE.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="400" height="500" loading="lazy">
+            </div>
+            <div class="col-lg-6">
+              <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">€97 euro</h1>
+              <p class="lead"><b>Recordings for the 6 topics + 2 bonus notes exclusively with this bundle. One time payment.</b></p>
+              <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                <form action="/api/create-checkout-session" method="POST">
+                  <input type="hidden" name="priceId" value="price_1QehIfGUne0h98JDTLw1J30Y">
+                  <button type="submit" class="btn btn-lg btn-primary">Buy Now</button>
+                  </form>
+              </div>
+              <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+              </div>
+            </div>
+          </div>
+          </div>
+          <div class="divider container mt-5"></div> 
+  
+  
+          <!-- Social Proof 3 -->
+          <div class="container">
+          <div style="width: 100%; height: 100%; background-color: white; margin: auto; border-radius: 20px;" id="greenReview" class="mt-4 box">
+            <div class="d-flex py-3" style="flex-direction: column; justify-content: space-around; align-items: center;">
+                <h4 class="roboto-flex-font" style="color: rgb(94, 141, 135);">Reviews</h4>
+                <p class="px-1 mb-5 varela-round-regular" style="color: rgb(116, 170, 163);"><b>"</b>Max’s notes and classes are an absolute game-changer for anyone studying Leaving Cert Biology. His notes are genuinely H1 standard, it literally covers everything in a way that’s clear easy to digest. What sets them apart is how he highlights exactly what to memorise and how to approach exam questions- which takes the guesswork out of studying. His focus on exam techniques has made such a difference in how I approach the subject, and I feel much more prepared for my mocks because of it. I’d highly recommend his classes to any student who wants to improve their understanding and boost their grades<b>"</b> - Success</p>
+                <p class="px-1 mb-5 varela-round-regular" style="color: rgb(116, 170, 163);"><b>"</b>The notes are brilliant! It makes learning topics easier as I can focus on the highlighted sections. I really enjoyed the classes and they helped with understanding each topic, the layout of the classes were great and getting to answer exam questions relavent to each section was so helpful! The worksheets were great to recap after the class. Thank you!<b>"</b> - Faith</p>
+                <img height="100" width="100" style="border-radius: 50%;" src="/images/Max'sLogo.png">
+                <p style="margin-bottom: -6px; margin-top: 10px; color: rgb(116, 170, 163);" class="lead">Max</p>
+                <p class="lead" style="color: rgb(116, 170, 163);">TheLCBiologyGuy</p>
+            </div>
+            <div><p class="lead" id="urgencyText" style="width: 100%; color: red; margin-top: 100px;">Offer Only Available Until Friday Feburary 16th</p></div>
+          </div>
+        </div>
+        </div>
+        
+        
+        <div id="new-tab" style="height: 100%; background: white!important; padding-bottom: 80px;">
+  
+          <div class="accordion box" id="accordionExample" style="width: 50%; min-width: 300px; margin-top: 50px;">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                  Will these recordings be useful even if I haven’t covered the topics in class?
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <strong>Yes! Many students experienced the chapters for the first time in my classes, and they were all able to follow along and do well in the worksheets.</strong>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  What happens when I buy the bundle?
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <strong>Once payment is received I will share the Google Drive with you.</strong>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Are these topics enough for a H1?
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <strong>Just learning these topics on their own, isn’t enough for a H1. But pairing this with my free notes build a strong foundation to eventually achieve a H1.</strong>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                  Can I purchase just 1 class?
+                </button>
+              </h2>
+              <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <strong>Yes to purchase 1 class contact me at thelcbiologyguy@gmail.com</strong> 
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                  Why is this bundle only available till Feburary 16th?
+                </button>
+              </h2>
+              <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <strong>I will be teaching other classes, and I need room on the website for these new classes.</strong> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> 
+  
+        <div class="product">
+          <h3>Genetics</h3>
+          <p>Price: €5.00</p>
+          <button class="add-to-cart-btn" 
+              data-id="1" 
+              data-name="price_1QUr9QFArv9BTH3QU1qJyK7N" 
+              data-price-id="price_1QUr9QFArv9BTH3QU1qJyK7N"
+              data-price="5.00">Add to Cart</button>
+      </div>
+      
+      <div class="product">
+          <h3>DNA</h3>
+          <p>Price: €5.00</p>
+          <button class="add-to-cart-btn" 
+              data-id="2"
+              data-name="price_1QUr9lFArv9BTH3Qd5MTGmth" 
+              data-price-id="price_1QUr9lFArv9BTH3Qd5MTGmth"
+              data-price="5.00">Add to Cart</button>
+      </div>
+  
+      <div class="product">
+        <h3>Respiration</h3>
+        <p>Price: €10.00</p>
+        <button class="add-to-cart-btn" 
+            data-id="2"
+            data-name="price_1QUr93FArv9BTH3Q8VRd4IWr" 
+            data-price-id="price_1QUr93FArv9BTH3Q8VRd4IWr"
+            data-price="10.00">Add to Cart</button>
+    </div>
+      
+  
+  
+  
+  
+  </main>
+  
+
+<%- include("partials/footer.ejs")  %>
