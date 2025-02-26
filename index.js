@@ -159,16 +159,12 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
       const session = event.data.object;
   
       const customerEmail = session.receipt_email || session.customer_details.email; // Get the customer email
-      const firstNameField = session.custom_fields.find(field => field.key === 'first_name');
-      const firstName = firstNameField ? firstNameField.text.value : 'Default Name';
 
       console.log(customerEmail)
-      console.log(firstName)
       
-
     }
-  }
-)
+    res.status(200).json({ received: true });
+  });
 
 
 
