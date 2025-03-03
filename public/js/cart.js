@@ -47,6 +47,35 @@ document.querySelectorAll(".add-to-cart-btn").forEach(button => {
     });
 });
 
+
+
+function removeFromCart(productId) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Filter out the product to be removed
+    cart = cart.filter(item => item.id !== productId);
+
+    // Update the cart in localStorage
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    // Update the cart count
+    updateCartCount();
+}
+
+
+// Get all Remove from Cart buttons
+document.querySelectorAll(".remove-from-cart-btn").forEach(button => {
+    button.addEventListener("click", (e) => {
+        console.log("Remove from Cart button clicked!");
+        
+        const productId = e.target.dataset.id; // Get product ID from data attribute
+
+        // Remove the product from the cart
+        removeFromCart(productId);
+    });
+});
+
+
 function updateCartCount() {
     const cart = getCart();
     const cartCount = cart.reduce((total, item) => total + item.quantity, 0);

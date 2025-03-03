@@ -43,7 +43,24 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
   if (event.type === 'checkout.session.async_payment_succeeded' || event.type === 'checkout.session.completed') {
     const session = event.data.object;
 
+
+    const productLinks = {
+      "Product 1": "Product 1 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
+      "Product 2": "Product 2 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
+      "Product 3": "Product 3 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
+      "Product 4": "Product 4 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
+      "Product 5": "Product 5 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
+      "Product 6": "Product 6 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
+      "Product 7": "Product 7 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
+      "Product 8": "Product 8 Zoom Link:<br>(link to the zoom meeting here)<br><br>"
+    };
+
+
+    
     const customerEmail = session.receipt_email || session.customer_details.email; // Get the customer email
+    const firstNameField = session.custom_fields.find(field => field.key === 'first_name');
+    const firstName = firstNameField ? firstNameField.text.value : 'Default Name';
+    console.log(firstName)
 
         if (customerEmail) {
       console.log(customerEmail);
@@ -56,6 +73,17 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
 
       console.log(products)
 
+      let zoomLinksSection = products.map(product => productLinks[product] || "").join("");
+
+      const message = `Dear ${firstName},<br><br>Thank you for purchasing my product! You can join the live Zoom session/s using the link/s below. The notes and recording will be shared via Google Drive after the live session:<br><br> ${zoomLinksSection} You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
+      <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
+          <input type="checkbox" name="unsubscribe">
+          <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
+          <input type="hidden" name="email" value="${customerEmail}">
+          <button type="submit">Submit</button>
+      </form><br><br>Best of luck with your revision!<br>Max`
+
+      sendEmail("karlfleming64@gmail.com", "test", message,"This is sending", db)
     
     }
   }
@@ -400,8 +428,14 @@ app.get("/done", (req, res) => {
     message: "You should recieve the details for these resources via an email sent to the address you entered at checkout. Be sure to check your spam just in case it gets filtered there. If you do not recieve an email after 24 hours please contact me at: thelcbiologyguy@gmail.com Thanks.",
     button: "Close",
   })
+})
 
-
+app.get("/cancel", (req, res) => {
+  res.render("landing.ejs", {
+    title: "You cancelled your purchase",
+    message: "Feel free to alter your cart, or click the bag icon again to head back to checkout.",
+    button: "Close",
+  })
 })
 
 

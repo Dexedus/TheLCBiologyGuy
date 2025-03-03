@@ -429,7 +429,7 @@ main{
 .productCard {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centers content in each card */
+    align-items: start; /* Centers content in each card */
     justify-content: space-between;
     background-color: #f9f9f9; /* Light background for contrast */
     padding: 20px;
@@ -443,6 +443,10 @@ main{
     border: none;
     border-radius: 20px;
     padding: 10px;
+}
+
+.remove-from-cart-btn{
+    margin-top: 10px;
 }
 
 
