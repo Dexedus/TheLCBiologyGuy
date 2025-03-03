@@ -85,6 +85,32 @@ header{
     z-index: 100;
 }
 
+#checkout-btn{
+    width: 35px; 
+    color: #3c806c;
+}
+
+#cart-count{
+    position: absolute;
+    top: 10px;
+    left: 39.5%;
+    font-weight: 500!important;
+    z-index: 2!important;
+}
+
+#cart-container{
+    position: relative;
+    margin-right: 3%; 
+    transition: 0.5s transform, 0.5s color;
+    cursor: pointer;
+    z-index: 3!important;
+}
+
+#cart-container:hover{
+    transform: scale(1.07);
+    color: white;
+}
+
 .nav-link{
     color: #3c806c!important;
     transition: transform .6s!important;
@@ -382,6 +408,45 @@ main{
 }
 
 
+.productCardContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* Ensures everything is centered */
+    padding: 20px; /* Adds spacing */
+}
+
+.productCardRow {
+    display: flex;
+    justify-content: center; /* Centers rows */
+    gap: 40px; /* Adds spacing between cards */
+    padding-block: 20px;
+    flex-wrap: wrap; /* Ensures responsiveness */
+    width: 100%;
+}
+
+.productCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers content in each card */
+    justify-content: space-between;
+    background-color: #f9f9f9; /* Light background for contrast */
+    padding: 20px;
+    border-radius: 10px; /* Smooth corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow */
+    width: 45%; /* Adjust width for responsiveness */
+    max-width: 300px; /* Prevents oversized cards */
+}
+
+.add-to-cart-btn, .remove-from-cart-btn{
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+
+
 #FreeResourcesText{
     opacity: 0;
     animation: fade-in 1s ease-in-out 1.2s forwards;
@@ -451,6 +516,10 @@ footer{
 
 .fadeIn{
     animation: fade-in 1s ease-in-out 0.2s forwards!important;
+}
+
+.cart-bounce{
+    animation: cart-bounce 0.8s ease-in-out!important;
 }
 
 /*Media Querys*/
@@ -553,6 +622,14 @@ footer{
         top: 120px;
         left: 90px;
         width: 120px;
+    }
+
+    .productCardRow {
+        flex-direction: column;
+        align-items: center;
+    }
+    .productCard {
+        width: 80%; /* Adjust for smaller screens */
     }
 }
 
@@ -739,5 +816,50 @@ footer{
     100%{
         opacity: 100%;
         transform: translateY(0px);
+    }
+}
+
+@keyframes cart-bounce{
+    0%{
+        rotate: 0deg;
+        color: white;
+    }
+
+    50%{
+        color: white;
+    }
+
+    100%{
+        rotate: 360deg;
+        color: black;
+    }
+}
+
+@keyframes cart-bounce1{
+    0%{
+        rotate: 0deg;
+    }
+
+    50%{
+        rotate: 720deg;
+    }
+
+    100%{
+        rotate: 360deg;
+        color: black;
+    }
+}
+
+@keyframes cart-bounce2{
+    0%{
+        scale: 1;
+    }
+
+    50%{
+        scale: 1.2;
+    }
+
+    100%{
+        scale: 1;
     }
 }

@@ -1,3 +1,5 @@
+// large Commented sections of code to be removed and replaced shortly
+
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const express = require("express");
