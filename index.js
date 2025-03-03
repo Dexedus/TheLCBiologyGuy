@@ -83,7 +83,7 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
           <button type="submit">Submit</button>
       </form><br><br>Best of luck with your revision!<br>Max`
 
-      sendEmail("karlfleming64@gmail.com", "test", message,"This is sending", db)
+      sendEmail(customerEmail, "test", message,"This is sending", db)
     
     }
   }
