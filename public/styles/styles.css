@@ -429,14 +429,14 @@ main{
 .productCard {
     display: flex;
     flex-direction: column;
-    align-items: start; /* Centers content in each card */
+    align-items: start;
     justify-content: space-between;
-    background-color: #f9f9f9; /* Light background for contrast */
+    background-color: #f9f9f9;
     padding: 20px;
-    border-radius: 10px; /* Smooth corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow */
-    width: 45%; /* Adjust width for responsiveness */
-    max-width: 300px; /* Prevents oversized cards */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 45%;
+    max-width: 300px; 
 }
 
 .add-to-cart-btn, .remove-from-cart-btn{
