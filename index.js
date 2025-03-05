@@ -135,7 +135,8 @@ app.post('/stripe/webhook', async (req, res) => {
             <label for="unsubscribe">I wish to opt out of future promotional emails from The LC Biology Guy</label><br>
             <input type="hidden" name="email" value="${customerEmail}">
             <button type="submit">Submit</button>
-          </form>`;
+          </form><br><br>
+          <b>Places are limited to 100 people, so if you are unable to join the Zoom don't worry the class will be recorded for you</b>`;
           productTable = 'free_trial_temp';
         } else if (productId === 'prod_RRl0T5qS265k7U') {
           subject = 'Thank you for choosing the Free Resources!';
