@@ -77,6 +77,7 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
       // Loop through line items to determine the product
       for (const item of lineItems.data) {
         const productId = item.price.product; // Extract the product ID
+        console.log(productId)
 
         if(productId === "prod_RXmjWQSOFcm6Zv" || productId === "prod_RRl0T5qS265k7U" ){
 
