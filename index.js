@@ -74,7 +74,7 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
 
 
 
-        if(products[0] === 'Free Trial'){
+        if(products[0] === 'Free Trial' || products[0] === 'Free Trial Temp'){
 
           let message = ""
           let subject = ""
