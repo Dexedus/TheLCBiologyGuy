@@ -82,23 +82,23 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
         // Check product ID to determine which product was purchased
         if (products[0] === 'Free Trial Temp') {
           subject = 'Thanks for choosing the the Photosynthesis Masterclass'
-          message = `Dear ${firstName},<br><br>***THIS CLASS HAS ENDED. To get access to the recording, please email me and I will confirm your purchase before giving you access to the google drive.***<br><br>Thank you for purchasing the Photosynthesis Masterclass! You can join the live Zoom session using the link below. The notes and recording will be shared via Google Drive after the live session:<br><br>Photosynthesis Masterclass<br>Time: Jan 14, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_1_link}<br><br>Meeting ID: ${zoom_1_id} 4231<br>Passcode: ${zoom_1_passcode}<br><br>You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
+          message = `Dear ${firstName},<br><br>Thank you for registering for the First Free Week class on Cells and Ecology! You can access the classes with the Zoom links below.<br><br>Cells Masterclass: March 6th, 7pm to 8:30pm<br>https://us06web.zoom.us/j/82332314843?pwd=93Evz4w3XfjxWz7TsihdQi4ba8QfLE.1<br>Meeting ID: 823 3231 4843<br>Passcode: 286207<br><br>Meeting ID: 4231<br>Passcode:<br><br>Ecology Masterclass: March 9th, 3pm to 4:30pm<br>https://us06web.zoom.us/j/83672138196?pwd=XlYFPjWTmRZ4BY3jFBDH8z5OjZydPD.1<br>Meeting ID: 836 7213 8196<br>Passcode: 410883<br><br>Note: After the classes, the recordings will be updated to the Google Drive <a href="https://u48917275.ct.sendgrid.net/ls/click?upn=u001.gb1oIQZYL4vnMZkgmvEgigzFl42rVVPLGu-2Fe519Dvun9tuRbO-2FbM7IplLEtFJNpQ05TKwRq03odmolpArth0ldjiurLFB4dCM-2B4tixT-2F0TJ1ELxqIhhbS32gO3hKFnrEIFcd_4pE3C559McDKAd-2Fg3v7vn7eIndNn6ci9X9Lg05SN5hd0HqQd0CGpTiKRONJude4-2BSsNEXmpTWFbVn7KIYUZRVHAyrUpW7MXxjc-2FqCDWugVFXx574jVw6J7AuqIMN8xCK0iv3bPZjXrabb-2BWXwezZpQFLZE34yn6CVbJCQvmrQ3rjg5a43SNZwK-2BgAipFyVeR3EkkRmw-2B21-2FGCOBGcKlZTw-3D-3D" target="_blank">here</a><br><br>Best Regards,<br>Max
           <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
             <input type="checkbox" name="unsubscribe">
             <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
             <input type="hidden" name="email" value="${customerEmail}">
             <button type="submit">Submit</button>
-          </form><br><br>Best of luck with your revision!<br>Max`;
-          productTable = 'photosynthesis_masterclass';
+          </form>`;
+          productTable = 'free_trial_temp';
         } else if (products[0] === 'Free Trial') {
           subject = 'Thank you for choosing the Free Resources!';
-          message = `Dear ${firstName},<br><br>Thank you for choosing the free Unit 1 and Cell chapter notes. Here is the link to the Google Drive containing the resources: <a href="https://u48917275.ct.sendgrid.net/ls/click?upn=u001.gb1oIQZYL4vnMZkgmvEgigzFl42rVVPLGu-2Fe519Dvun9tuRbO-2FbM7IplLEtFJNpQ05TKwRq03odmolpArth0ldjiurLFB4dCM-2B4tixT-2F0TJ1ELxqIhhbS32gO3hKFnrEIFcd_4pE3C559McDKAd-2Fg3v7vn7eIndNn6ci9X9Lg05SN5hd0HqQd0CGpTiKRONJude4-2BSsNEXmpTWFbVn7KIYUZRVHAyrUpW7MXxjc-2FqCDWugVFXx574jVw6J7AuqIMN8xCK0iv3bPZjXrabb-2BWXwezZpQFLZE34yn6CVbJCQvmrQ3rjg5a43SNZwK-2BgAipFyVeR3EkkRmw-2B21-2FGCOBGcKlZTw-3D-3D" target="_blank">Here</a><br><br>We would like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
+          message = `Dear ${firstName},<br><br>Thank you for choosing the free Unit 1 and Cell chapter notes. Here is the link to the Google Drive containing the resources: <a href="https://u48917275.ct.sendgrid.net/ls/click?upn=u001.gb1oIQZYL4vnMZkgmvEgigzFl42rVVPLGu-2Fe519Dvun9tuRbO-2FbM7IplLEtFJNpQ05TKwRq03odmolpArth0ldjiurLFB4dCM-2B4tixT-2F0TJ1ELxqIhhbS32gO3hKFnrEIFcd_4pE3C559McDKAd-2Fg3v7vn7eIndNn6ci9X9Lg05SN5hd0HqQd0CGpTiKRONJude4-2BSsNEXmpTWFbVn7KIYUZRVHAyrUpW7MXxjc-2FqCDWugVFXx574jVw6J7AuqIMN8xCK0iv3bPZjXrabb-2BWXwezZpQFLZE34yn6CVbJCQvmrQ3rjg5a43SNZwK-2BgAipFyVeR3EkkRmw-2B21-2FGCOBGcKlZTw-3D-3D" target="_blank">Here</a><br><br>We would like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>Best Regards,<br>Max>
           <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
             <input type="checkbox" name="unsubscribe">
             <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
             <input type="hidden" name="email" value="${customerEmail}">
             <button type="submit">Submit</button>
-          </form><br><br>Best regards,<br>The LC Biology Guy`;
+          </form>`;
           productTable = 'free_resources_emails';
         } else {
           subject = 'Thank you for your purchase';
@@ -167,7 +167,29 @@ const SendgridSender = process.env.EMAIL
 sgMail.setApiKey(`${API_KEY}`)
 
 
+// const zoom_1_link = process.env.ZOOM_1_LINK;
+// const zoom_1_id = process.env.ZOOM_1_ID;
+// const zoom_1_passcode = process.env.ZOOM_1_PASSCODE;
 
+// const zoom_2_link = process.env.ZOOM_2_LINK;
+// const zoom_2_id = process.env.ZOOM_2_ID;
+// const zoom_2_passcode = process.env.ZOOM_2_PASSCODE;
+
+// const zoom_3_link = process.env.ZOOM_3_LINK;
+// const zoom_3_id = process.env.ZOOM_3_ID;
+// const zoom_3_passcode = process.env.ZOOM_3_PASSCODE;
+
+// const zoom_4_link = process.env.ZOOM_4_LINK;
+// const zoom_4_id = process.env.ZOOM_4_ID;
+// const zoom_4_passcode = process.env.ZOOM_4_PASSCODE;
+
+// const zoom_5_link = process.env.ZOOM_5_LINK;
+// const zoom_5_id = process.env.ZOOM_5_ID;
+// const zoom_5_passcode = process.env.ZOOM_5_PASSCODE;
+
+// const zoom_6_link = process.env.ZOOM_6_LINK;
+// const zoom_6_id = process.env.ZOOM_6_ID;
+// const zoom_6_passcode = process.env.ZOOM_6_PASSCODE;
 
 
 

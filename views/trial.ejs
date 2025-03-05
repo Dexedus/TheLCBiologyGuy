@@ -22,7 +22,7 @@
 
 
 
-  <div id="carouselExample" class="carousel slide" style="width: 100vw; padding-bottom: 100px; background-color: white;">
+  <div id="carouselExample" class="carousel slide" style="width: 100vw; background-color: white;">
     <div class="carousel-inner">
       <div class="carousel-item active">
         <div id="testimonial-tab" style="background-image: url(/images/benner_2.jpg);">
@@ -70,28 +70,29 @@
   </div> -->
 
 
-  <div class=" px-4 py-5" style="background-color: white; width: 100%!important;">
-
-    <div class="row row-cols-1 row-cols-md-2 align-items-md-center g-5 py-5">
-      <div class="col d-flex flex-column align-items-start gap-2">
-        <h2 class="fw-bold text-body-emphasis">Start mastering the core of your Biology exam today. Download now and take the first step toward success!</h2>
-        <p class="text-body-secondary">These resources come from the free Halloween Masterclass I did in 2024. I’m now providing access to all Leaving Certificate Biology Students so they can get confident with essential chapters.</p>
-        <form action="/create-checkout-session-not-cart" method="POST">
-          <input type="hidden" name="priceId" value="price_1QzHabFArv9BTH3QKllgIrsd">
-            <button type="submit" class="checkout-btn-2 btn btn-primary btn-lg px-4 me-sm-3" id="FreeResourcesButton">Get Started</button>
-          </form>
-      </div>
-
-      <div class="col">
-        <div class="row row-cols-1 row-cols-sm-2 g-4">
-          <div class="col d-flex flex-column gap-2">
-          </div>
+    <div class=" px-4 py-5 text-center" style="background-color: white; width: 100%!important; padding-bottom: 80px!important; padding-top: 80px!important;">
+      <h1 class="display-5 fw-bold text-body-emphasis">Free Masterclasses</h1>
+      <div class="d-flex flex-wrap">
+        <div class="col-12 col-lg-5 mx-auto">
+          <h2>Cells</h2>
+          <p class="lead mb-4">March 6th</p>
+        </div>
+        <div class="col-12 col-lg-5 mx-auto">
+          <h2>Ecology</h2>
+          <p class="lead mb-4">March 9th</p>
         </div>
       </div>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <button type="button" class="btn btn-primary btn-lg px-4 gap-3">Sign Up Now</button>
+      </div>
     </div>
-  </div>
 
 
 </main>
 
 <%- include("partials/footer.ejs")  %>
+
+<!-- <form action="/create-checkout-session" method="POST">
+  <input type="hidden" name="priceId" value="price_1QzHabFArv9BTH3QKllgIrsd">
+    <button type="submit" class="checkout-btn-2 btn btn-primary btn-lg px-4 me-sm-3" id="FreeResourcesButton">Get Started</button>
+  </form> -->
