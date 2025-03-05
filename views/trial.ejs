@@ -83,7 +83,10 @@
         </div>
       </div>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-        <button type="button" class="btn btn-primary btn-lg px-4 gap-3">Sign Up Now</button>
+        <form action="/create-checkout-session" method="POST">
+          <input type="hidden" name="priceId" value="price_1QzHabFArv9BTH3QKllgIrsd">
+          <button type="submit" class="checkout-btn-2 btn btn-primary btn-lg px-4 me-sm-3" id="FreeResourcesButton">Get Started</button>
+         </form>
       </div>
     </div>
 
