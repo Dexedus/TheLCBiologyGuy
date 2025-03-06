@@ -52,7 +52,13 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
       "Product 5": "Product 5 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
       "Product 6": "Product 6 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
       "Product 7": "Product 7 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
-      "Product 8": "Product 8 Zoom Link:<br>(link to the zoom meeting here)<br><br>"
+      "Product 8": "Product 8 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
+      "Product 9": "Product 9 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
+      "Product 10": "Product 10 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
+      "Product 11": "Product 11 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
+      "Product 12": "Product 12 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
+      "Product 13": "Product 13 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
+      "Product 14": "Product 14 Zoom Link:<br>(link to the zoom meeting here)<br><br>"
     };
 
 

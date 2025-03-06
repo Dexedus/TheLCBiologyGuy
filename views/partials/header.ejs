@@ -24,6 +24,12 @@
     <li id="zoom" class="nav-item"><a href="/landing" class="nav-link">Zoom Classes</a></li>
     <li id="trial" class="nav-item"><a href="/trial" class="nav-link">Free Resources</a></li>
   </ul>
+
+</header>
+
+
+<body class="gradient-background">
+
   <div id="cart-container">
     <svg xmlns="http://www.w3.org/2000/svg" id="checkout-btn" width="35" height="35" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
       <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
@@ -31,25 +37,20 @@
     <span id="cart-count">0</span>
   </div>
 
-
-  <!-- This script listens for clicks on the cart SVG. When clicked, runs a function that sends items to the backend where it responds with the stripe gateway containing those items -->
   <script>
-document.getElementById('cart-container').addEventListener('click', () => {
-    const cart = getCart(); // Get the current cart data
-
-    console.log('Cart before sending:', cart);  // Log the cart to ensure it's not empty or undefined
-
-    if (cart.length === 0) {
-        alert('Your cart is empty!');
-        return;
-    }
-
-    // Send cart data to the backend
-    sendCartToBackend(cart);
-});
-    </script>
-</header>
-
-
-<body class="gradient-background">
+    
+    document.getElementById('cart-container').addEventListener('click', () => {
+        const cart = getCart(); // Get the current cart data
+    
+        console.log('Cart before sending:', cart);  // Log the cart to ensure it's not empty or undefined
+    
+        if (cart.length === 0) {
+            alert('Your cart is empty!');
+            return;
+        }
+    
+        // Send cart data to the backend
+        sendCartToBackend(cart);
+    });
+        </script><!-- This script listens for clicks on the cart SVG. When clicked, runs a function that sends items to the backend where it responds with the stripe gateway containing those items -->
     
