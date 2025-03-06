@@ -26,6 +26,74 @@ db.connect();
 
 
 
+
+const Enzymes_Link = process.env.ENZYMES_LINK;
+const Enzymes_ID = process.env.ENZYMES_ID;
+const Enzymes_Passcode = process.env.ENZYMES_PASSCODE;
+
+const Respiration_Link = process.env.RESPIRATION_LINK;
+const Respiration_ID = process.env.RESPIRATION_ID;
+const Respiration_Passcode = process.env.RESPIRATION_PASSCODE;
+
+const Photo_Link = process.env.PHOTO_LINK;
+const Photo_ID = process.env.PHOTO_ID;
+const Photo_Passcode = process.env.PHOTO_PASSCODE;
+
+const Genetics_Link = process.env.GENETICS_LINK;
+const Genetics_ID = process.env.GENETICS_ID;
+const Genetics_Passcode = process.env.GENETICS_PASSCODE;
+
+const DNA_Link = process.env.DNA_LINK;
+const DNA_ID = process.env.DNA_ID;
+const DNA_Passcode = process.env.DNA_PASSCODE;
+
+const Micro_Link = process.env.MICRO_LINK;
+const Micro_ID = process.env.MICRO_ID;
+const Micro_Passcode = process.env.MICRO_PASSCODE;
+
+const HumanRepo1_Link = process.env.HUMAN_REPO1_LINK;
+const HumanRepo1_ID = process.env.HUMAN_REPO1_ID;
+const HumanRepo1_Passcode = process.env.HUMAN_REPO1_PASSCODE;
+
+const HumanRepo2_Link = process.env.HUMAN_REPO2_LINK;
+const HumanRepo2_ID = process.env.HUMAN_REPO2_ID;
+const HumanRepo2_Passcode = process.env.HUMAN_REPO2_PASSCODE;
+
+const NervousSystem_Link = process.env.NERVOUS_SYSTEM_LINK;
+const NervousSystem_ID = process.env.NERVOUS_SYSTEM_ID;
+const NervousSystem_Passcode = process.env.NERVOUS_SYSTEM_PASSCODE;
+
+const Musculoskeletal_Link = process.env.MUSCULOSKELETAL_LINK;
+const Musculoskeletal_ID = process.env.MUSCULOSKELETAL_ID;
+const Musculoskeletal_Passcode = process.env.MUSCULOSKELETAL_PASSCODE;
+
+const ExcretionHomeostasis_Link = process.env.EXCRETION_HOMEOSTASIS_LINK;
+const ExcretionHomeostasis_ID = process.env.EXCRETION_HOMEOSTASIS_ID;
+const ExcretionHomeostasis_Passcode = process.env.EXCRETION_HOMEOSTASIS_PASSCODE;
+
+const PlantStructure_Link = process.env.PLANT_STRUCTURE_LINK;
+const PlantStructure_ID = process.env.PLANT_STRUCTURE_ID;
+const PlantStructure_Passcode = process.env.PLANT_STRUCTURE_PASSCODE;
+
+const PlantRepro1_Link = process.env.PLANT_REPRO1_LINK;
+const PlantRepro1_ID = process.env.PLANT_REPRO1_ID;
+const PlantRepro1_Passcode = process.env.PLANT_REPRO1_PASSCODE;
+
+const PlantRepro2_Link = process.env.PLANT_REPRO2_LINK;
+const PlantRepro2_ID = process.env.PLANT_REPRO2_ID;
+const PlantRepro2_Passcode = process.env.PLANT_REPRO2_PASSCODE;
+
+const PlantResponses_Link = process.env.PLANT_RESPONSES_LINK;
+const PlantResponses_ID = process.env.PLANT_RESPONSES_ID;
+const PlantResponses_Passcode = process.env.PLANT_RESPONSES_PASSCODE;
+
+const PlantTransport_Link = process.env.PLANT_TRANSPORT_LINK;
+const PlantTransport_ID = process.env.PLANT_TRANSPORT_ID;
+const PlantTransport_Passcode = process.env.PLANT_TRANSPORT_PASSCODE;
+
+
+
+
 app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
   const sig = req.headers['stripe-signature'];
 
@@ -45,20 +113,21 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
 
 
     const productLinks = {
-      "Product 1": "Product 1 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
-      "Product 2": "Product 2 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
-      "Product 3": "Product 3 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
-      "Product 4": "Product 4 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
-      "Product 5": "Product 5 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
-      "Product 6": "Product 6 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
-      "Product 7": "Product 7 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
-      "Product 8": "Product 8 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
-      "Product 9": "Product 9 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
-      "Product 10": "Product 10 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
-      "Product 11": "Product 11 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
-      "Product 12": "Product 12 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
-      "Product 13": "Product 13 Zoom Link:<br>(link to the zoom meeting here)<br><br>",
-      "Product 14": "Product 14 Zoom Link:<br>(link to the zoom meeting here)<br><br>"
+      "Enzymes & Osmosis (March 12th)": `Enzymes & Osmosis class<br>March 12th, 7pm to 8:30pm<br>${Enzymes_Link}<br>MeetingID: ${Enzymes_ID}<br>Passcode: ${Enzymes_Passcode}<br><br>`,
+      "Respiration (March 16th)": `Respiration class<br>March 16th, 3pm to 4:30pm<br>${Respiration_Link}<br>MeetingID: ${Respiration_ID}<br>Passcode: ${Respiration_Passcode}<br><br>`,
+      "Photosynthesis (March 19th)": `Photosynthesis class<br>March 19th, 7pm to 8:30pm<br>${Photo_Link}<br>MeetingID: ${Photo_ID}<br>Passcode: ${Photo_Passcode}<br><br>`,
+      "Genetics (March 23rd)": `Genetics class<br>March 23rd, 3pm to 4:30pm<br>${Genetics_Link}<br>MeetingID: ${Genetics_ID}<br>Passcode: ${Genetics_Passcode}<br><br>`,
+      "DNA (March 26th)": `DNA class<br>March 26th, 7pm to 8:30pm<br>${DNA_Link}<br>MeetingID: ${DNA_ID}<br>Passcode: ${DNA_Passcode}<br><br>`,
+      "Microorganisms (March 30th)": `Microorganisms class<br>March 30th 3pm to 5pm<br>${Micro_Link}<br>MeetingID: ${Micro_ID}<br>Passcode: ${Micro_Passcode}<br><br>`,
+      "Human Reproduction 1 & 2 (April 2nd & 6th)": `Human Reproduction 1 class<br>April 2nd, 7pm to 8:30pm <br>${HumanRepo1_Link}<br>MeetingID: ${HumanRepo1_ID}<br>Passcode: ${HumanRepo1_Passcode}<br><br>Human Reproduction 2 class<br>April 6th, 3pm to 4:30pm <br>${HumanRepo2_Link}<br>MeetingID: ${HumanRepo2_ID}<br>Passcode: ${HumanRepo2_Passcode}<br><br>`,
+      "Nervous System (April 9th)": `Nervous System class<br>April 9th 7pm to 8:30pm<br>${NervousSystem_Link}<br>MeetingID: ${NervousSystem_ID}<br>Passcode: ${NervousSystem_Passcode}<br><br>`,
+      "Musculoskeletal System (April 13th)": `Musculoskeletal System class<br>April 13th, 3pm to 4:30pm<br>${Musculoskeletal_Link}<br>MeetingID: ${Musculoskeletal_ID}<br>Passcode: ${Musculoskeletal_Passcode}<br><br>`,
+      "Human Excretion and Homeostasis (April 16th)": `Human Excretion and Homeostasis class<br>April 16th, 7pm to 8:30pm<br>${ExcretionHomeostasis_Link}<br>MeetingID: ${ExcretionHomeostasis_ID}<br>Passcode: ${ExcretionHomeostasis_Passcode}<br><br>`,
+      "Plant Structure (April 20th)": `Plant Structure class<br>April 20th, 3pm to 4:30pm<br>${PlantStructure_Link}<br>MeetingID: ${PlantStructure_ID}<br>Passcode: ${PlantStructure_Passcode}<br><br>`,
+      "Plant Reproduction 1 & 2 (April 23 & 27th)": `Plant Reproduction 1 class<br>April 23rd, 7pm to 8:30<br>${PlantRepro1_Link}<br>MeetingID: ${PlantRepro1_ID}<br>Passcode: ${PlantRepro1_Passcode}<br><br>Plant Reproduction 2 class<br>April 27th, 3pm to 4:30pm<br>${PlantRepro2_Link}<br>MeetingID: ${PlantRepro2_ID}<br>Passcode: ${PlantRepro2_Passcode}<br><br>`,
+      "Plant Responses (April 30th)": `Plant Responses class<br>April 30th, 7pm to 8:30pm<br>${PlantResponses_Link}<br>MeetingID: ${PlantResponses_ID}<br>Passcode: ${PlantResponses_Passcode}<br><br>`,
+      "Plant Transport (May 4th)": `Plant Transport class<br>May 4th, 3pm to 4:30pm<br>${PlantTransport_Link}<br>MeetingID: ${PlantTransport_ID}<br>Passcode: ${PlantTransport_Passcode}<br><br>`
+
     };
 
 
@@ -143,13 +212,13 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
 
       let zoomLinksSection = products.map(product => productLinks[product] || "").join("");
 
-      const newMessage = `Dear ${firstName},<br><br>Thank you for purchasing my product! You can join the live Zoom session/s using the link/s below. The notes and recording will be shared via Google Drive after the live session:<br><br> ${zoomLinksSection} You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
+      const newMessage = `Dear ${firstName},<br><br>Welcome to the 8-week Biology Improvement Challenge! You can join the live Zoom session using the link(s) below. <br><br> ${zoomLinksSection} You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br> Best regards,<br>Max<br>
       <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
           <input type="checkbox" name="unsubscribe">
-          <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
+          <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br>
           <input type="hidden" name="email" value="${customerEmail}">
           <button type="submit">Submit</button>
-      </form><br><br>Best of luck with your revision!<br>Max`
+      </form>`
 
       sendEmail(customerEmail, "Thank You", newMessage,"This is sending", db)
 }

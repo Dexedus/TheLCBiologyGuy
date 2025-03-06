@@ -2,7 +2,6 @@
 
 <main style="display: flex; align-items: center; flex-direction: column; width: 100%;">
 
-
   <div id="popup">
 
     <!-- EJS renders the modal text differently depending on whether the user loaded the page normally or was redirected here after purchase -->
@@ -470,5 +469,18 @@
 
 
 </main>
+
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      console.log("Success page loaded");
+      clearCart()
+      updateCartCount()
+      console.log("Cart cleared:", localStorage.getItem('cart')); // Should be null
+  });
+</script>
+
+
 
 <%- include("partials/footer.ejs")  %>
