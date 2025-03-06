@@ -387,14 +387,6 @@ main{
     color: white!important;
 }
 
-#star1{
-    animation: popInfinite 3s ease-in-out infinite;
-}
-
-#star2{
-    animation: popInfinite 3s ease-in-out 1s infinite;
-}
-
 .urgencyText{
     color: white;
     text-align: center;
@@ -414,6 +406,12 @@ main{
     padding: 0px;
     margin: 0px;
     height: 45px;
+}
+
+.productButtonRow{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
 
@@ -445,23 +443,38 @@ main{
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 45%;
-    max-width: 300px; 
+    max-width: 400px; 
 }
 
 .add-to-cart-btn, .remove-from-cart-btn{
     border: none;
     border-radius: 20px;
     padding: 10px;
+    transition: 0.6s background-color, 0.6s color;
 }
 
-.remove-from-cart-btn{
-    margin-top: 10px;
+.add-to-cart-btn:hover{
+    background-color: #7acf81;
+    color: white;
+}
+
+.remove-from-cart-btn:hover{
+    background-color: rgb(206, 107, 107);
+    color: white;
 }
 
 #noDotsList h5{
     list-style: none;
 }
 
+
+#star1{
+    animation: popInfinite 3s ease-in-out infinite;
+}
+
+#star2{
+    animation: popInfinite 3s ease-in-out 1s infinite;
+}
 
 
 #FreeResourcesText{
