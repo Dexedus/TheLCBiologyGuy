@@ -283,7 +283,7 @@ Passcode: ${PlantTransport_Passcode}<br><br>
             <input type="hidden" name="email" value="${customerEmail}">
             <button type="submit">Submit</button>
           </form>`;
-          productTable = 'free_resources_emails';
+          productTable = 'bundle';
         } else {
           subject = 'Thank you for your purchase';
           message = `Hi, \n\nYour payment went through, but unfortunately the server failed to fetch the product ID. This means I could not find the invite code for the class you purchased. Please email me back letting me know what class/s you purchased and I will send on the info you need. Thanks! \n\nBest regards,\nThe LC Biology Guy`;
