@@ -72,8 +72,8 @@
               <h5 style="margin-left: 40px;"><li>✔️ An additional 8 Revision Classes in May (value €200)</li></h5>
         </ul>
         <div class="d-grid gap-2 mt-5 d-md-flex justify-content-center">
-          <form action="/api/create-checkout-session" method="POST">
-            <input type="hidden" name="priceId" value="price_1QehIfGUne0h98JDTLw1J30Y">
+          <form action="/create-checkout-session-not-cart" method="POST">
+            <input type="hidden" name="priceId" value="price_1QzhbHFArv9BTH3QWmz5ewvq">
               <button type="submit" class="btn btn-lg btn-primary" style="font-size: 2em!important;">Buy: €276</button>
             </form>
         </div>
@@ -85,7 +85,61 @@
 
 
 
+
+
     <div style="width: 100%; background-color: white; display: flex; flex-direction: column; padding-bottom: 70px;" class="pt-5">
+      <h2 style="text-align: center;" class="mb-4 d-flex justify-content-center"><div id="star1">⭐</div>Reviews<div id="star2">⭐</div></h2>
+      <div class="container">
+        <div class="row justify-content-center gap-4">  
+          
+          <div class="col-md-4 col-lg-3 col-sm-12 d-flex justify-content-center box reviewCard" id="reviewCard">
+            <div class="card" style="width: 18rem; border: solid 1px #3c806c!important; border-radius: 10px; box-shadow: 3px 7px 20px #d4d4d4;">
+              <div class="card-body">
+                <img src="/images/default-avatar-photo-placeholder.jpg" class="mb-2" height="50px" width="50px" style="border-radius: 50%;" alt="profile picture">
+                <p class="card-text" style="min-height: 55%;">I was struggling with biology but I feel far more confident and I will definitely do more of your classes in future if you do them</p>
+                <div class="d-flex align-items-center">
+                  <h5 class="card-title">Aimee Mc</h5>
+                  <h6 class="card-subtitle mb-1 mx-4 text-body-secondary">Student</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <div class="col-md-4 col-lg-3 col-sm-12 d-flex justify-content-center box reviewCard" id="reviewCard2">
+            <div class="card" style="width: 18rem; border: solid 1px #3c806c!important; border-radius: 10px; box-shadow: 3px 7px 20px #d4d4d4;">
+              <div class="card-body">
+                <img src="/images/default-avatar-photo-placeholder.jpg" class="mb-2" height="50px" width="50px" style="border-radius: 50%;" alt="profile picture">
+                <p class="card-text" style="min-height: 55%;">We went through all the relevant exam questions and corrected them thoroughly and it was made sure that I understood them. I would highly recommend The LC Biology Guy</p>
+                <div class="d-flex align-items-center">
+                  <h5 class="card-title">Daniel</h5>
+                  <h6 class="card-subtitle mb-1 mx-4 text-body-secondary">Student</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <div class="col-md-4 col-lg-3 col-sm-12 d-flex justify-content-center box reviewCard" id="reviewCard3">
+            <div class="card" style="width: 18rem; border: solid 1px #3c806c!important; border-radius: 10px; box-shadow: 3px 7px 20px #d4d4d4;">
+              <div class="card-body">
+                <img src="/images/default-avatar-photo-placeholder.jpg" class="mb-2" height="50px" width="50px" style="border-radius: 50%;" alt="profile picture">
+                <p class="card-text" style="min-height: 55%;">I understand genetics a lot better now. The way you explained it with the diagrams made it easy to understand. Thank you again</p>
+                <div class="d-flex align-items-center">
+                  <h5 class="card-title">Rachel</h5>
+                  <h6 class="card-subtitle mb-1 mx-4 text-body-secondary">Student</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+    <!-- <div style="width: 100%; background-color: white; display: flex; flex-direction: column; padding-bottom: 70px;" class="pt-5">
       <h2 style="text-align: center;" class="mb-4 d-flex justify-content-center"><div id="star1">⭐</div>Reviews<div id="star2">⭐</div></h2>
       <div class="container">
         <div class="row justify-content-center gap-4">  
@@ -139,7 +193,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
 
 
@@ -519,6 +573,13 @@
       </div>
     </div>
   </div>
+  </div>
+
+  <div class="d-grid gap-2 d-md-flex justify-content-center" style="margin-top: 80px!important;">
+    <form action="/create-checkout-session-not-cart" method="POST">
+      <input type="hidden" name="priceId" value="price_1QzhbHFArv9BTH3QWmz5ewvq">
+        <button type="submit" class="btn btn-lg btn-primary" style="font-size: 2em!important;">Get Started</button>
+      </form>
   </div>
 
 

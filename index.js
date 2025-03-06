@@ -149,7 +149,7 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
 
 
 
-        if(products[0] === 'Free Trial' || products[0] === 'Free Trial Temp'){
+        if(products[0] === 'Free Trial' || products[0] === 'Free Trial Temp' || products[0] === 'Improvement Bundle' ){
 
           let message = ""
           let subject = ""
@@ -168,6 +168,115 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
         } else if (products[0] === 'Free Trial') {
           subject = 'Thank you for choosing the Free Resources!';
           message = `Dear ${firstName},<br><br>Thank you for choosing the free Unit 1 and Cell chapter notes. Here is the link to the Google Drive containing the resources: <a href="https://u48917275.ct.sendgrid.net/ls/click?upn=u001.gb1oIQZYL4vnMZkgmvEgigzFl42rVVPLGu-2Fe519Dvun9tuRbO-2FbM7IplLEtFJNpQ05TKwRq03odmolpArth0ldjiurLFB4dCM-2B4tixT-2F0TJ1ELxqIhhbS32gO3hKFnrEIFcd_4pE3C559McDKAd-2Fg3v7vn7eIndNn6ci9X9Lg05SN5hd0HqQd0CGpTiKRONJude4-2BSsNEXmpTWFbVn7KIYUZRVHAyrUpW7MXxjc-2FqCDWugVFXx574jVw6J7AuqIMN8xCK0iv3bPZjXrabb-2BWXwezZpQFLZE34yn6CVbJCQvmrQ3rjg5a43SNZwK-2BgAipFyVeR3EkkRmw-2B21-2FGCOBGcKlZTw-3D-3D" target="_blank">Here</a><br><br>We would like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>Best Regards,<br>Max<br>
+          <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
+            <input type="checkbox" name="unsubscribe">
+            <label for="unsubscribe">I wish to opt out of future promotional emails from The LC Biology Guy</label><br>
+            <input type="hidden" name="email" value="${customerEmail}">
+            <button type="submit">Submit</button>
+          </form>`;
+          productTable = 'free_resources_emails';
+        } else if (products[0] === 'Improvement Bundle') {
+          subject = 'H1 Fast-Track Bundle';
+          message = `Dear ${firstName},<br><br>Welcome to the 8-week Biology H1 Fast-Track Program! You can join the live Zoom session using the link(s) below.
+
+
+<br><br>Enzymes & Osmosis class<br>  
+March 12th, 7pm to 8:30pm<br>  
+${Enzymes_Link}<br>  
+MeetingID: ${Enzymes_ID}<br>  
+Passcode: ${Enzymes_Passcode}<br><br>  
+
+Respiration class<br>  
+March 16th, 3pm to 4:30pm<br>  
+${Respiration_Link}<br>  
+MeetingID: ${Respiration_ID}<br>  
+Passcode: ${Respiration_Passcode}<br><br>  
+
+Photosynthesis class<br>  
+March 19th, 7pm to 8:30pm<br>  
+${Photo_Link}<br>  
+MeetingID: ${Photo_ID}<br>  
+Passcode: ${Photo_Passcode}<br><br>  
+
+Genetics class<br>  
+March 23rd, 3pm to 4:30pm<br>  
+${Genetics_Link}<br>  
+MeetingID: ${Genetics_ID}<br>  
+Passcode: ${Genetics_Passcode}<br><br>  
+
+DNA class<br>  
+March 26th, 7pm to 8:30pm<br>  
+${DNA_Link}<br>  
+MeetingID: ${DNA_ID}<br>  
+Passcode: ${DNA_Passcode}<br><br>  
+
+Microorganisms class<br>  
+March 30th, 3pm to 5pm<br>  
+${Micro_Link}<br>  
+MeetingID: ${Micro_ID}<br>  
+Passcode: ${Micro_Passcode}<br><br>  
+
+Human Reproduction 1 class<br>  
+April 2nd, 7pm to 8:30pm<br>  
+${HumanRepo1_Link}<br>  
+MeetingID: ${HumanRepo1_ID}<br>  
+Passcode: ${HumanRepo1_Passcode}<br><br>  
+
+Human Reproduction 2 class<br>  
+April 6th, 3pm to 4:30pm<br>  
+${HumanRepo2_Link}<br>  
+MeetingID: ${HumanRepo2_ID}<br>  
+Passcode: ${HumanRepo2_Passcode}<br><br>  
+
+Nervous System class<br>  
+April 9th, 7pm to 8:30pm<br>  
+${NervousSystem_Link}<br>  
+MeetingID: ${NervousSystem_ID}<br>  
+Passcode: ${NervousSystem_Passcode}<br><br>  
+
+Musculoskeletal System class<br>  
+April 13th, 3pm to 4:30pm<br>  
+${Musculoskeletal_Link}<br>  
+MeetingID: ${Musculoskeletal_ID}<br>  
+Passcode: ${Musculoskeletal_Passcode}<br><br>  
+
+Human Excretion and Homeostasis class<br>  
+April 16th, 7pm to 8:30pm<br>  
+${ExcretionHomeostasis_Link}<br>  
+MeetingID: ${ExcretionHomeostasis_ID}<br>  
+Passcode: ${ExcretionHomeostasis_Passcode}<br><br>  
+
+Plant Structure class<br>  
+April 20th, 3pm to 4:30pm<br>  
+${PlantStructure_Link}<br>  
+MeetingID: ${PlantStructure_ID}<br>  
+Passcode: ${PlantStructure_Passcode}<br><br>  
+
+Plant Reproduction 1 class<br>  
+April 23rd, 7pm to 8:30pm<br>  
+${PlantRepro1_Link}<br>  
+MeetingID: ${PlantRepro1_ID}<br>  
+Passcode: ${PlantRepro1_Passcode}<br><br>  
+
+Plant Reproduction 2 class<br>  
+April 27th, 3pm to 4:30pm<br>  
+${PlantRepro2_Link}<br>  
+MeetingID: ${PlantRepro2_ID}<br>  
+Passcode: ${PlantRepro2_Passcode}<br><br>  
+
+Plant Responses class<br>  
+April 30th, 7pm to 8:30pm<br>  
+${PlantResponses_Link}<br>  
+MeetingID: ${PlantResponses_ID}<br>  
+Passcode: ${PlantResponses_Passcode}<br><br>  
+
+Plant Transport class<br>  
+May 4th, 3pm to 4:30pm<br>  
+${PlantTransport_Link}<br>  
+MeetingID: ${PlantTransport_ID}<br>  
+Passcode: ${PlantTransport_Passcode}<br><br>  
+
+<br><br>You can access the notes and recordings from this Google Drive link <a href="" target="_blank">here</a>. The permission is set to restricted. I will grant you access as soon as possible.<br><br>If you have any troubles please send me an email at thelcbiologyguy@gmail.com<br><br>Best Regards<br>Max<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br> Best regards,<br>Max<br>
           <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
             <input type="checkbox" name="unsubscribe">
             <label for="unsubscribe">I wish to opt out of future promotional emails from The LC Biology Guy</label><br>
@@ -212,7 +321,7 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
 
       let zoomLinksSection = products.map(product => productLinks[product] || "").join("");
 
-      const newMessage = `Dear ${firstName},<br><br>Welcome to the 8-week Biology Improvement Challenge! You can join the live Zoom session using the link(s) below. <br><br> ${zoomLinksSection} You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br> Best regards,<br>Max<br>
+      const newMessage = `Dear ${firstName},<br><br>Thank you for purchasing a select class or classes! You can join the live Zoom session(s) using the link(s) below. <br><br>${zoomLinksSection}<br><br>You can access the notes and recordings from this Google Drive link <a href="" target="_blank">here</a>. The permission is set to restricted. I will grant you access as soon as possible.<br><br>If you have any troubles please send me an email at thelcbiologyguy@gmail.com<br><br>Best Regards<br>Max<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br> Best regards,<br>Max<br>
       <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
           <input type="checkbox" name="unsubscribe">
           <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br>
