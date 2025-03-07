@@ -222,6 +222,13 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
     }
    } else {
 
+      const unsubbedresult = await db.query('SELECT email FROM unsubbed WHERE email = $1', [customerEmail])
+      const promotionsresult = await db.query('SELECT email FROM promotions WHERE email = $1', [customerEmail])
+
+      if(unsubbedresult.rows.length === 0 && promotionsresult.rows.length === 0){
+        await db.query('INSERT INTO promotions (email) VALUES ($1)', [customerEmail])
+      }
+
       console.log(products)
 
       let zoomLinksSection = products.map(product => productLinks[product] || "").join("");
