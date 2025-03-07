@@ -217,7 +217,7 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
           sendEmail(customerEmail, subject, message, emailSent, db);
           
         } else {
-          sendEmail(customerEmail, "Sorry", "Dear customer,<br><br>It looks like you might have purchased one of my products twice.<br>If this was a paid product, then it must have been a mistake. Please contact me if this was the case.<br><br>If you purchased my free resources package, and tried to do it again, and still haven't recieved an email with the necessary links, please make sure to check your spam and promotion folders. If you still don't have it after 24 hours, then please contact me at my email address: thelcbiologyguy@gmail.com<br><br>Best regards,<br>The LC Biology Guy", "Double product purchase email", db)
+          sendEmail(customerEmail, "Sorry", "Dear customer,<br><br>It looks like you might have purchased one of my products twice.<br>If this was a paid product, then it must have been a mistake. Please contact me if this was the case.<br><br>If you purchased my free resources package and tried to do it again and still haven't recieved an email with the necessary links, please make sure to check your spam and promotion folders. If you still don't have it after 24 hours, then please contact me at my email address: thelcbiologyguy@gmail.com<br><br>Best regards,<br>The LC Biology Guy", "Double product purchase email", db)
           console.log("email already exists in the database table of this product")
     }
    } else {
@@ -226,7 +226,7 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
 
       let zoomLinksSection = products.map(product => productLinks[product] || "").join("");
 
-      const newMessage = `Dear ${firstName},<br><br>Thank you for purchasing a select class or classes! You can join the live Zoom session(s) using the link(s) below. <br><br>${zoomLinksSection}<br><br>You can access the notes and recordings from this Google Drive link <a href="" target="_blank">here</a>. The permission is set to restricted. I will grant you access as soon as possible.<br><br>If you have any troubles please send me an email at thelcbiologyguy@gmail.com<br><br>Best Regards<br>Max<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br> Best regards,<br>Max<br>
+      const newMessage = `Dear ${firstName},<br><br>Thank you for purchasing a select class or classes! You can join the live Zoom session(s) using the link(s) below. <br><br>${zoomLinksSection}<br><br>You can access the notes and recordings from this Google Drive link <a href="https://drive.google.com/drive/folders/1hrn7XnsXg3W7lpWPulcWeq2h3owNJeW9" target="_blank">here</a>. The permission is set to restricted. I will grant you access as soon as possible.<br><br>If you have any troubles please send me an email at thelcbiologyguy@gmail.com<br><br>Best Regards<br>Max<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br> Best regards,<br>Max<br>
       <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
           <input type="checkbox" name="unsubscribe">
           <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br>

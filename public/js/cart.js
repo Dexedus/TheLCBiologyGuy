@@ -79,24 +79,30 @@ document.querySelectorAll(".remove-from-cart-btn").forEach(button => {
 function updateCartCount() {
     const cart = getCart();
     const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
-    document.getElementById("cart-count").textContent = cartCount;
 
-    const cartCountElement = document.getElementById("cart-count");
-
-    cartCountElement.classList.remove("cart-bounce");
-
-    // Trigger reflow to restart the animation (forces the browser to recognize class removal)
-    void cartCountElement.offsetWidth;
-
-    // Add the animation class
-    cartCountElement.classList.add("cart-bounce");
-
-    // Remove the class after the animation completes
-    cartCountElement.addEventListener("animationend", function removeAnimation() {
-        cartCountElement.classList.remove("cart-bounce");
-        cartCountElement.removeEventListener("animationend", removeAnimation);
+    // Update all elements with the cart count
+    const cartCountElements = document.querySelectorAll("#cart-count, #cart-count-header, #cart-count-mobile");
+    cartCountElements.forEach(el => {
+        if (el) el.textContent = cartCount;
     });
-    
+
+    // Apply animation to each element
+    cartCountElements.forEach(el => {
+        if (!el) return;
+
+        el.classList.remove("cart-bounce");
+
+        // Trigger reflow to restart the animation
+        void el.offsetWidth;
+
+        el.classList.add("cart-bounce");
+
+        // Remove animation class after the animation completes
+        el.addEventListener("animationend", function removeAnimation() {
+            el.classList.remove("cart-bounce");
+            el.removeEventListener("animationend", removeAnimation);
+        });
+    });
 }
 
 // Call it when the page loads or after adding to cart
