@@ -1,6 +1,5 @@
 html{
     overflow-x: hidden!important;
-    overflow-y: hidden!important;
     scroll-behavior: smooth!important;
 }
 
@@ -37,7 +36,6 @@ body{
     position: relative;
     display: flex;
     flex-direction: column;
-    height: 100vh;
     justify-content: space-between;
     align-items: center;
     margin: 0;
@@ -630,12 +628,6 @@ footer{
 }
 
 @media (max-width: 992px) {
-    .video1,
-    .video3,
-    .finger-down,
-    #phoneMock {
-        display: none !important;
-    }
 
     #lessons-photo {
         width: 100%;
@@ -653,32 +645,9 @@ footer{
         width: 100% !important;
         margin-top: -100px;
     }
-
-    #notebook {
-        right: 40px;
-        width: 240px;
-        top: 160px;
-    }
-
-    #worksheets {
-        top: 120px;
-        left: 90px;
-        width: 200px;
-    }
 }
 
 @media (max-width: 768px) {
-    #notebook {
-        right: 40px;
-        width: 160px;
-        top: 135px;
-    }
-
-    #worksheets {
-        top: 120px;
-        left: 90px;
-        width: 120px;
-    }
 
     .productCardRow {
         flex-direction: column;
@@ -726,18 +695,6 @@ footer{
 
     .product-title {
         font-size: 2em !important;
-    }
-
-    #notebook {
-        right: 40px;
-        width: 160px;
-        top: 130px;
-    }
-
-    #worksheets {
-        top: 120px;
-        left: 90px;
-        width: 120px;
     }
 }
 
