@@ -113,26 +113,6 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
   if (event.type === 'checkout.session.async_payment_succeeded' || event.type === 'checkout.session.completed') {
     const session = event.data.object;
 
-
-    const productLinks = {
-      "Enzymes & Osmosis (March 12th)": `Enzymes & Osmosis class<br>March 12th, 7pm to 8:30pm<br>${Enzymes_Link}<br>MeetingID: ${Enzymes_ID}<br>Passcode: ${Enzymes_Passcode}<br><br>`,
-      "Respiration (March 16th)": `Respiration class<br>March 16th, 3pm to 4:30pm<br>${Respiration_Link}<br>MeetingID: ${Respiration_ID}<br>Passcode: ${Respiration_Passcode}<br><br>`,
-      "Photosynthesis (March 19th)": `Photosynthesis class<br>March 19th, 7pm to 8:30pm<br>${Photo_Link}<br>MeetingID: ${Photo_ID}<br>Passcode: ${Photo_Passcode}<br><br>`,
-      "Genetics (March 23rd)": `Genetics class<br>March 23rd, 3pm to 4:30pm<br>${Genetics_Link}<br>MeetingID: ${Genetics_ID}<br>Passcode: ${Genetics_Passcode}<br><br>`,
-      "DNA (March 26th)": `DNA class<br>March 26th, 7pm to 8:30pm<br>${DNA_Link}<br>MeetingID: ${DNA_ID}<br>Passcode: ${DNA_Passcode}<br><br>`,
-      "Microorganisms (March 30th)": `Microorganisms class<br>March 30th 3pm to 5pm<br>${Micro_Link}<br>MeetingID: ${Micro_ID}<br>Passcode: ${Micro_Passcode}<br><br>`,
-      "Human Reproduction 1 & 2 (April 2nd & 6th)": `Human Reproduction 1 class<br>April 2nd, 7pm to 8:30pm <br>${HumanRepo1_Link}<br>MeetingID: ${HumanRepo1_ID}<br>Passcode: ${HumanRepo1_Passcode}<br><br>Human Reproduction 2 class<br>April 6th, 3pm to 4:30pm <br>${HumanRepo2_Link}<br>MeetingID: ${HumanRepo2_ID}<br>Passcode: ${HumanRepo2_Passcode}<br><br>`,
-      "Nervous System (April 9th)": `Nervous System class<br>April 9th 7pm to 8:30pm<br>${NervousSystem_Link}<br>MeetingID: ${NervousSystem_ID}<br>Passcode: ${NervousSystem_Passcode}<br><br>`,
-      "Musculoskeletal System (April 13th)": `Musculoskeletal System class<br>April 13th, 3pm to 4:30pm<br>${Musculoskeletal_Link}<br>MeetingID: ${Musculoskeletal_ID}<br>Passcode: ${Musculoskeletal_Passcode}<br><br>`,
-      "Human Excretion and Homeostasis (April 16th)": `Human Excretion and Homeostasis class<br>April 16th, 7pm to 8:30pm<br>${ExcretionHomeostasis_Link}<br>MeetingID: ${ExcretionHomeostasis_ID}<br>Passcode: ${ExcretionHomeostasis_Passcode}<br><br>`,
-      "Plant Structure (April 20th)": `Plant Structure class<br>April 20th, 3pm to 4:30pm<br>${PlantStructure_Link}<br>MeetingID: ${PlantStructure_ID}<br>Passcode: ${PlantStructure_Passcode}<br><br>`,
-      "Plant Reproduction 1 & 2 (April 23 & 27th)": `Plant Reproduction 1 class<br>April 23rd, 7pm to 8:30<br>${PlantRepro1_Link}<br>MeetingID: ${PlantRepro1_ID}<br>Passcode: ${PlantRepro1_Passcode}<br><br>Plant Reproduction 2 class<br>April 27th, 3pm to 4:30pm<br>${PlantRepro2_Link}<br>MeetingID: ${PlantRepro2_ID}<br>Passcode: ${PlantRepro2_Passcode}<br><br>`,
-      "Plant Responses (April 30th)": `Plant Responses class<br>April 30th, 7pm to 8:30pm<br>${PlantResponses_Link}<br>MeetingID: ${PlantResponses_ID}<br>Passcode: ${PlantResponses_Passcode}<br><br>`,
-      "Plant Transport (May 4th)": `Plant Transport class<br>May 4th, 3pm to 4:30pm<br>${PlantTransport_Link}<br>MeetingID: ${PlantTransport_ID}<br>Passcode: ${PlantTransport_Passcode}<br><br>`
-
-    };
-
-
     
     const customerEmail = session.receipt_email || session.customer_details.email; // Get the customer email
     const firstNameField = session.custom_fields.find(field => field.key === 'first_name');
@@ -221,6 +201,24 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
           console.log("email already exists in the database table of this product")
     }
    } else {
+
+    const productLinks = {
+      "Enzymes & Osmosis (March 12th)": `Enzymes & Osmosis class<br>March 12th, 7pm to 8:30pm<br>${Enzymes_Link}<br>MeetingID: ${Enzymes_ID}<br>Passcode: ${Enzymes_Passcode}<br><br>`,
+      "Respiration (March 16th)": `Respiration class<br>March 16th, 3pm to 4:30pm<br>${Respiration_Link}<br>MeetingID: ${Respiration_ID}<br>Passcode: ${Respiration_Passcode}<br><br>`,
+      "Photosynthesis (March 19th)": `Photosynthesis class<br>March 19th, 7pm to 8:30pm<br>${Photo_Link}<br>MeetingID: ${Photo_ID}<br>Passcode: ${Photo_Passcode}<br><br>`,
+      "Genetics (March 23rd)": `Genetics class<br>March 23rd, 3pm to 4:30pm<br>${Genetics_Link}<br>MeetingID: ${Genetics_ID}<br>Passcode: ${Genetics_Passcode}<br><br>`,
+      "DNA (March 26th)": `DNA class<br>March 26th, 7pm to 8:30pm<br>${DNA_Link}<br>MeetingID: ${DNA_ID}<br>Passcode: ${DNA_Passcode}<br><br>`,
+      "Microorganisms (March 30th)": `Microorganisms class<br>March 30th 3pm to 5pm<br>${Micro_Link}<br>MeetingID: ${Micro_ID}<br>Passcode: ${Micro_Passcode}<br><br>`,
+      "Human Reproduction 1 & 2 (April 2nd & 6th)": `Human Reproduction 1 class<br>April 2nd, 7pm to 8:30pm <br>${HumanRepo1_Link}<br>MeetingID: ${HumanRepo1_ID}<br>Passcode: ${HumanRepo1_Passcode}<br><br>Human Reproduction 2 class<br>April 6th, 3pm to 4:30pm <br>${HumanRepo2_Link}<br>MeetingID: ${HumanRepo2_ID}<br>Passcode: ${HumanRepo2_Passcode}<br><br>`,
+      "Nervous System (April 9th)": `Nervous System class<br>April 9th 7pm to 8:30pm<br>${NervousSystem_Link}<br>MeetingID: ${NervousSystem_ID}<br>Passcode: ${NervousSystem_Passcode}<br><br>`,
+      "Musculoskeletal System (April 13th)": `Musculoskeletal System class<br>April 13th, 3pm to 4:30pm<br>${Musculoskeletal_Link}<br>MeetingID: ${Musculoskeletal_ID}<br>Passcode: ${Musculoskeletal_Passcode}<br><br>`,
+      "Human Excretion and Homeostasis (April 16th)": `Human Excretion and Homeostasis class<br>April 16th, 7pm to 8:30pm<br>${ExcretionHomeostasis_Link}<br>MeetingID: ${ExcretionHomeostasis_ID}<br>Passcode: ${ExcretionHomeostasis_Passcode}<br><br>`,
+      "Plant Structure (April 20th)": `Plant Structure class<br>April 20th, 3pm to 4:30pm<br>${PlantStructure_Link}<br>MeetingID: ${PlantStructure_ID}<br>Passcode: ${PlantStructure_Passcode}<br><br>`,
+      "Plant Reproduction 1 & 2 (April 23 & 27th)": `Plant Reproduction 1 class<br>April 23rd, 7pm to 8:30<br>${PlantRepro1_Link}<br>MeetingID: ${PlantRepro1_ID}<br>Passcode: ${PlantRepro1_Passcode}<br><br>Plant Reproduction 2 class<br>April 27th, 3pm to 4:30pm<br>${PlantRepro2_Link}<br>MeetingID: ${PlantRepro2_ID}<br>Passcode: ${PlantRepro2_Passcode}<br><br>`,
+      "Plant Responses (April 30th)": `Plant Responses class<br>April 30th, 7pm to 8:30pm<br>${PlantResponses_Link}<br>MeetingID: ${PlantResponses_ID}<br>Passcode: ${PlantResponses_Passcode}<br><br>`,
+      "Plant Transport (May 4th)": `Plant Transport class<br>May 4th, 3pm to 4:30pm<br>${PlantTransport_Link}<br>MeetingID: ${PlantTransport_ID}<br>Passcode: ${PlantTransport_Passcode}<br><br>`
+
+    };
 
       const unsubbedresult = await db.query('SELECT email FROM unsubbed WHERE email = $1', [customerEmail])
       const promotionsresult = await db.query('SELECT email FROM promotions WHERE email = $1', [customerEmail])
