@@ -233,7 +233,7 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
 
       let zoomLinksSection = products.map(product => productLinks[product] || "").join("");
 
-      const newMessage = `Dear ${firstName},<br><br>Thank you for purchasing a select class or classes! You can join the live Zoom session(s) using the link(s) below. <br><br>${zoomLinksSection}<br><br>You can access the notes and recordings from this Google Drive link <a href="https://drive.google.com/drive/folders/1hrn7XnsXg3W7lpWPulcWeq2h3owNJeW9" target="_blank">here</a>. The permission is set to restricted. I will grant you access as soon as possible.<br><br>If you have any troubles please send me an email at thelcbiologyguy@gmail.com<br><br>Best Regards<br>Max<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br> Best regards,<br>Max<br>
+      const newMessage = `Dear ${firstName},<br><br>Thank you for purchasing a select class or classes! You can join the live Zoom session(s) using the link(s) below. <br><br>${zoomLinksSection}<br><br>If you have any troubles please send me an email at thelcbiologyguy@gmail.com<br><br>Best Regards<br>Max<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br> Best regards,<br>Max<br>
       <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
           <input type="checkbox" name="unsubscribe">
           <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br>
