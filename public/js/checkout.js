@@ -1,5 +1,5 @@
 // Create a Stripe instance with your public key
-const stripe = Stripe('pk_test_51QRZoIFArv9BTH3QzUGFbMmyGVdsMIRXLOWDahQQFeCBMlT1G39gdVNHjQWmTMKkqtcr3kOSV10sCEBZzSDh9Yxr00tKsKUOqD');  // Use your Stripe publishable key
+const stripe = Stripe('pk_live_51QXjQNGUne0h98JDtBOK74lR0P752YMRqIhBxMhm9anAxOtvxpLcTKvVUTSuY6LZfx7fFnvxhSENnr47E0GeXOk4003GCc3rDh');  // Use your Stripe publishable key
 
 
 
