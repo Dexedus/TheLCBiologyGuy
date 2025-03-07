@@ -2,6 +2,7 @@
 
 <main style="display: flex; align-items: center; flex-direction: column; width: 100%;">
 
+
   <div id="popup">
 
     <!-- EJS renders the modal text differently depending on whether the user loaded the page normally or was redirected here after purchase -->
@@ -27,79 +28,503 @@
 
 
 <!-- Headline -->
-<div class="col-xxl-8 px-4 mx-auto" style="width: 100%; background-image: url(/images/background-biology.jpg); padding-top: 100px!important; position: relative; padding-bottom: 35px;">
-<div class="container">
-    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-      <video style="width: 100%!important; max-width: 380px!important; margin: auto; border: solid 2px #3b7765; padding: 0px!important; border-radius: 20px;" class="col-10 col-sm-8 col-lg-6" controls autoplay>
-        <source src="/videos/LandingpageVSL.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      <div class="col-lg-6" style="background-color: white; padding: 40px; border-radius: 20px; box-shadow: 5px 8px 20px #5e5e5e;">
-        <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Master Key Exam Topics with 6 Classes, Expert Feedback & Time-Saving Notes.</h1>
-        <p class="lead">Recordings and notes covering the most frequently asked topics: Photosynthesis, Respiration, Genetics, DNA, Human and Plant Reproduction.</p>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-          <form action="/api/create-checkout-session" method="POST">
-            <input type="hidden" name="priceId" value="price_1QehIfGUne0h98JDTLw1J30Y">
-            <button type="submit" class="btn btn-lg btn-primary">Get Started</button>
+<div class="col-xxl-8 px-4 mx-auto" style="width: 100%; background-image: url(/images/darkbg.png); padding-top: 100px!important; position: relative; padding-bottom: 35px; border-bottom: 2px solid #205242;">
+
+  <div class="container my-5">
+    <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg" style="background-color: rgb(255, 255, 255); border: solid 2px #3c806c!important;">
+      <div class="col-lg-10 p-3 p-lg-5 pt-lg-3 text-center mx-auto">
+        <h1 class="display-4 fw-bold lh-1 text-body-emphasis" style=" border-bottom: solid 3px #3c806c!important; padding-bottom: 20px;">8-week Biology H1 Fast-Track</h1>
+        <h4 class="my-4" style="color: #333333;">Secure your dream biology grade in 8 weeks.</h4>
+        <p class="lead">What is the 8-week Biology H1 Fast-Track Program? I will cover almost 80% of the curriculum in 8 weeks. This plan can cater to every single student, no matter what your dream grade is. Through this plan, we will answer all relevant exam questions from the past 17 years of state exams!</p>
+        <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-center mb-4 mb-lg-3">
+          <button type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Primary</button>
+        </div>  ***might have a button here might not*** -->
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+  <!-- What you get -->
+  <div class="col-xxl-8 px-4 pt-5" style="background-color: white; width: 100%;">
+    <div class="container">
+    <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3 box" style="text-align: center; margin-top: 50px!important;" id="whatYouGetTitle">🔬What You Get🔬</h1>
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5 box" id="whatYouGet">
+      <div class="col-12 col-sm-12 col-lg-6" style="display: flex; justify-content: center; position: relative;">
+        <img src="/images/bundleImage.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" id="monitor" height="500" loading="lazy">
+      </div>
+      <div class="col-lg-6">
+        <ul id="noDotsList">
+            <h5><li>✔️ 2 Small group Zoom classes each week covering the chapter + exam questions.</li></h5>
+            <h5><li>✔️ All classes are recorded.</li></h5>
+            <h5><li>✔️ Complementary H1 Highlighted notes.</li></h5>
+            <h5><li>Support:</li></h5>
+              <h5 style="margin-left: 40px;"><li>✔️ Weekly 1-on-1 Support Calls.</li></h5>
+              <h5 style="margin-left: 40px;"><li>✔️ 7 days a week email support.</li></h5>
+              <h5 style="margin-left: 40px;"><li>✔️ 1-on-1 Mock Paper Analysis.</li></h5>
+            <h5><li>Bonuses:</li></h5>
+              <h5 style="margin-left: 40px;"><li>✔️ FAQ Topic Assessment Worksheets. (value €80)</li></h5>
+              <h5 style="margin-left: 40px;"><li>✔️ Exam Question Checklist. </li></h5>
+              <h5 style="margin-left: 40px;"><li>✔️ Simple-to-Follow Study Session Design Guide. </li></h5>
+              <h5 style="margin-left: 40px;"><li>✔️ An additional 8 Revision Classes in May (value €200)</li></h5>
+        </ul>
+        <div class="d-grid gap-2 mt-5 d-md-flex justify-content-center">
+          <form action="/create-checkout-session-not-cart" method="POST">
+            <input type="hidden" name="priceId" value="price_1QzhbHFArv9BTH3QWmz5ewvq">
+              <button type="submit" class="btn btn-lg btn-primary" style="font-size: 2em!important;">Buy: €276</button>
             </form>
         </div>
       </div>
+      </div>
     </div>
-  </div>
-  <div class="urgencyText"><p class="lead" id="urgencyText" style="width: 100%;">Offer Only Available Until Friday Feburary 16th</p></div>
-  </div>
+    </div>
 
 
-  <!-- Reviews -->
-  <div style="width: 100%; background-color: white; display: flex; flex-direction: column; padding-bottom: 70px;" class="pt-5">
-    <h2 style="text-align: center;" class="mb-4 d-flex justify-content-center"><div id="star1">⭐</div>Reviews<div id="star2">⭐</div></h2>
-    <div class="container">
-      <div class="row justify-content-center gap-4">  
-        
-        <div class="col-md-4 col-lg-3 col-sm-12 d-flex justify-content-center box reviewCard" id="reviewCard">
-          <div class="card" style="width: 18rem; border: solid 1px #3c806c!important; border-radius: 10px; box-shadow: 3px 7px 20px #d4d4d4;">
-            <div class="card-body">
-              <img src="/images/default-avatar-photo-placeholder.jpg" class="mb-2" height="50px" width="50px" style="border-radius: 50%;" alt="profile picture">
-              <p class="card-text" style="min-height: 55%;">I was struggling with biology but I feel far more confident and I will definitely do more of your classes in future if you do them</p>
-              <div class="d-flex align-items-center">
-                <h5 class="card-title">Aimee Mc</h5>
-                <h6 class="card-subtitle mb-1 mx-4 text-body-secondary">Student</h6>
+
+
+
+
+    <div style="width: 100%; background-color: white; display: flex; flex-direction: column; padding-bottom: 70px;" class="pt-5">
+      <h2 style="text-align: center;" class="mb-4 d-flex justify-content-center"><div id="star1">⭐</div>Reviews<div id="star2">⭐</div></h2>
+      <div class="container">
+        <div class="row justify-content-center gap-4">  
+          
+          <div class="col-md-4 col-lg-3 col-sm-12 d-flex justify-content-center box reviewCard" id="reviewCard">
+            <div class="card" style="width: 18rem; border: solid 1px #3c806c!important; border-radius: 10px; box-shadow: 3px 7px 20px #d4d4d4;">
+              <div class="card-body">
+                <img src="/images/default-avatar-photo-placeholder.jpg" class="mb-2" height="50px" width="50px" style="border-radius: 50%;" alt="profile picture">
+                <p class="card-text" style="min-height: 55%;">I was struggling with biology but I feel far more confident and I will definitely do more of your classes in future if you do them</p>
+                <div class="d-flex align-items-center">
+                  <h5 class="card-title">Aimee Mc</h5>
+                  <h6 class="card-subtitle mb-1 mx-4 text-body-secondary">Student</h6>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-  
-        <div class="col-md-4 col-lg-3 col-sm-12 d-flex justify-content-center box reviewCard" id="reviewCard2">
-          <div class="card" style="width: 18rem; border: solid 1px #3c806c!important; border-radius: 10px; box-shadow: 3px 7px 20px #d4d4d4;">
-            <div class="card-body">
-              <img src="/images/default-avatar-photo-placeholder.jpg" class="mb-2" height="50px" width="50px" style="border-radius: 50%;" alt="profile picture">
-              <p class="card-text" style="min-height: 55%;">We went through all the relevant exam questions and corrected them thoroughly and it was made sure that I understood them. I would highly recommend The LC Biology Guy</p>
-              <div class="d-flex align-items-center">
-                <h5 class="card-title">Daniel</h5>
-                <h6 class="card-subtitle mb-1 mx-4 text-body-secondary">Student</h6>
+    
+          <div class="col-md-4 col-lg-3 col-sm-12 d-flex justify-content-center box reviewCard" id="reviewCard2">
+            <div class="card" style="width: 18rem; border: solid 1px #3c806c!important; border-radius: 10px; box-shadow: 3px 7px 20px #d4d4d4;">
+              <div class="card-body">
+                <img src="/images/default-avatar-photo-placeholder.jpg" class="mb-2" height="50px" width="50px" style="border-radius: 50%;" alt="profile picture">
+                <p class="card-text" style="min-height: 55%;">We went through all the relevant exam questions and corrected them thoroughly and it was made sure that I understood them. I would highly recommend The LC Biology Guy</p>
+                <div class="d-flex align-items-center">
+                  <h5 class="card-title">Daniel</h5>
+                  <h6 class="card-subtitle mb-1 mx-4 text-body-secondary">Student</h6>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-  
-        <div class="col-md-4 col-lg-3 col-sm-12 d-flex justify-content-center box reviewCard" id="reviewCard3">
-          <div class="card" style="width: 18rem; border: solid 1px #3c806c!important; border-radius: 10px; box-shadow: 3px 7px 20px #d4d4d4;">
-            <div class="card-body">
-              <img src="/images/default-avatar-photo-placeholder.jpg" class="mb-2" height="50px" width="50px" style="border-radius: 50%;" alt="profile picture">
-              <p class="card-text" style="min-height: 55%;">I understand genetics a lot better now. The way you explained it with the diagrams made it easy to understand. Thank you again</p>
-              <div class="d-flex align-items-center">
-                <h5 class="card-title">Rachel</h5>
-                <h6 class="card-subtitle mb-1 mx-4 text-body-secondary">Student</h6>
+    
+          <div class="col-md-4 col-lg-3 col-sm-12 d-flex justify-content-center box reviewCard" id="reviewCard3">
+            <div class="card" style="width: 18rem; border: solid 1px #3c806c!important; border-radius: 10px; box-shadow: 3px 7px 20px #d4d4d4;">
+              <div class="card-body">
+                <img src="/images/default-avatar-photo-placeholder.jpg" class="mb-2" height="50px" width="50px" style="border-radius: 50%;" alt="profile picture">
+                <p class="card-text" style="min-height: 55%;">I understand genetics a lot better now. The way you explained it with the diagrams made it easy to understand. Thank you again</p>
+                <div class="d-flex align-items-center">
+                  <h5 class="card-title">Rachel</h5>
+                  <h6 class="card-subtitle mb-1 mx-4 text-body-secondary">Student</h6>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
 
-  <!-- Your Story -->
+
+
+
+
+    <!-- <div style="width: 100%; background-color: white; display: flex; flex-direction: column; padding-bottom: 70px;" class="pt-5">
+      <h2 style="text-align: center;" class="mb-4 d-flex justify-content-center"><div id="star1">⭐</div>Reviews<div id="star2">⭐</div></h2>
+      <div class="container">
+        <div class="row justify-content-center gap-4">  
+          
+          <div class="col-md-4 col-lg-3 col-sm-12 d-flex justify-content-center box reviewCard" id="reviewCard">
+            <div class="card" style="width: 18rem; border: solid 1px #3c806c!important; border-radius: 10px; box-shadow: 3px 7px 20px #d4d4d4;">
+              <div class="card-body">
+                <div style="display: flex; width: 100%; justify-content: space-between; align-items: center;">
+                  <img src="/images/Ethan.png" class="mb-2" height="40px" width="40px" style="border-radius: 50%;" alt="profile picture">
+                  <img src="/images/Google-Reviews-icon.png" class="mb-2" height="30px" width="30px" style="border-radius: 50%;" alt="profile picture"> 
+                </div>
+                  <p class="card-text" style="min-height: 55%;">His notes are very helpful, easy to read, and highlight all the key points that are needed to know in the exam. I would definitely recommend them to any LC Biology student!</p>
+                <div class="d-flex align-items-center">
+                  <h5 class="card-title">Ethan</h5>
+                  <h6 class="card-subtitle mb-1 mx-4 text-body-secondary">Student</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <div class="col-md-4 col-lg-3 col-sm-12 d-flex justify-content-center box reviewCard" id="reviewCard2">
+            <div class="card" style="width: 18rem; border: solid 1px #3c806c!important; border-radius: 10px; box-shadow: 3px 7px 20px #d4d4d4;">
+              <div class="card-body">
+                <div style="display: flex; width: 100%; justify-content: space-between; align-items: center;">
+                  <img src="/images/unnamedA.png" class="mb-2" height="40px" width="40px" style="border-radius: 50%;" alt="profile picture">
+                  <img src="/images/Google-Reviews-icon.png" class="mb-2" height="30px" width="30px" style="border-radius: 50%;" alt="profile picture"> 
+                </div>
+                <p class="card-text" style="min-height: 55%;">The notes are excellent, really concise. Brought my grade up massively, definitely worth checking them out!</p>
+                <div class="d-flex align-items-center">
+                  <h5 class="card-title">Alex</h5>
+                  <h6 class="card-subtitle mb-1 mx-4 text-body-secondary">Student</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <div class="col-md-4 col-lg-3 col-sm-12 d-flex justify-content-center box reviewCard" id="reviewCard3">
+            <div class="card" style="width: 18rem; border: solid 1px #3c806c!important; border-radius: 10px; box-shadow: 3px 7px 20px #d4d4d4;">
+              <div class="card-body">
+                <div style="display: flex; width: 100%; justify-content: space-between; align-items: center;">
+                  <img src="/images/Zara.png" class="mb-2" height="40px" width="40px" style="border-radius: 50%;" alt="profile picture">
+                  <img src="/images/Google-Reviews-icon.png" class="mb-2" height="30px" width="30px" style="border-radius: 50%;" alt="profile picture"> 
+                </div>
+                <p class="card-text" style="min-height: 55%;">Max’s notes are so helpful as well as the time and effort he puts into his tiktok lives. highly recommend his page and resources. thank you!!</p>
+                <div class="d-flex align-items-center">
+                  <h5 class="card-title">Zara</h5>
+                  <h6 class="card-subtitle mb-1 mx-4 text-body-secondary">Student</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+
+
+
+    <!-- classes -->
+
+    <div class="col-xxl-8 px-4 py-2" style="background-color: white; width: 100%; padding-top: 50px;">
+
+      <div class="px-4 pt-5 my-5 text-center">
+        <h1 class="display-4 fw-bold text-body-emphasis">Only want some classes?</h1>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-4">Pick and choose the chapters you want to focus on.</p>
+        </div>
+      </div>
+
+     <div id="carouselExample" class="carousel slide" style="width: 100%; background-color: white;">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+
+          <div class="productCardContainer">
+
+          <div class="productCardRow">
+            <div class="productCard">
+              <h1>Enzymes & Osmosis</h1>
+              <h3>€19</h3>
+              <p class="lead">March 9th, 7pm to 8:30pm</p>
+              <div class="productButtonRow">
+                <button class="add-to-cart-btn" 
+                data-id="1"
+                data-name="Product 1" 
+                data-price-id="price_1QyZJQFArv9BTH3QUES0l90X"
+                data-price="10.00">Add to Cart
+                </button>
+
+                <button class="remove-from-cart-btn"
+                data-id="1">Remove from Cart
+                </button>
+              </div>
+            </div>
+
+            <div class="productCard">
+              <h1>Respiration</h1>
+              <h3>€19</h3>
+              <p class="lead">March 16th, 3pm to 4:30pm</p>
+              <div class="productButtonRow">
+                <button class="add-to-cart-btn" 
+                data-id="2"
+                data-name="Product 2" 
+                data-price-id="price_1QyZJkFArv9BTH3QQLVIIlCP"
+                data-price="10.00">Add to Cart
+                </button>
+
+                <button class="remove-from-cart-btn"
+                data-id="2">Remove from Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="productCardRow">
+            <div class="productCard">
+              <h1>Photosynthesis</h1>
+              <h3>€19</h3>
+              <p class="lead">March 19th, 7pm to 8:30pm</p>
+              <div class="productButtonRow">
+                <button class="add-to-cart-btn" 
+                data-id="3"
+                data-name="Product 3" 
+                data-price-id="price_1QyZK2FArv9BTH3QmIa5u76a"
+                data-price="10.00">Add to Cart
+                </button>
+
+                <button class="remove-from-cart-btn"
+                data-id="3">Remove from Cart
+                </button>
+              </div>
+            </div>
+
+            <div class="productCard">
+              <h1>Genetics</h1>
+              <h3>€19</h3>
+              <p class="lead">March 23rd, 3pm to 4:30pm</p>
+              <div class="productButtonRow">
+                <button class="add-to-cart-btn" 
+                data-id="4"
+                data-name="Product 4" 
+                data-price-id="price_1QyZKUFArv9BTH3QRdnFYxak"
+                data-price="10.00">Add to Cart
+                </button>
+
+                <button class="remove-from-cart-btn"
+                data-id="4">Remove from Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        </div>
+
+        <div class="carousel-item">
+
+          <div class="productCardContainer">
+
+            <div class="productCardRow">
+              <div class="productCard">
+                <h1>DNA</h1>
+                <h3>€19</h3>
+                <p class="lead">March 26th, 7pm to 8:30pm</p>
+                <div class="productButtonRow">
+                  <button class="add-to-cart-btn" 
+                  data-id="5"
+                  data-name="Product 5" 
+                  data-price-id="price_1QyZKsFArv9BTH3QpaidqcNm"
+                  data-price="10.00">Add to Cart
+                  </button>
+
+                  <button class="remove-from-cart-btn"
+                  data-id="5">Remove from Cart
+                  </button>
+                </div>
+              </div>
+
+              <div class="productCard">
+                <h1>Microorganisms </h1>
+                <h3>€29</h3>
+                <p class="lead">March 30th 3pm to 5pm</p>
+                <div class="productButtonRow">
+                  <button class="add-to-cart-btn" 
+                  data-id="6"
+                  data-name="Product 6" 
+                  data-price-id="price_1QyZL4FArv9BTH3QeNoqBjHh"
+                  data-price="10.00">Add to Cart
+                  </button>
+
+                  <button class="remove-from-cart-btn"
+                  data-id="6">Remove from Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="productCardRow">
+              <div class="productCard">
+                <h1>Human Reproduction 1 & 2</h1>
+                <h3>€19</h3>
+                <p class="lead">April 2nd, 7pm to 8:30pm / April 6th, 3pm to 4:30pm</p>
+                <div class="productButtonRow">
+                  <button class="add-to-cart-btn" 
+                  data-id="7"
+                  data-name="Product 7" 
+                  data-price-id="price_1QyZLGFArv9BTH3QwjKCaFsN"
+                  data-price="10.00">Add to Cart
+                  </button>
+
+                  <button class="remove-from-cart-btn"
+                  data-id="7">Remove from Cart
+                  </button>
+                </div>
+              </div>
+
+              <div class="productCard">
+                <h1>Nervous System</h1>
+                <h3>€19</h3>
+                <p class="lead">April 9th, 7pm to 8:30pm</p>
+                <div class="productButtonRow">
+                  <button class="add-to-cart-btn" 
+                  data-id="8"
+                  data-name="Product 8" 
+                  data-price-id="price_1QyZLUFArv9BTH3QJwwD9URJ"
+                  data-price="10.00">Add to Cart
+                  </button>
+
+                  <button class="remove-from-cart-btn"
+                  data-id="8">Remove from Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+
+        </div>
+        <div class="carousel-item">
+
+          <div class="productCardContainer">
+
+            <div class="productCardRow">
+              <div class="productCard">
+                <h1>Musculoskeletal System</h1>
+                <h3>€19</h3>
+                <p class="lead">April 13th, 3pm to 4:30pm</p>
+                <div class="productButtonRow">
+                  <button class="add-to-cart-btn" 
+                  data-id="9"
+                  data-name="Product 9" 
+                  data-price-id="price_1QzTQ2FArv9BTH3QL6kkBILK"
+                  data-price="10.00">Add to Cart
+                  </button>
+
+                  <button class="remove-from-cart-btn"
+                  data-id="9">Remove from Cart
+                  </button>
+                </div>
+              </div>
+
+              <div class="productCard">
+                <h1>Human Excretion and Homeostasis</h1>
+                <h3>€19</h3>
+                <p class="lead">April 16th, 7pm to 8:30pm</p>
+                <div class="productButtonRow">
+                  <button class="add-to-cart-btn" 
+                  data-id="10"
+                  data-name="Product 10" 
+                  data-price-id="price_1QzTQJFArv9BTH3Qm1dKOtLd"
+                  data-price="10.00">Add to Cart
+                  </button>
+
+                  <button class="remove-from-cart-btn"
+                  data-id="10">Remove from Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="productCardRow">
+              <div class="productCard">
+                <h1>Plant Structure</h1>
+                <h3>€19</h3>
+                <p class="lead">April 20th, 3pm to 4:30pm</p>
+                <div class="productButtonRow">
+                  <button class="add-to-cart-btn" 
+                  data-id="11"
+                  data-name="Product 11" 
+                  data-price-id="price_1QzTQmFArv9BTH3QLMB4DYZr"
+                  data-price="10.00">Add to Cart
+                  </button>
+
+                  <button class="remove-from-cart-btn"
+                  data-id="11">Remove from Cart
+                  </button>
+                </div>
+              </div>
+
+              <div class="productCard">
+                <h1>Plant Reproduction 1 & 2 </h1>
+                <h3>€19</h3>
+                <p class="lead">April 23rd, 7pm to 8:30 / April 27th, 3pm to 4:30pm</p>
+                <div class="productButtonRow">
+                  <button class="add-to-cart-btn" 
+                  data-id="12"
+                  data-name="Product 12" 
+                  data-price-id="price_1QzTQwFArv9BTH3Qiicu9ZAu"
+                  data-price="10.00">Add to Cart
+                  </button>
+
+                  <button class="remove-from-cart-btn"
+                  data-id="12">Remove from Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+
+        </div>
+        <div class="carousel-item">
+
+          <div class="productCardContainer">
+
+            <div class="productCardRow">
+              <div class="productCard">
+                <h1>Plant Responses</h1>
+                <h3>€19</h3>
+                <p class="lead">April 30th, 7pm to 8:30pm</p>
+                <div class="productButtonRow">
+                  <button class="add-to-cart-btn" 
+                  data-id="13"
+                  data-name="Product 13" 
+                  data-price-id="price_1QzTR7FArv9BTH3QgwlLZME6"
+                  data-price="10.00">Add to Cart
+                  </button>
+
+                  <button class="remove-from-cart-btn"
+                  data-id="13">Remove from Cart
+                  </button>
+                </div>
+              </div>
+
+              <div class="productCard">
+                <h1>Plant Transport</h1>
+                <h3>€19</h3>
+                <p class="lead">May 4th, 3pm to 4:30pm</p>
+                <div class="productButtonRow">
+                  <button class="add-to-cart-btn" 
+                  data-id="14"
+                  data-name="Product 14" 
+                  data-price-id="price_1QzTRHFArv9BTH3QCzzRTUde"
+                  data-price="10.00">Add to Cart
+                  </button>
+
+                  <button class="remove-from-cart-btn"
+                  data-id="14">Remove from Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+    <div style="width: 100%;" class="d-flex justify-content-center">
+      <p style="color: red;"><i>*notes and worksheets included*</i></p>
+    </div>
+
+
+
+
+
+  <!-- Your Story
   <div class="px-4 pt-5 text-center" style="border-top: solid 2px #3c806c; border-bottom: solid 2px #3c806c; width: 100%;">
     <h1 class="display-4 fw-bold box" style="color: #3b7765;" id="storyTitle">My Story</h1>
     <div class="col-lg-6 mx-auto box" id="storyText">
@@ -124,7 +549,9 @@
       <button type="submit" class="my-3 btn btn-lg btn-primary box" style="transform: translateY(0px)!important;" id="myStoryButton">Get Started</button>
       </form>
   </div>
-  
+   -->
+
+
 
   <!-- social proof 2 -->
   <div class="px-3 pt-5" style="background-color: white; width: 100%;">
@@ -132,228 +559,28 @@
     <div class="p-5 rounded-3">
       <h1 class="text-body-emphasis">Testimonials</h1>
       <div class="row">
-        <p class="lead" style=" width: 80%; margin-bottom: -20px;">
-          <i>“It was really helpful as I've only done DNA in class but still wanted to know Genetics for the mocks. Even though it was a recording, every question I had was quickly explained .Overall I'm very happy with it as I was going to use the class to try learn the basics, but I genuinely feel confident in the topic now from just 1 class!”</i>
+        <p class="lead" style=" width: 100%; margin-bottom: -20px;">
+          <i>“Max’s notes and classes are an absolute game-changer for anyone studying Leaving Cert Biology. His notes are genuinely H1 standard, it literally covers everything in a way that’s clear easy to digest. What sets them apart is how he highlights exactly what to memorise and how to approach exam questions- which takes the guesswork out of studying. His focus on exam techniques has made such a difference in how I approach the subject, and I feel much more prepared for my mocks because of it. I’d highly recommend his classes to any student who wants to improve their understanding and boost their grades”</i>
         </p>
-        <h3 style="text-align: end; width: 100%; align-self: flex-end;">- Agne</h3>
+        <h3 style="text-align: end; width: 100%; align-self: flex-end; margin-top: 20px;">- Success</h3>
       </div>
       <div class="divider" style="margin-bottom: 10px; background-color: rgb(36, 36, 36);"></div>
       <div class="row">
-        <p class="lead" style=" width: 80%;">
-          <i>“In the recordings the way you broke everything down made it easier for me to understand everything especially the simple diagrams!! I also loved the notes there was a lot of useful information on them but it was broken down easily not just loads of information at once”</i>
+        <p class="lead" style=" width: 100%;">
+          <i>“I can’t express how much I’ve benefited from these classes! Everything is explained thoroughly in multiple ways to ensure everyone can 1000% understand which is super helpful! All of the examples done during the classes are talked through completely and Max is happy to answer any questions! Really great to communicate with, he returned my corrected worksheet in a matter of minutes, as well as tips on how to improve on the areas I struggled with. I’ve never come across any other teacher or company who is so passionate about helping students do well. Cannot recommend him enough, definitely worth it if you want to do well in biology!!!”</i>
         </p>
-        <h3 style="text-align: end; width: 100%; align-self: flex-end;">- Aimee D</h3>
+        <h3 style="text-align: end; width: 100%; align-self: flex-end;">- Samara</h3>
       </div>
     </div>
   </div>
   </div>
 
-
-  <!-- What you get -->
-  <div class="col-xxl-8 px-4 pt-5" style="background-color: white; width: 100%;">
-    <div class="container">
-    <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3 box" style="text-align: center; margin-top: 50px!important;" id="whatYouGetTitle">🔬What You Get🔬</h1>
-    <div class="row flex-lg-row-reverse align-items-center g-5 py-5 box" id="whatYouGet">
-      <div class="col-12 col-sm-12 col-lg-6" style="display: flex; justify-content: center; position: relative;">
-        <img src="/images/monitor.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" id="monitor" height="500" loading="lazy">
-        <img src="/images/Worksheets-portrait.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" id="worksheets" loading="lazy" style="position: absolute;">
-        <img src="/images/Notes.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" id="notebook" loading="lazy" style="position: absolute;">
-      </div>
-      <div class="col-lg-6">
-        <ul>
-            <h5><li>Each Masterclass has a video. It is 90 to 120 minutes long. In total, there are about 11 hours of lessons. Each class covers a full chapter and exam questions.</li></h5>
-            <h5><li>You also get special notes. Important past-examined content is marked in yellow. This helps you study faster!</li></h5>
-            <h5><li>For Unit 2, you get worksheets with common exam questions. This excludes human and plant reproduction (for now!)</li></h5>
-            <h5><li>Send me your answers, and I will give you feedback.</li></h5>
-            <h5><li>You also get 2 bonus notes on Enzymes and Osmosis!</li></h5>
-        </ul>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-          <form action="/api/create-checkout-session" method="POST">
-            <input type="hidden" name="priceId" value="price_1QehIfGUne0h98JDTLw1J30Y">
-            <button type="submit" class="btn btn-lg btn-primary">Get Started</button>
-            </form>
-        </div>
-      </div>
-      </div>
-    </div>
-    </div>
-
-    <!-- Classes -->
-
-
-         <!-- Testimonials -->
-          
-        <div class="col-xxl-8 px-4 py-2" style="background-color: white; width: 100%; padding-top: 50px;">
-         <div id="carouselExample" class="carousel slide" style="width: 100%; background-color: white;">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-
-              <div class="productCardContainer">
-
-              <div class="productCardRow">
-                <div class="productCard">
-                  <h1>Product 1</h1>
-                  <p class="lead">Add this to the cart and get access to this class!</p>
-                  <div class="productButtonRow">
-                    <button class="add-to-cart-btn" 
-                    data-id="1"
-                    data-name="Product 1" 
-                    data-price-id="price_1QyZJQFArv9BTH3QUES0l90X"
-                    data-price="10.00">Add to Cart
-                    </button>
-
-                    <button class="remove-from-cart-btn"
-                    data-id="1">Remove from Cart
-                    </button>
-                  </div>
-                </div>
-
-                <div class="productCard">
-                  <h1>Product 2</h1>
-                  <p class="lead">Add this to the cart and get access to this class!</p>
-                  <div class="productButtonRow">
-                    <button class="add-to-cart-btn" 
-                    data-id="2"
-                    data-name="Product 2" 
-                    data-price-id="price_1QyZJkFArv9BTH3QQLVIIlCP"
-                    data-price="10.00">Add to Cart
-                    </button>
-
-                    <button class="remove-from-cart-btn"
-                    data-id="2">Remove from Cart
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="productCardRow">
-                <div class="productCard">
-                  <h1>Product 3</h1>
-                  <p class="lead">Add this to the cart and get access to this class!</p>
-                  <div class="productButtonRow">
-                    <button class="add-to-cart-btn" 
-                    data-id="3"
-                    data-name="Product 3" 
-                    data-price-id="price_1QyZK2FArv9BTH3QmIa5u76a"
-                    data-price="10.00">Add to Cart
-                    </button>
-
-                    <button class="remove-from-cart-btn"
-                    data-id="3">Remove from Cart
-                    </button>
-                  </div>
-                </div>
-
-                <div class="productCard">
-                  <h1>Product 4</h1>
-                  <p class="lead">Add this to the cart and get access to this class!</p>
-                  <div class="productButtonRow">
-                    <button class="add-to-cart-btn" 
-                    data-id="4"
-                    data-name="Product 4" 
-                    data-price-id="price_1QyZKUFArv9BTH3QRdnFYxak"
-                    data-price="10.00">Add to Cart
-                    </button>
-
-                    <button class="remove-from-cart-btn"
-                    data-id="4">Remove from Cart
-                    </button>
-                  </div>
-                </div>
-              </div>
-    
-            </div>
-            </div>
-
-            <div class="carousel-item">
-
-              <div class="productCardContainer">
-
-                <div class="productCardRow">
-                  <div class="productCard">
-                    <h1>Product 5</h1>
-                    <p class="lead">Add this to the cart and get access to this class!</p>
-                    <div class="productButtonRow">
-                      <button class="add-to-cart-btn" 
-                      data-id="5"
-                      data-name="Product 5" 
-                      data-price-id="price_1QyZKsFArv9BTH3QpaidqcNm"
-                      data-price="10.00">Add to Cart
-                      </button>
-  
-                      <button class="remove-from-cart-btn"
-                      data-id="5">Remove from Cart
-                      </button>
-                    </div>
-                  </div>
-  
-                  <div class="productCard">
-                    <h1>Product 6</h1>
-                    <p class="lead">Add this to the cart and get access to this class!</p>
-                    <div class="productButtonRow">
-                      <button class="add-to-cart-btn" 
-                      data-id="6"
-                      data-name="Product 6" 
-                      data-price-id="price_1QyZL4FArv9BTH3QeNoqBjHh"
-                      data-price="10.00">Add to Cart
-                      </button>
-  
-                      <button class="remove-from-cart-btn"
-                      data-id="6">Remove from Cart
-                      </button>
-                    </div>
-                  </div>
-                </div>
-  
-                <div class="productCardRow">
-                  <div class="productCard">
-                    <h1>Product 7</h1>
-                    <p class="lead">Add this to the cart and get access to this class!</p>
-                    <div class="productButtonRow">
-                      <button class="add-to-cart-btn" 
-                      data-id="7"
-                      data-name="Product 7" 
-                      data-price-id="price_1QyZLGFArv9BTH3QwjKCaFsN"
-                      data-price="10.00">Add to Cart
-                      </button>
-  
-                      <button class="remove-from-cart-btn"
-                      data-id="7">Remove from Cart
-                      </button>
-                    </div>
-                  </div>
-  
-                  <div class="productCard">
-                    <h1>Product 8</h1>
-                    <p class="lead">Add this to the cart and get access to this class!</p>
-                    <div class="productButtonRow">
-                      <button class="add-to-cart-btn" 
-                      data-id="8"
-                      data-name="Product 8" 
-                      data-price-id="price_1QyZLUFArv9BTH3QJwwD9URJ"
-                      data-price="10.00">Add to Cart
-                      </button>
-  
-                      <button class="remove-from-cart-btn"
-                      data-id="8">Remove from Cart
-                      </button>
-                    </div>
-                  </div>
-                </div>
-      
-              </div>
-
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
+  <div class="d-grid gap-2 d-md-flex justify-content-center" style="margin-top: 80px!important;">
+    <form action="/create-checkout-session-not-cart" method="POST">
+      <input type="hidden" name="priceId" value="price_1QzhbHFArv9BTH3QWmz5ewvq">
+        <button type="submit" class="btn btn-lg btn-primary" style="font-size: 2em!important;">Get Started</button>
+      </form>
+  </div>
 
 
 
@@ -382,22 +609,18 @@
 
         <!-- Social Proof 3 -->
         <div class="container">
-        <div style="width: 100%; height: 100%; background-color: white; margin: auto; border-radius: 20px;" id="greenReview" class="mt-4 box">
+        <div style="width: 100%; height: 100%; background-color: white; margin: auto; border-radius: 20px;" id="greenReview" class="mt-4">
           <div class="d-flex py-3" style="flex-direction: column; justify-content: space-around; align-items: center;">
-              <h4 class="roboto-flex-font" style="color: rgb(94, 141, 135);">Reviews</h4>
-              <p class="px-1 mb-5 varela-round-regular" style="color: rgb(116, 170, 163);"><b>"</b>Max’s notes and classes are an absolute game-changer for anyone studying Leaving Cert Biology. His notes are genuinely H1 standard, it literally covers everything in a way that’s clear easy to digest. What sets them apart is how he highlights exactly what to memorise and how to approach exam questions- which takes the guesswork out of studying. His focus on exam techniques has made such a difference in how I approach the subject, and I feel much more prepared for my mocks because of it. I’d highly recommend his classes to any student who wants to improve their understanding and boost their grades<b>"</b> - Success</p>
-              <p class="px-1 mb-5 varela-round-regular" style="color: rgb(116, 170, 163);"><b>"</b>The notes are brilliant! It makes learning topics easier as I can focus on the highlighted sections. I really enjoyed the classes and they helped with understanding each topic, the layout of the classes were great and getting to answer exam questions relavent to each section was so helpful! The worksheets were great to recap after the class. Thank you!<b>"</b> - Faith</p>
               <img height="100" width="100" style="border-radius: 50%;" src="/images/Max'sLogo.png">
               <p style="margin-bottom: -6px; margin-top: 10px; color: rgb(116, 170, 163);" class="lead">Max</p>
               <p class="lead" style="color: rgb(116, 170, 163);">TheLCBiologyGuy</p>
           </div>
-          <div><p class="lead" id="urgencyText" style="width: 100%; color: red; margin-top: 100px;">Offer Only Available Until Friday Feburary 16th</p></div>
         </div>
       </div>
       </div>
       
       
-      <div id="new-tab" style="height: 100%; background: white!important; padding-bottom: 80px;">
+      <!-- <div id="new-tab" style="height: 100%; background: white!important; padding-bottom: 80px;">
 
         <div class="accordion box" id="accordionExample" style="width: 50%; min-width: 300px; margin-top: 50px;">
           <div class="accordion-item">
@@ -461,26 +684,20 @@
             </div>
           </div>
         </div>
-      </div> 
+      </div>  -->
 
     
 
-
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            console.log("Success page loaded");
+            clearCart()
+            updateCartCount()
+            console.log("Cart cleared:", localStorage.getItem('cart')); // Should be null
+        });
+      </script>
 
 
 </main>
-
-
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-      console.log("Success page loaded");
-      clearCart()
-      updateCartCount()
-      console.log("Cart cleared:", localStorage.getItem('cart')); // Should be null
-  });
-</script>
-
-
 
 <%- include("partials/footer.ejs")  %>
