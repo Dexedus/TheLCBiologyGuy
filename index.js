@@ -544,58 +544,57 @@ app.get("/cancel", (req, res) => {
 
 
 
-// app.get("/sendemail", async (req, res) => {
+app.get("/sendemail", async (req, res) => {
 
-//   // const firstName = "Karl"
-//   // const customerEmail = "karlfleming64@gmail.com"
+  // const firstName = "Karl"
+  // const customerEmail = "karlfleming64@gmail.com"
 
-//   // sendEmail(customerEmail, "subject", `Dear ${firstName},<br><br>Thank you for your purchase!<br><br>The Google Drive can be accessed <a href="https://drive.google.com/drive/folders/1Cu7TUE7uWIsgLjPIwW19VJcR-VCZAIw9?usp=sharing" target="_blank">here.</a><br>This folder is set to restricted access, I will grant you access as soon as possible.<br><br>If you have made a request and not received access within 30 minutes please respond to this email<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
-//   //         <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
-//   //           <input type="checkbox" name="unsubscribe">
-//   //           <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
-//   //           <input type="hidden" name="email" value="${customerEmail}">
-//   //           <button type="submit">Submit</button>
-//   //         </form><br><br>Best of luck with your revision!<br>Max`, "testWorked", db);
+  // sendEmail(customerEmail, "subject", `Dear ${firstName},<br><br>Thank you for your purchase!<br><br>The Google Drive can be accessed <a href="https://drive.google.com/drive/folders/1Cu7TUE7uWIsgLjPIwW19VJcR-VCZAIw9?usp=sharing" target="_blank">here.</a><br>This folder is set to restricted access, I will grant you access as soon as possible.<br><br>If you have made a request and not received access within 30 minutes please respond to this email<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
+  //         <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
+  //           <input type="checkbox" name="unsubscribe">
+  //           <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
+  //           <input type="hidden" name="email" value="${customerEmail}">
+  //           <button type="submit">Submit</button>
+  //         </form><br><br>Best of luck with your revision!<br>Max`, "testWorked", db);
 
 
-//       // Fetch emails from the database
-//       const result = await db.query(`
-// SELECT * 
-// FROM free_resources_emails
-// WHERE timestamp >= '2025-02-03' 
-// `);
+      // Fetch emails from the database
+      const result = await db.query(`
+SELECT email FROM promotions
+OFFSET 999;
+`);
   
-//       const emails = result.rows.map(row => row.email); // Extract email addresses
+      const emails = result.rows.map(row => row.email); // Extract email addresses
   
 
-//   // const emails = ["karlfleming64@gmail.com", "ksfwebdesigns@gmail.com"]
+  // const emails = ["karlfleming64@gmail.com", "ksfwebdesigns@gmail.com"]
 
-//         if (emails.length === 0) {
-//         console.log('No emails found to send.');
-//       } else {
-//         console.log('Emails sent')
-//       }
-
-
-//   const msg = {
-//     to: emails, // Array of recipients
-//     from: SendgridSender, // Verified sender
-//     subject: '🚨Recording for the Cell Masterclass now available!',
-//     html: `The recording of the Cell masterclass is now available in the Google Drive, click <a href="https://u48917275.ct.sendgrid.net/ls/click?upn=u001.gb1oIQZYL4vnMZkgmvEgigzFl42rVVPLGu-2Fe519Dvun9tuRbO-2FbM7IplLEtFJNpQ05TKwRq03odmolpArth0ldjiurLFB4dCM-2B4tixT-2F0TJ1ELxqIhhbS32gO3hKFnrEIFcd_4pE3C559McDKAd-2Fg3v7vn7eIndNn6ci9X9Lg05SN5hd0HqQd0CGpTiKRONJude4-2BSsNEXmpTWFbVn7KIYUZRVHAyrUpW7MXxjc-2FqCDWugVFXx574jVw6J7AuqIMN8xCK0iv3bPZjXrabb-2BWXwezZpQFLZE34yn6CVbJCQvmrQ3rjg5a43SNZwK-2BgAipFyVeR3EkkRmw-2B21-2FGCOBGcKlZTw-3D-3D" target="_blank">here</a> to access it.<br><br>Best regards,<br>Max`,
-//   };
-
-//   sgMail
-//   .sendMultiple(msg)
-//   .then(() => {
-//     console.log('Emails sent successfully!');
-//   })
-//   .catch((error) => {
-//     console.error('Error sending emails:', error);
-//   });
+        if (emails.length === 0) {
+        console.log('No emails found to send.');
+      } else {
+        console.log('Emails sent')
+      }
 
 
-//   res.redirect("/")
-// })
+  const msg = {
+    to: emails, // Array of recipients
+    from: SendgridSender, // Verified sender
+    subject: 'Ecology recording + H1 Fast Track',
+    html: `Hey<br>The recording of the Ecology class is now available in the Google Drive <a href="https://u48917275.ct.sendgrid.net/ls/click?upn=u001.gb1oIQZYL4vnMZkgmvEgigzFl42rVVPLGu-2Fe519Dvun9tuRbO-2FbM7IplLEtFJNpQ05TKwRq03odmolpArth0ldjiurLFB4dCM-2B4tixT-2F0TJ1ELxqIhhbS32gO3hKFnrEIFcd_4pE3C559McDKAd-2Fg3v7vn7eIndNn6ci9X9Lg05SN5hd0HqQd0CGpTiKRONJude4-2BSsNEXmpTWFbVn7KIYUZRVHAyrUpW7MXxjc-2FqCDWugVFXx574jVw6J7AuqIMN8xCK0iv3bPZjXrabb-2BWXwezZpQFLZE34yn6CVbJCQvmrQ3rjg5a43SNZwK-2BgAipFyVeR3EkkRmw-2B21-2FGCOBGcKlZTw-3D-3D" target="_blank">here</a>.<br><br>I'm also announcing to you all that I am starting my 8-week Biology H1 Fast Track study plan. We will cover everything you need to know no matter what grade you are aiming for. To get more information go to my website here: https://www.thelcbiologyguy.ie/landing<br><br>Best regards,<br>Max.`,
+  };
+
+  sgMail
+  .sendMultiple(msg)
+  .then(() => {
+    console.log('Emails sent successfully!');
+  })
+  .catch((error) => {
+    console.error('Error sending emails:', error);
+  });
+
+
+  res.redirect("/")
+})
 
 
 
