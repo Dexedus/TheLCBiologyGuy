@@ -117,7 +117,7 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
 
 
     const productLinks = {
-      "Enzymes & Osmosis (March 12th)": `Enzymes & Osmosis class<br>March 12th, 7pm to 8:30pm<br>${Enzymes_Link}<br>MeetingID: ${Enzymes_ID}<br>Passcode: ${Enzymes_Passcode}<br><br>`,
+      "Enzymes & Osmosis (March 12th)": `Enzymes & Osmosis class<br>March 12th, 7pm to 8:30pm<br>${Enzymes_Link}<br>MeetingID: ${Enzymes_ID}<br>Passcode: ${Enzymes_Passcode}<br>***This class is over, the recording is on this drive: https://drive.google.com/drive/folders/1HP9VJ6uXLMWqqIggU-1Axx-sQTrIJsEs.<br>Access is restricted, once you request access I will grant it as soon as possible.***<br><br>`,
       "Respiration (March 16th)": `Respiration class<br>March 16th, 3pm to 4:30pm<br>${Respiration_Link}<br>MeetingID: ${Respiration_ID}<br>Passcode: ${Respiration_Passcode}<br><br>`,
       "Photosynthesis (March 19th)": `Photosynthesis class<br>March 19th, 7pm to 8:30pm<br>${Photo_Link}<br>MeetingID: ${Photo_ID}<br>Passcode: ${Photo_Passcode}<br><br>`,
       "Genetics (March 23rd)": `Genetics class<br>March 23rd, 3pm to 4:30pm<br>${Genetics_Link}<br>MeetingID: ${Genetics_ID}<br>Passcode: ${Genetics_Passcode}<br><br>`,
@@ -230,6 +230,14 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
 
       if(unsubbedresult.rows.length === 0 && promotionsresult.rows.length === 0){
         await db.query('INSERT INTO promotions (email) VALUES ($1)', [customerEmail])
+      }
+
+
+      //Since this is a cart purchase, check if person who purchased a cart item has dont so before, if not, add them to the cart list.
+      const cartresult = await db.query('SELECT email FROM cart WHERE email = $1', [customerEmail])
+
+      if(cartresult.rows.length === 0){
+        await db.query('INSERT INTO cart (email, "first name") VALUES ($1, $2)', [customerEmail, firstName])
       }
 
       console.log(products)
@@ -579,8 +587,8 @@ OFFSET 999;
   const msg = {
     to: emails, // Array of recipients
     from: SendgridSender, // Verified sender
-    subject: 'Ecology recording + H1 Fast Track',
-    html: `Hey<br>The recording of the Ecology class is now available in the Google Drive <a href="https://u48917275.ct.sendgrid.net/ls/click?upn=u001.gb1oIQZYL4vnMZkgmvEgigzFl42rVVPLGu-2Fe519Dvun9tuRbO-2FbM7IplLEtFJNpQ05TKwRq03odmolpArth0ldjiurLFB4dCM-2B4tixT-2F0TJ1ELxqIhhbS32gO3hKFnrEIFcd_4pE3C559McDKAd-2Fg3v7vn7eIndNn6ci9X9Lg05SN5hd0HqQd0CGpTiKRONJude4-2BSsNEXmpTWFbVn7KIYUZRVHAyrUpW7MXxjc-2FqCDWugVFXx574jVw6J7AuqIMN8xCK0iv3bPZjXrabb-2BWXwezZpQFLZE34yn6CVbJCQvmrQ3rjg5a43SNZwK-2BgAipFyVeR3EkkRmw-2B21-2FGCOBGcKlZTw-3D-3D" target="_blank">here</a>.<br><br>I'm also announcing to you all that I am starting my 8-week Biology H1 Fast Track study plan. We will cover everything you need to know no matter what grade you are aiming for. To get more information go to my website here: https://www.thelcbiologyguy.ie/landing<br><br>Best regards,<br>Max.`,
+    subject: 'Class Reminder',
+    html: `Hey<br>Just a reminder the first class of the H1 Fast Track starts tonight at 7pm. It's on Enzymes & Osmosis.<br>You can register using this link: https://www.thelcbiologyguy.ie/landing<br><br>After tonight only the recording will be available!<br><br>Best regards,<br>Max.`,
   };
 
   sgMail
