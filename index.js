@@ -118,7 +118,7 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
 
     const productLinks = {
       "Enzymes & Osmosis (March 12th)": `Enzymes & Osmosis class<br>March 12th, 7pm to 8:30pm<br>${Enzymes_Link}<br>MeetingID: ${Enzymes_ID}<br>Passcode: ${Enzymes_Passcode}<br>***This class is over, the recording is on this drive: https://drive.google.com/drive/folders/1HP9VJ6uXLMWqqIggU-1Axx-sQTrIJsEs.<br>Access is restricted, once you request access I will grant it as soon as possible.***<br><br>`,
-      "Respiration (March 16th)": `Respiration class<br>March 16th, 3pm to 4:30pm<br>${Respiration_Link}<br>MeetingID: ${Respiration_ID}<br>Passcode: ${Respiration_Passcode}<br><br>`,
+      "Respiration (March 16th)": `Respiration class<br>March 16th, 3pm to 4:30pm<br>${Respiration_Link}<br>MeetingID: ${Respiration_ID}<br>Passcode: ${Respiration_Passcode}<br>***This class is over, the recording is on this drive: https://drive.google.com/drive/folders/1HP9VJ6uXLMWqqIggU-1Axx-sQTrIJsEs.<br>Access is restricted, once you request access I will grant it as soon as possible.***<br><br>`,
       "Photosynthesis (March 19th)": `Photosynthesis class<br>March 19th, 7pm to 8:30pm<br>${Photo_Link}<br>MeetingID: ${Photo_ID}<br>Passcode: ${Photo_Passcode}<br><br>`,
       "Genetics (March 23rd)": `Genetics class<br>March 23rd, 3pm to 4:30pm<br>${Genetics_Link}<br>MeetingID: ${Genetics_ID}<br>Passcode: ${Genetics_Passcode}<br><br>`,
       "DNA (March 26th)": `DNA class<br>March 26th, 7pm to 8:30pm<br>${DNA_Link}<br>MeetingID: ${DNA_ID}<br>Passcode: ${DNA_Passcode}<br><br>`,
@@ -552,57 +552,57 @@ app.get("/cancel", (req, res) => {
 
 
 
-app.get("/sendemail", async (req, res) => {
+// app.get("/sendemail", async (req, res) => {
 
-  // const firstName = "Karl"
-  // const customerEmail = "karlfleming64@gmail.com"
+//   // const firstName = "Karl"
+//   // const customerEmail = "karlfleming64@gmail.com"
 
-  // sendEmail(customerEmail, "subject", `Dear ${firstName},<br><br>Thank you for your purchase!<br><br>The Google Drive can be accessed <a href="https://drive.google.com/drive/folders/1Cu7TUE7uWIsgLjPIwW19VJcR-VCZAIw9?usp=sharing" target="_blank">here.</a><br>This folder is set to restricted access, I will grant you access as soon as possible.<br><br>If you have made a request and not received access within 30 minutes please respond to this email<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
-  //         <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
-  //           <input type="checkbox" name="unsubscribe">
-  //           <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
-  //           <input type="hidden" name="email" value="${customerEmail}">
-  //           <button type="submit">Submit</button>
-  //         </form><br><br>Best of luck with your revision!<br>Max`, "testWorked", db);
+//   // sendEmail(customerEmail, "subject", `Dear ${firstName},<br><br>Thank you for your purchase!<br><br>The Google Drive can be accessed <a href="https://drive.google.com/drive/folders/1Cu7TUE7uWIsgLjPIwW19VJcR-VCZAIw9?usp=sharing" target="_blank">here.</a><br>This folder is set to restricted access, I will grant you access as soon as possible.<br><br>If you have made a request and not received access within 30 minutes please respond to this email<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
+//   //         <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
+//   //           <input type="checkbox" name="unsubscribe">
+//   //           <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
+//   //           <input type="hidden" name="email" value="${customerEmail}">
+//   //           <button type="submit">Submit</button>
+//   //         </form><br><br>Best of luck with your revision!<br>Max`, "testWorked", db);
 
 
-      // Fetch emails from the database
-      const result = await db.query(`
-SELECT email FROM promotions
-OFFSET 999;
-`);
+//       // Fetch emails from the database
+//       const result = await db.query(`
+// SELECT email FROM promotions
+// OFFSET 999;
+// `);
   
-      const emails = result.rows.map(row => row.email); // Extract email addresses
+//       const emails = result.rows.map(row => row.email); // Extract email addresses
   
 
-  // const emails = ["karlfleming64@gmail.com", "ksfwebdesigns@gmail.com"]
+//   // const emails = ["karlfleming64@gmail.com", "ksfwebdesigns@gmail.com"]
 
-        if (emails.length === 0) {
-        console.log('No emails found to send.');
-      } else {
-        console.log('Emails sent')
-      }
-
-
-  const msg = {
-    to: emails, // Array of recipients
-    from: SendgridSender, // Verified sender
-    subject: 'Class Reminder',
-    html: `Hey<br>Just a reminder the first class of the H1 Fast Track starts tonight at 7pm. It's on Enzymes & Osmosis.<br>You can register using this link: https://www.thelcbiologyguy.ie/landing<br><br>After tonight only the recording will be available!<br><br>Best regards,<br>Max.`,
-  };
-
-  sgMail
-  .sendMultiple(msg)
-  .then(() => {
-    console.log('Emails sent successfully!');
-  })
-  .catch((error) => {
-    console.error('Error sending emails:', error);
-  });
+//         if (emails.length === 0) {
+//         console.log('No emails found to send.');
+//       } else {
+//         console.log('Emails sent')
+//       }
 
 
-  res.redirect("/")
-})
+//   const msg = {
+//     to: emails, // Array of recipients
+//     from: SendgridSender, // Verified sender
+//     subject: 'Class Reminder',
+//     html: `Hey<br>Just a reminder the second class starts at 3pm today. It's on Respiration.<br>You can register using this link: https://www.thelcbiologyguy.ie/landing<br><br>After today only the recording will be available!<br><br>Best regards,<br>Max.`,
+//   };
+
+//   sgMail
+//   .sendMultiple(msg)
+//   .then(() => {
+//     console.log('Emails sent successfully!');
+//   })
+//   .catch((error) => {
+//     console.error('Error sending emails:', error);
+//   });
+
+
+//   res.redirect("/")
+// })
 
 
 
