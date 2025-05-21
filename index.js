@@ -221,7 +221,7 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
 
         if(result.rows.length === 0){
         //add email to the product table
-          const insertEmailQuery = `INSERT INTO ${productTable} (email, "first name") VALUES ($1, $2)`;
+          const insertEmailQuery = `INSERT INTO ${productTable} (email, "first name") VALUES ($1, $2)`; 
           await db.query(insertEmailQuery, [customerEmail, firstName]);
         //send the email.        
           sendEmail(customerEmail, subject, message, emailSent, db);
