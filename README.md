@@ -17,8 +17,3 @@ I also went and created a logo and colour scheme for Max's new website. The vari
 
 ### Google Drive
 I set up my own Google Drive where I uploaded videos to showcase when a major update of the site was ready. This allowed the client to see for themselves the progress being made, and allowed him to leave comments about things he may want changed or thinks he wanted to keep. 
-
-## To-Do list
-- Paid products page to show an updating number on each product that shows how many placements are left.
-- Add a cart feature.
-- Add cookies

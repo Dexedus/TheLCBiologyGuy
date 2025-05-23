@@ -154,7 +154,7 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
 
 
 
-        if(products[0] === 'Unit 1 and The Cell Masterclasses' || products[0] === 'Cell & Ecology Free Masterclasses (March 6th and 9th)' || products[0] === 'Improvement Bundle' || products[0] === 'Final Class Product' ){
+        if(products[0] === 'Unit 1 and The Cell Masterclasses' || products[0] === 'Cell & Ecology Free Masterclasses (March 6th and 9th)' || products[0] === 'Improvement Bundle' || products[0] === 'Last Minute Masterclass' ){
 
           let message = ""
           let subject = ""
@@ -180,7 +180,7 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
             <button type="submit">Submit</button>
           </form>`;
           productTable = 'free_resources_emails';
-        } else if (products[0] === 'Final Class Product') {
+        } else if (products[0] === 'Last Minute Masterclass') {
             subject = "You're In! Last Minute Masterclass Confirmed";
             message = `Hi ${firstName},<br><br>You’re all set — your payment has gone through and your spot in the June 7th Last Minute Biology Masterclass is confirmed!<br><br>This class is designed to give you the smartest possible prep just before the exam, and I’m looking forward to helping you feel confident and exam-ready.<br><br>Here’s what to expect next:<br><br>You’ll get your personal Zoom link by Friday night (June 6th).<br><br>This link is just for you — please don’t share it.<br><br>Shared links will result in immediate removal from the session.<br><br>Got a question? Just hit reply and I’ll get back to you.<br><br>Let’s make this your best exam yet!<br><br>Talk soon,<br>Max<br><br>We would like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>Best Regards,<br>Max<br>
             <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
