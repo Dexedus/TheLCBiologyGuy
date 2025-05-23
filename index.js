@@ -116,21 +116,21 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
 
 
 
-    const productLinks = {
-      "Enzymes & Osmosis (March 12th)": `Enzymes & Osmosis class<br>March 12th, 7pm to 8:30pm<br>${Enzymes_Link}<br>MeetingID: ${Enzymes_ID}<br>Passcode: ${Enzymes_Passcode}<br>***This class is over, the recording is on this drive: https://drive.google.com/drive/folders/1HP9VJ6uXLMWqqIggU-1Axx-sQTrIJsEs.<br>Access is restricted, once you request access I will grant it as soon as possible.***<br><br>`,
-      "Respiration (March 16th)": `Respiration class<br>March 16th, 3pm to 4:30pm<br>${Respiration_Link}<br>MeetingID: ${Respiration_ID}<br>Passcode: ${Respiration_Passcode}<br>***This class is over, the recording is on this drive: https://drive.google.com/drive/folders/1HP9VJ6uXLMWqqIggU-1Axx-sQTrIJsEs.<br>Access is restricted, once you request access I will grant it as soon as possible.***<br><br>`,
-      "Photosynthesis (March 19th)": `Photosynthesis class<br>March 19th, 7pm to 8:30pm<br>${Photo_Link}<br>MeetingID: ${Photo_ID}<br>Passcode: ${Photo_Passcode}<br>***This class is over, the recording is on this drive: https://drive.google.com/drive/folders/1HP9VJ6uXLMWqqIggU-1Axx-sQTrIJsEs.<br>Access is restricted, once you request access I will grant it as soon as possible.***<br><br>`,
-      "Genetics (March 23rd)": `Genetics class<br>March 23rd, 3pm to 4:30pm<br>${Genetics_Link}<br>MeetingID: ${Genetics_ID}<br>Passcode: ${Genetics_Passcode}<br>***This class is over, the recording is on this drive: https://drive.google.com/drive/folders/1HP9VJ6uXLMWqqIggU-1Axx-sQTrIJsEs.<br>Access is restricted, once you request access I will grant it as soon as possible.***<br><br>`,
-      "DNA (March 26th)": `DNA class<br>March 26th, 7pm to 8:30pm<br>${DNA_Link}<br>MeetingID: ${DNA_ID}<br>Passcode: ${DNA_Passcode}<br>***This class is over, the recording is on this drive: https://drive.google.com/drive/folders/1HP9VJ6uXLMWqqIggU-1Axx-sQTrIJsEs.<br>Access is restricted, once you request access I will grant it as soon as possible.***<br><br>`,
-      "Microorganisms (March 30th)": `Microorganisms class<br>March 30th 3pm to 5pm<br>${Micro_Link}<br>MeetingID: ${Micro_ID}<br>Passcode: ${Micro_Passcode}<br>***This class is over, the recording is on this drive: https://drive.google.com/drive/folders/1HP9VJ6uXLMWqqIggU-1Axx-sQTrIJsEs.<br>Access is restricted, once you request access I will grant it as soon as possible.***<br><br>`,
-      "Human Reproduction 1 & 2 (April 2nd & 6th)": `Human Reproduction 1 class<br>April 2nd, 7pm to 8:30pm <br>${HumanRepo1_Link}<br>MeetingID: ${HumanRepo1_ID}<br>Passcode: ${HumanRepo1_Passcode}<br><br>Human Reproduction 2 class<br>April 6th, 3pm to 4:30pm <br>${HumanRepo2_Link}<br>MeetingID: ${HumanRepo2_ID}<br>Passcode: ${HumanRepo2_Passcode}<br><br>***These classes are over, the recordings are on this drive: https://drive.google.com/drive/folders/1HP9VJ6uXLMWqqIggU-1Axx-sQTrIJsEs.<br>Access is restricted, once you request access I will grant it as soon as possible.***<br><br>`,
-      "Nervous System (April 9th)": `Nervous System class<br>April 9th 7pm to 8:30pm<br>${NervousSystem_Link}<br>MeetingID: ${NervousSystem_ID}<br>Passcode: ${NervousSystem_Passcode}<br>***This class is over, the recording is on this drive: https://drive.google.com/drive/folders/1HP9VJ6uXLMWqqIggU-1Axx-sQTrIJsEs.<br>Access is restricted, once you request access I will grant it as soon as possible.***<br><br>`,
-      "Musculoskeletal System (April 13th)": `Musculoskeletal System class<br>April 13th, 3pm to 4:30pm<br>${Musculoskeletal_Link}<br>MeetingID: ${Musculoskeletal_ID}<br>Passcode: ${Musculoskeletal_Passcode}<br><br>***This class is over, the recording is on this drive: https://drive.google.com/drive/folders/1HP9VJ6uXLMWqqIggU-1Axx-sQTrIJsEs.<br>Access is restricted, once you request access I will grant it as soon as possible.***<br><br>`,
-      "Human Excretion and Homeostasis (April 16th)": `Human Excretion and Homeostasis class<br>April 16th, 7pm to 8:30pm<br>${ExcretionHomeostasis_Link}<br>MeetingID: ${ExcretionHomeostasis_ID}<br>Passcode: ${ExcretionHomeostasis_Passcode}<br>***This class is over, the recording is on this drive: https://drive.google.com/drive/folders/1HP9VJ6uXLMWqqIggU-1Axx-sQTrIJsEs.<br>Access is restricted, once you request access I will grant it as soon as possible.***<br><br>`,
-      "Plant Structure (April 20th)": `Plant Structure class<br>April 20th, 3pm to 4:30pm<br>${PlantStructure_Link}<br>MeetingID: ${PlantStructure_ID}<br>Passcode: ${PlantStructure_Passcode}<br>***This class is over, the recording is on this drive: https://drive.google.com/drive/folders/1HP9VJ6uXLMWqqIggU-1Axx-sQTrIJsEs.<br>Access is restricted, once you request access I will grant it as soon as possible.***<br><br>`,
-      "Plant Reproduction 1 & 2 (April 23 & 27th)": `Plant Reproduction 1 class<br>April 23rd, 7pm to 8:30<br>${PlantRepro1_Link}<br>MeetingID: ${PlantRepro1_ID}<br>Passcode: ${PlantRepro1_Passcode}<br><br>Plant Reproduction 2 class<br>April 27th, 3pm to 4:30pm<br>${PlantRepro2_Link}<br>MeetingID: ${PlantRepro2_ID}<br>Passcode: ${PlantRepro2_Passcode}<br><br>***These classes are over, the recordings are on this drive: https://drive.google.com/drive/folders/1HP9VJ6uXLMWqqIggU-1Axx-sQTrIJsEs.<br>Access is restricted, once you request access I will grant it as soon as possible.***<br><br>`,
-      "Plant Responses (April 30th)": `Plant Responses class<br>April 30th, 7pm to 8:30pm<br>${PlantResponses_Link}<br>MeetingID: ${PlantResponses_ID}<br>Passcode: ${PlantResponses_Passcode}<br>***This class is over, the recording is on this drive: https://drive.google.com/drive/folders/1HP9VJ6uXLMWqqIggU-1Axx-sQTrIJsEs.<br>Access is restricted, once you request access I will grant it as soon as possible.***<br><br>`,
-      "Plant Transport (May 4th)": `Plant Transport class<br>May 4th, 3pm to 4:30pm<br>${PlantTransport_Link}<br>MeetingID: ${PlantTransport_ID}<br>Passcode: ${PlantTransport_Passcode}<br>***This class is over, the recording is on this drive: https://drive.google.com/drive/folders/1HP9VJ6uXLMWqqIggU-1Axx-sQTrIJsEs.<br>Access is restricted, once you request access I will grant it as soon as possible.***<br><br>`
+    const productLinks = { 
+      "Enzymes & Osmosis (March 12th)": `Enzymes & Osmosis class<br>March 12th, 7pm to 8:30pm<br>${Enzymes_Link}<br>MeetingID: ${Enzymes_ID}<br>Passcode: ${Enzymes_Passcode}<br><br>`,
+      "Respiration (March 16th)": `Respiration class<br>March 16th, 3pm to 4:30pm<br>${Respiration_Link}<br>MeetingID: ${Respiration_ID}<br>Passcode: ${Respiration_Passcode}<br><br>`,
+      "Photosynthesis (March 19th)": `Photosynthesis class<br>March 19th, 7pm to 8:30pm<br>${Photo_Link}<br>MeetingID: ${Photo_ID}<br>Passcode: ${Photo_Passcode}<br><br>`,
+      "Genetics (March 23rd)": `Genetics class<br>March 23rd, 3pm to 4:30pm<br>${Genetics_Link}<br>MeetingID: ${Genetics_ID}<br>Passcode: ${Genetics_Passcode}<br><br>`,
+      "DNA (March 26th)": `DNA class<br>March 26th, 7pm to 8:30pm<br>${DNA_Link}<br>MeetingID: ${DNA_ID}<br>Passcode: ${DNA_Passcode}<br><br>`,
+      "Microorganisms (March 30th)": `Microorganisms class<br>March 30th 3pm to 5pm<br>${Micro_Link}<br>MeetingID: ${Micro_ID}<br>Passcode: ${Micro_Passcode}<br><br>`,
+      "Human Reproduction 1 & 2 (April 2nd & 6th)": `Human Reproduction 1 class<br>April 2nd, 7pm to 8:30pm <br>${HumanRepo1_Link}<br>MeetingID: ${HumanRepo1_ID}<br>Passcode: ${HumanRepo1_Passcode}<br><br>Human Reproduction 2 class<br>April 6th, 3pm to 4:30pm <br>${HumanRepo2_Link}<br>MeetingID: ${HumanRepo2_ID}<br>Passcode: ${HumanRepo2_Passcode}<br><br>`,
+      "Nervous System (April 9th)": `Nervous System class<br>April 9th 7pm to 8:30pm<br>${NervousSystem_Link}<br>MeetingID: ${NervousSystem_ID}<br>Passcode: ${NervousSystem_Passcode}<br><br>`,
+      "Musculoskeletal System (April 13th)": `Musculoskeletal System class<br>April 13th, 3pm to 4:30pm<br>${Musculoskeletal_Link}<br>MeetingID: ${Musculoskeletal_ID}<br>Passcode: ${Musculoskeletal_Passcode}<br><br>`,
+      "Human Excretion and Homeostasis (April 16th)": `Human Excretion and Homeostasis class<br>April 16th, 7pm to 8:30pm<br>${ExcretionHomeostasis_Link}<br>MeetingID: ${ExcretionHomeostasis_ID}<br>Passcode: ${ExcretionHomeostasis_Passcode}<br><br>`,
+      "Plant Structure (April 20th)": `Plant Structure class<br>April 20th, 3pm to 4:30pm<br>${PlantStructure_Link}<br>MeetingID: ${PlantStructure_ID}<br>Passcode: ${PlantStructure_Passcode}<br><br>`,
+      "Plant Reproduction 1 & 2 (April 23 & 27th)": `Plant Reproduction 1 class<br>April 23rd, 7pm to 8:30<br>${PlantRepro1_Link}<br>MeetingID: ${PlantRepro1_ID}<br>Passcode: ${PlantRepro1_Passcode}<br><br>Plant Reproduction 2 class<br>April 27th, 3pm to 4:30pm<br>${PlantRepro2_Link}<br>MeetingID: ${PlantRepro2_ID}<br>Passcode: ${PlantRepro2_Passcode}<br><br>`,
+      "Plant Responses (April 30th)": `Plant Responses class<br>April 30th, 7pm to 8:30pm<br>${PlantResponses_Link}<br>MeetingID: ${PlantResponses_ID}<br>Passcode: ${PlantResponses_Passcode}<br><br>`,
+      "Plant Transport (May 4th)": `Plant Transport class<br>May 4th, 3pm to 4:30pm<br>${PlantTransport_Link}<br>MeetingID: ${PlantTransport_ID}<br>Passcode: ${PlantTransport_Passcode}<br><br>`
 
     };
 
@@ -154,7 +154,7 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
 
 
 
-        if(products[0] === 'Unit 1 and The Cell Masterclasses' || products[0] === 'Cell & Ecology Free Masterclasses (March 6th and 9th)' || products[0] === 'Improvement Bundle' ){
+        if(products[0] === 'Unit 1 and The Cell Masterclasses' || products[0] === 'Cell & Ecology Free Masterclasses (March 6th and 9th)' || products[0] === 'Improvement Bundle' || products[0] === 'Final Class Product' ){
 
           let message = ""
           let subject = ""
@@ -180,6 +180,16 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
             <button type="submit">Submit</button>
           </form>`;
           productTable = 'free_resources_emails';
+        } else if (products[0] === 'Final Class Product') {
+            subject = "You're In! Last Minute Masterclass Confirmed";
+            message = `Hi ${firstName},<br><br>You’re all set — your payment has gone through and your spot in the June 7th Last Minute Biology Masterclass is confirmed!<br><br>This class is designed to give you the smartest possible prep just before the exam, and I’m looking forward to helping you feel confident and exam-ready.<br><br>Here’s what to expect next:<br><br>You’ll get your personal Zoom link by Friday night (June 6th).<br><br>This link is just for you — please don’t share it.<br><br>Shared links will result in immediate removal from the session.<br><br>Got a question? Just hit reply and I’ll get back to you.<br><br>Let’s make this your best exam yet!<br><br>Talk soon,<br>Max<br><br>We would like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>Best Regards,<br>Max<br>
+            <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
+              <input type="checkbox" name="unsubscribe">
+              <label for="unsubscribe">I wish to opt out of future promotional emails from The LC Biology Guy</label><br>
+              <input type="hidden" name="email" value="${customerEmail}">
+              <button type="submit">Submit</button>
+            </form>`;
+            productTable = 'finalclass';
         } else if (products[0] === 'Improvement Bundle') {
           subject = 'H1 Fast-Track Bundle';
           message = `Dear ${firstName},<br><br>Welcome to the 8-week Biology H1 Fast-Track Program! You can join the live Zoom session using the link(s) below.<br><br>
@@ -214,7 +224,7 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
 
         if(result.rows.length === 0){
         //add email to the product table
-          const insertEmailQuery = `INSERT INTO ${productTable} (email, "first name") VALUES ($1, $2)`;
+          const insertEmailQuery = `INSERT INTO ${productTable} (email, "first name") VALUES ($1, $2)`; 
           await db.query(insertEmailQuery, [customerEmail, firstName]);
         //send the email.        
           sendEmail(customerEmail, subject, message, emailSent, db);
@@ -404,9 +414,9 @@ app.get('/contact', (req, res) => {
 })
 
 app.get("/done", (req, res) => {
-  res.render("success.ejs", {
+  res.render("landing.ejs", {
     title: "Success!",
-    message: "You should recieve the details for these resources via an email sent to the address you entered at checkout. Be sure to check your spam just in case it gets filtered there. If you do not recieve an email after 24 hours please contact me at: thelcbiologyguy@gmail.com Thanks.",
+    message: "You should recieve a confirmation email sent to the address you entered at checkout. Be sure to check your spam or promotions folders just in case it gets filtered there. If you do not recieve an email after 24 hours please contact me at: thelcbiologyguy@gmail.com. Thanks!",
     button: "Close",
   })
 })
