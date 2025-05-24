@@ -182,7 +182,7 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
           productTable = 'free_resources_emails';
         } else if (products[0] === 'Last Minute Masterclass') {
             subject = "You're In! Last Minute Masterclass Confirmed";
-            message = `Hi ${firstName},<br><br>You’re all set — your payment has gone through and your spot in the June 7th Last Minute Biology Masterclass is confirmed!<br><br>This class is designed to give you the smartest possible prep just before the exam, and I’m looking forward to helping you feel confident and exam-ready.<br><br>Here’s what to expect next:<br><br>You’ll get your personal Zoom link by Friday night (June 6th).<br><br>This link is just for you — please don’t share it.<br><br>Shared links will result in immediate removal from the session.<br><br>Got a question? Just hit reply and I’ll get back to you.<br><br>Let’s make this your best exam yet!<br><br>Talk soon,<br>Max<br><br>We would like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>Best Regards,<br>Max<br>
+            message = `Hi ${firstName},<br><br>You're all set — your payment has gone through and your spot in the June 7th Last Minute Biology Masterclass is confirmed!<br><br>This class is designed to give you the smartest possible prep just before the exam, and I'm looking forward to helping you feel confident and exam-ready.<br><br>Here's what to expect next:<br><br>You'll get your personal Zoom link by Friday night (June 6th).<br><br>This link is just for you — please don't share it.<br><br>Shared links will result in immediate removal from the session.<br><br>Got a question? Just hit reply and I'll get back to you.<br><br>Let's make this your best exam yet!<br><br>Talk soon,<br>Max<br><br>We would like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>Best Regards,<br>Max<br>
             <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
               <input type="checkbox" name="unsubscribe">
               <label for="unsubscribe">I wish to opt out of future promotional emails from The LC Biology Guy</label><br>
@@ -449,15 +449,15 @@ app.get("/cancel", (req, res) => {
 
 
 //       // Fetch emails from the database
-//       const result = await db.query(`
-// SELECT email FROM promotions
-// OFFSET 999;
-// `);
+// //       const result = await db.query(`
+// // SELECT email FROM promotions
+// // OFFSET 999;
+// // `);
   
-//       const emails = result.rows.map(row => row.email); // Extract email addresses
+// //       const emails = result.rows.map(row => row.email); // Extract email addresses
   
 
-//   // const emails = ["karlfleming64@gmail.com", "ksfwebdesigns@gmail.com"]
+//   const emails = ["karlfleming64@gmail.com", "ksfwebdesigns@gmail.com"]
 
 //         if (emails.length === 0) {
 //         console.log('No emails found to send.');
@@ -469,8 +469,8 @@ app.get("/cancel", (req, res) => {
 //   const msg = {
 //     to: emails, // Array of recipients
 //     from: SendgridSender, // Verified sender
-//     subject: ' Genetics made easy—class starts soon',
-//     html: `Hey<br><br>Quick reminder—my Genetics class goes live today at 3PM! If definition, dihybrid, linked crosses, or Mendel's Laws have ever confused you, this one’s a must.<br><br>You’ll get clear explanations, live Q&A, and the recording if you’re registered.<br><br>Still time to grab your spot:<br>https://www.thelcbiologyguy.ie/landing<br><br>See you soon!<br>Max<br>The LC Biology Guy`,
+//     subject: 'My Biggest Class To Date',
+//     html: `Hey<br><br>Leaving Cert Biology can be overwhelming — but not if you know the right topics<br><br>On Saturday, June 7th, I'm running a live, 6-hour revision class that focuses on the 8–9 key topics that show up year after year. These topics complement the free resources.<br><br>This isn’t guesswork — it’s smart, pattern-based revision built from years of exam analysis. You'll get:<br><br>✅ A full-day live session<br>✅ Instant access to the replay<br>✅ Notes from the class (perfect for last-minute review)<br>✅ A clear strategy just 3 days before the exam<br><br>It’s aimed at Higher Level students who want to walk into the exam with confidence — whether you're aiming for a H1 or just want to lock in marks where they matter most.<br><br>All this for €30.<br><br>👉 Reserve your place now: https://www.thelcbiologyguy.ie/landing<br><br>You'll thank yourself on exam day.<br><br>Best regards<br>Max<br><br> If you'd like to opt-out of future promotional emails, please click <a href="https://www.thelcbiologyguy.ie/" target="_blank">here</a> and scroll to the bottom of the page to submit your email. Thanks!`
 //   };
 
 //   sgMail
