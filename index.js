@@ -274,6 +274,7 @@ app.use(express.urlencoded({ extended: true }));
 const endpointSecret = process.env.WEBHOOK_SECRET
 const API_KEY = process.env.SEND_GRID_KEY
 const SendgridSender = process.env.EMAIL
+const ReplyTo = process.env.REPLYTOEMAIL
 
 sgMail.setApiKey(`${API_KEY}`)
 
@@ -310,6 +311,7 @@ const sendEmail = (toEmail, subject, message, emailSent, db) => {
   const msg = {
     to: toEmail,
     from: `${SendgridSender}`, // Verified SendGrid sender email
+    replyTo: `${ReplyTo}`,  
     subject: subject,
     html: message,
   };
@@ -449,9 +451,9 @@ app.get("/cancel", (req, res) => {
 // // `);
   
 // //       const emails = result.rows.map(row => row.email); // Extract email addresses
-  
+//   // "maxbaldwin175@gmail.com"
 
-//   const emails = ["karlfleming64@gmail.com", "ksfwebdesigns@gmail.com"]
+//   const emails = ["karlfleming64@gmail.com", "maxbaldwin175@gmail.com"]
 
 //         if (emails.length === 0) {
 //         console.log('No emails found to send.');
@@ -463,7 +465,8 @@ app.get("/cancel", (req, res) => {
 //   const msg = {
 //     to: emails, // Array of recipients
 //     from: SendgridSender, // Verified sender
-//     subject: 'My Biggest Class To Date',
+//     replyTo: `${ReplyTo}`,  
+//     subject: 'You are In! Last Minute Masterclass Confirmed!',
 //     html: `Hey<br><br>Leaving Cert Biology can be overwhelming — but not if you know the right topics<br><br>On Saturday, June 7th, I'm running a live, 6-hour revision class that focuses on the 8–9 key topics that show up year after year. These topics complement the free resources.<br><br>This isn’t guesswork — it’s smart, pattern-based revision built from years of exam analysis. You'll get:<br><br>✅ A full-day live session<br>✅ Instant access to the replay<br>✅ Notes from the class (perfect for last-minute review)<br>✅ A clear strategy just 3 days before the exam<br><br>It’s aimed at Higher Level students who want to walk into the exam with confidence — whether you're aiming for a H1 or just want to lock in marks where they matter most.<br><br>All this for €30.<br><br>👉 Reserve your place now: https://www.thelcbiologyguy.ie/landing<br><br>You'll thank yourself on exam day.<br><br>Best regards<br>Max<br><br> If you'd like to opt-out of future promotional emails, please click <a href="https://www.thelcbiologyguy.ie/#opt" target="_blank">here</a> and submit your email address. Thanks!`
 //   };
 
