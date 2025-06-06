@@ -176,13 +176,7 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
           productTable = 'free_resources_emails';
         } else if (products[0] === 'Last Minute Masterclass') {
             subject = "You're In! Last Minute Masterclass Confirmed";
-            message = `Hi ${firstName},<br><br>**If any hyperlinks are not clickable, mark email not as spam, the links should work then**<br><br>You're all set — your payment has gone through and your spot in the June 7th Last Minute Biology Masterclass is confirmed!<br><br>This class is designed to give you the smartest possible prep just before the exam, and I'm looking forward to helping you feel confident and exam-ready.<br><br>Here's what to expect next:<br><br>You'll get your personal Zoom link by Friday night (June 6th).<br><br>This link is just for you — please don't share it.<br><br>Shared links will result in immediate removal from the session.<br><br>Got a question? Just hit reply and I'll get back to you.<br><br>Let's make this your best exam yet!<br><br>Talk soon,<br>Max<br><br>We would like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>Best Regards,<br>Max<br>
-            <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
-              <input type="checkbox" name="unsubscribe">
-              <label for="unsubscribe">I wish to opt out of future promotional emails from The LC Biology Guy</label><br>
-              <input type="hidden" name="email" value="${customerEmail}">
-              <button type="submit">Submit</button>
-            </form>`;
+            message = `Hi ${firstName},<br><br>Here’s your personal Zoom link for tomorrow’s Biology Blitz Revision Class:<br><br>🔗 <a href="https://us06web.zoom.us/j/83969467896?pwd=oswH63KrrsThBb9yJ5QK4pE5dgBudh.1" target="_blank">Here</a> <br>Passcode: 564393<br><br>🕙 The class will start at 10:00 AM sharp on Saturday, June 7th.<br><br>🚨 Important<br>Do not share this link with anyone else – doing so will result in your removal from the class without refund.<br><br>🎥 Can’t Attend Live?<br>No problem — the full session will be recorded, and you’ll receive a private replay link afterward. You won’t miss a thing.<br><br>Looking forward to seeing you tomorrow — or in the replay — for one final push before the exam!<br><br>Best,<br>Max<br>`;
             productTable = 'finalclass';
         } else if (products[0] === 'Improvement Bundle') {
           subject = 'H1 Fast-Track Bundle';
@@ -445,29 +439,29 @@ app.get("/cancel", (req, res) => {
 
 
 // //       // Fetch emails from the database
-// //       const result = await db.query(`
-// // SELECT email FROM promotions
-// // LIMIT 999 OFFSET 0;
-// // `);
+//       const result = await db.query(`
+// SELECT email FROM finalclass
+// LIMIT 999 OFFSET 0;
+// `);
   
-// //       const emails = result.rows.map(row => row.email); // Extract email addresses
+//       const emails = result.rows.map(row => row.email); // Extract email addresses
 //   // "maxbaldwin175@gmail.com"
 
-//   const emails = ["karlfleming64@gmail.com", "maxbaldwin175@gmail.com"]
+//   // const emails = ["ksfwebdesigns@gmail.com"]
 
-//         if (emails.length === 0) {
-//         console.log('No emails found to send.');
-//       } else {
-//         console.log('Emails sent')
-//       }
+//   //       if (emails.length === 0) {
+//   //       console.log('No emails found to send.');
+//   //     } else {
+//   //       console.log('Emails sent')
+//   //     }
 
 
 //   const msg = {
 //     to: emails, // Array of recipients
 //     from: SendgridSender, // Verified sender
 //     replyTo: `${ReplyTo}`,  
-//     subject: 'You are In! Last Minute Masterclass Confirmed!',
-//     html: `Hey<br><br>Leaving Cert Biology can be overwhelming — but not if you know the right topics<br><br>On Saturday, June 7th, I'm running a live, 6-hour revision class that focuses on the 8–9 key topics that show up year after year. These topics complement the free resources.<br><br>This isn’t guesswork — it’s smart, pattern-based revision built from years of exam analysis. You'll get:<br><br>✅ A full-day live session<br>✅ Instant access to the replay<br>✅ Notes from the class (perfect for last-minute review)<br>✅ A clear strategy just 3 days before the exam<br><br>It’s aimed at Higher Level students who want to walk into the exam with confidence — whether you're aiming for a H1 or just want to lock in marks where they matter most.<br><br>All this for €30.<br><br>👉 Reserve your place now: https://www.thelcbiologyguy.ie/landing<br><br>You'll thank yourself on exam day.<br><br>Best regards<br>Max<br><br> If you'd like to opt-out of future promotional emails, please click <a href="https://www.thelcbiologyguy.ie/#opt" target="_blank">here</a> and submit your email address. Thanks!`
+//     subject: 'Your Zoom Link for Tomorrow’s Last Minute Masterclass (10am Start)',
+//     html: `Hi,<br><br>Here’s your personal Zoom link for tomorrow’s Biology Blitz Revision Class:<br><br>🔗 <a href="https://us06web.zoom.us/j/83969467896?pwd=oswH63KrrsThBb9yJ5QK4pE5dgBudh.1" target="_blank">Here</a> <br>Passcode: 564393<br><br>🕙 The class will start at 10:00 AM sharp on Saturday, June 7th.<br><br>🚨 Important<br>Do not share this link with anyone else – doing so will result in your removal from the class without refund.<br><br>🎥 Can’t Attend Live?<br>No problem — the full session will be recorded, and you’ll receive a private replay link afterward. You won’t miss a thing.<br><br>Looking forward to seeing you tomorrow — or in the replay — for one final push before the exam!<br><br>Best,<br>Max`
 //   };
 
 //   sgMail
