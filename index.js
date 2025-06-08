@@ -176,7 +176,7 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
           productTable = 'free_resources_emails';
         } else if (products[0] === 'Last Minute Masterclass') {
             subject = "Last Minute Masterclass Notes And Recording";
-            message = `Hi ${firstName},<br>The recording is linked below. And your passcode is p4UsQ73?.<br>For the recording, click <a href="https://us06web.zoom.us/rec/share/vf-vhnCpAjOBjp7XAFdlbJBPIBJR3UcOn5nnPakJjaPjuWGbJxYXOB5GdEnraXze.tJtbEBEK100QRKpC " target="_blank">*here*</a><br>The recording will expire in 7 days on June 14th.<br>The notes—both my class notes and the H1 Highlighted notes—are in this drive: https://drive.google.com/drive/folders/1wEvxdcgZUaG9ZCUDMsaU241GMWoe1YAt?usp=sharing<br>You will lose access to these notes in 7 days (June 14th).<br><br>Best,<br>Max<br><br>If you'd like to opt-out of future promotional emails, please click <a href="https://www.thelcbiologyguy.ie/#opt" target="_blank">Here</a> and submit your email address. Thanks!`;
+            message = `Hi ${firstName},<br>The recording is linked below. And your passcode is p4UsQ73?<br>For the recording, click <a href="https://us06web.zoom.us/rec/share/vf-vhnCpAjOBjp7XAFdlbJBPIBJR3UcOn5nnPakJjaPjuWGbJxYXOB5GdEnraXze.tJtbEBEK100QRKpC" target="_blank">*here*</a><br>The recording will expire in 7 days on June 14th.<br>The notes—both my class notes and the H1 Highlighted notes—are in this drive: https://drive.google.com/drive/folders/1wEvxdcgZUaG9ZCUDMsaU241GMWoe1YAt?usp=sharing<br>You will lose access to these notes in 7 days (June 14th).<br><br>Best,<br>Max<br><br>If you'd like to opt-out of future promotional emails, please click <a href="https://www.thelcbiologyguy.ie/#opt" target="_blank">Here</a> and submit your email address. Thanks!`;
             productTable = 'finalclass';
         } else if (products[0] === 'Improvement Bundle') {
           subject = 'H1 Fast-Track Bundle';
@@ -449,19 +449,19 @@ app.get("/cancel", (req, res) => {
 
 //   // const emails = ["ksfwebdesigns@gmail.com"]
 
-//   //       if (emails.length === 0) {
-//   //       console.log('No emails found to send.');
-//   //     } else {
-//   //       console.log('Emails sent')
-//   //     }
+//         if (emails.length === 0) {
+//         console.log('No emails found to send.');
+//       } else {
+//         console.log('Emails sent')
+//       }
 
 
 //   const msg = {
 //     to: emails, // Array of recipients
 //     from: SendgridSender, // Verified sender
 //     replyTo: `${ReplyTo}`,  
-//     subject: 'Last Minute Master Class Recording And Notes',
-//     html: `Hi,<br>The recording is linked below. And your passcode is p4UsQ73?.<br>For the recording, click <a href="https://us06web.zoom.us/rec/share/vf-vhnCpAjOBjp7XAFdlbJBPIBJR3UcOn5nnPakJjaPjuWGbJxYXOB5GdEnraXze.tJtbEBEK100QRKpC " target="_blank">*here*</a><br>The recording will expire in 7 days on June 14th.<br>The notes—both my class notes and the H1 Highlighted notes—are in this drive: https://drive.google.com/drive/folders/1wEvxdcgZUaG9ZCUDMsaU241GMWoe1YAt?usp=sharing<br>You will lose access to these notes in 7 days (June 14th).<br>Thank you so much for coming. If you have time, I would appreciate it if you could leave me an honest review on Google. The link to do that is <a target="_blank" href="https://u48917275.ct.sendgrid.net/ls/click?upn=u001.gb1oIQZYL4vnMZkgmvEgisYl4trQ-2BlVWeTKMM-2BPsoW9XjLJ5j-2B-2B1G4EhVXboA-2BERehG0eLYegLh2U-2F8i3oYdUNJWEo39OgFoTTaG4-2FsyUmlohzwEggHaMz7F6Vmf6e-2FICg6M8hIvtjRiidDNPXCULa9IXPlTIqBSjnvJFykAO-2BmgAvuZsqZH4VXT3yH6yyHYExM20C-2BbSfn-2Fsi1iTkIQng-3D-3DArj2_4pE3C559McDKAd-2Fg3v7vn7eIndNn6ci9X9Lg05SN5heVEB8AmvoKuR7E9BOFkBMg-2B9-2BELBEt57cvd68GGnCtbodIV-2BTdyNITw72HFHDTuc7uFJShf2PoNOvGYlqZVGDQAUkgqCNPtmInnVFVfqpmzDTRWb2rlnOnlzqSC-2FBuQQnCUfiorpgFFzppkN5GEjB4VY4jE2NCiXDpPT57B0EChQ-3D-3D">here</a>.<br><br>Best,<br>Max`
+//     subject: '*Last Minute Master Class Recording Is Ready*',
+//     html: `Hi<br><br>The recording of yesterday's last minute masterclass is ready!<br><br>You can access the recording <a href="https://us06web.zoom.us/rec/share/vf-vhnCpAjOBjp7XAFdlbJBPIBJR3UcOn5nnPakJjaPjuWGbJxYXOB5GdEnraXze.tJtbEBEK100QRKpC" target="_blank">*here*</a><br>The passcode is: p4UsQ73?<br><br>Also, the notes can be found <a href="https://drive.google.com/drive/folders/1wEvxdcgZUaG9ZCUDMsaU241GMWoe1YAt?usp=sharing" target="_blank">*here*</a><br><br>Best Regards,<br>Max`
 //   };
 
 //   sgMail
