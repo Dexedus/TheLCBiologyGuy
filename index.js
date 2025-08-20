@@ -377,11 +377,12 @@ app.post('/submit-optin', async (req, res) => {
 
 
 app.get('/landing', (req, res) => {
-    res.render("landing.ejs", {
-      title: "Warning",
-      message: "By closing this pop up or clicking the button below, you agree to not share any of my paid for material after purchasing it yourself.",
-      button: "Understood",
-    })
+    // res.render("landing.ejs", {
+    //   title: "Warning",
+    //   message: "By closing this pop up or clicking the button below, you agree to not share any of my paid for material after purchasing it yourself.",
+    //   button: "Understood",
+    // })
+    res.render("temporary.ejs")
 
 })
 
@@ -404,19 +405,21 @@ app.get('/contact', (req, res) => {
 })
 
 app.get("/done", (req, res) => {
-  res.render("landing.ejs", {
-    title: "Success!",
-    message: "You should recieve a confirmation email sent to the address you entered at checkout. Be sure to check your spam or promotions folders just in case it gets filtered there. If you do not recieve an email after 24 hours please contact me at: thelcbiologyguy@gmail.com. Thanks!",
-    button: "Close",
-  })
+  // res.render("landing.ejs", {
+  //   title: "Success!",
+  //   message: "You should recieve a confirmation email sent to the address you entered at checkout. Be sure to check your spam or promotions folders just in case it gets filtered there. If you do not recieve an email after 24 hours please contact me at: thelcbiologyguy@gmail.com. Thanks!",
+  //   button: "Close",
+  // })
+  res.render("temporary.ejs")
 })
 
 app.get("/cancel", (req, res) => {
-  res.render("landing.ejs", {
-    title: "You cancelled your purchase",
-    message: "Feel free to alter your cart, or click the bag icon again to head back to checkout.",
-    button: "Close",
-  })
+  // res.render("landing.ejs", {
+  //   title: "You cancelled your purchase",
+  //   message: "Feel free to alter your cart, or click the bag icon again to head back to checkout.",
+  //   button: "Close",
+  // })
+  res.render("temporary.ejs")
 })
 
 
@@ -440,8 +443,8 @@ app.get("/cancel", (req, res) => {
 
 // //       // Fetch emails from the database
 //       const result = await db.query(`
-// SELECT email FROM finalclass
-// LIMIT 999 OFFSET 0;
+// SELECT email FROM promotions
+// LIMIT 999 OFFSET 1998;
 // `);
   
 //       const emails = result.rows.map(row => row.email); // Extract email addresses
@@ -460,8 +463,8 @@ app.get("/cancel", (req, res) => {
 //     to: emails, // Array of recipients
 //     from: SendgridSender, // Verified sender
 //     replyTo: `${ReplyTo}`,  
-//     subject: '*Last Minute Master Class Recording Is Ready*',
-//     html: `Hi<br><br>The recording of yesterday's last minute masterclass is ready!<br><br>You can access the recording <a href="https://us06web.zoom.us/rec/share/vf-vhnCpAjOBjp7XAFdlbJBPIBJR3UcOn5nnPakJjaPjuWGbJxYXOB5GdEnraXze.tJtbEBEK100QRKpC" target="_blank">*here*</a><br>The passcode is: p4UsQ73?<br><br>Also, the notes can be found <a href="https://drive.google.com/drive/folders/1wEvxdcgZUaG9ZCUDMsaU241GMWoe1YAt?usp=sharing" target="_blank">*here*</a><br><br>Best Regards,<br>Max`
+//     subject: 'Thank You Everyone!',
+//     html: `Hey everyone,<br><br>The biology exam is done! Thank you for letting me know how you get on. I haven't heard from all of you but I hope the exam went good for you.<br><br>If you found any of my resources helpful (free or paid) I would love to get your honest review and feedback for that matter. You can leave a review on my Google page <a href="https://g.page/r/CR0YK6fxKvynEBM/review" target="_blank">HERE</a>, and any feedback just reply to this email.<br><br>Thank you class 2025. Best of luck with your future exams!<br><br>Best regards,<br>Max`
 //   };
 
 //   sgMail
