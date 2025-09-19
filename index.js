@@ -410,7 +410,7 @@ app.get("/done", (req, res) => {
   //   message: "You should recieve a confirmation email sent to the address you entered at checkout. Be sure to check your spam or promotions folders just in case it gets filtered there. If you do not recieve an email after 24 hours please contact me at: thelcbiologyguy@gmail.com. Thanks!",
   //   button: "Close",
   // })
-  res.render("temporary.ejs")
+  res.render("freeSuccess.ejs")
 })
 
 app.get("/cancel", (req, res) => {
