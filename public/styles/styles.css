@@ -532,7 +532,7 @@ main{
 }
 
 /* Free Resources header uses New Rocker font */
-.FreeResourcesTitle, #FreeResourcesTitle {
+.trial-halloween-bg .FreeResourcesTitle, #FreeResourcesTitle {
     font-family: 'New Rocker', 'Varela Round', Arial, sans-serif !important;
     font-weight: 700 !important;
     color: #faf5eb !important;
@@ -540,7 +540,7 @@ main{
 }
 
 /* Testimonial header uses New Rocker font, bigger and bolder */
-#testimonial-tab h2 {
+.trial-halloween-bg #testimonial-tab h2 {
     font-family: 'New Rocker', 'Varela Round', Arial, sans-serif !important;
     font-size: 2.2em !important;
     font-weight: 700 !important;
@@ -550,7 +550,7 @@ main{
 }
 
 /* Testimonial text bigger and bolder */
-#testimonial-text {
+.trial-halloween-bg #testimonial-text {
     font-size: 1.35em !important;
     font-weight: 600 !important;
     color: #fff !important;
@@ -1183,7 +1183,7 @@ footer{
 }
 
 /* Add a dark overlay to soften pixelation */
-#testimonial-tab::before {
+.trial-halloween-bg #testimonial-tab::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -1193,7 +1193,7 @@ footer{
 }
 
 /* Optionally, add blur for extra softness */
-#testimonial-tab::after {
+.trial-halloween-bg #testimonial-tab::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -1203,9 +1203,9 @@ footer{
 }
 
 /* Ensure testimonial content is above overlays */
-#testimonial-tab img,
-#testimonial-tab h2,
-#testimonial-tab p {
+.trial-halloween-bg #testimonial-tab img,
+.trial-halloween-bg #testimonial-tab h2,
+.trial-halloween-bg #testimonial-tab p {
     position: relative;
     z-index: 2;
     max-width: 90%;
