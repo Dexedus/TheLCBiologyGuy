@@ -9,6 +9,7 @@ const router = express.Router();
 const sgMail = require("@sendgrid/mail")
 const bodyParser = require("body-parser");
 const pg = require("pg")
+const crypto = require('crypto');
 
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
@@ -93,6 +94,64 @@ const PlantTransport_Passcode = process.env.PLANT_TRANSPORT_PASSCODE;
 
 const ZoomLinksBundle = process.env.BUNDLE_EMAIL;
 
+const ENCRYPTION_KEY = process.env.EMAIL_ENCRYPTION_KEY; // 32 chars
+const IV = process.env.EMAIL_ENCRYPTION_IV; // 16 chars
+
+
+const cron = require('node-cron');
+
+// Run every day at 6pm
+cron.schedule('0 18 * * *', async () => {
+  try {
+    // Get emails added in the last 24 hours
+    const result = await db.query(`
+      SELECT email FROM testtable
+      WHERE created_at >= NOW() - INTERVAL '1 day'
+    `);
+
+    // Decrypt emails
+    const decryptedEmails = result.rows.map(row => decrypt(row.email));
+
+    // Send email via SendGrid
+    const msg = {
+      to: 'karlfleming64@gmail.com',
+      from: SendgridSender,
+      subject: 'Daily Free Resources Emails',
+      html: `<p>New emails added in the last 24 hours:</p><ul>${decryptedEmails.map(e => `<li>${e}</li>`).join('')}</ul>`
+    };
+
+    await sgMail.send(msg);
+    console.log('Daily email report sent.');
+  } catch (err) {
+    console.error('Error sending daily email report:', err);
+  }
+});
+
+// Function to send daily email report (can be called independently if needed)
+async function sendDailyEmailReport() {
+
+console.log("ENCRYPTION_KEY length:", ENCRYPTION_KEY.length);
+console.log("IV length:", IV.length);
+
+  try {
+    const result = await db.query(`
+      SELECT email FROM testtable
+      WHERE created_at >= NOW() - INTERVAL '1 day'
+    `);
+    const decryptedEmails = result.rows.map(row => decrypt(row.email));
+    const msg = {
+      to: 'karlfleming64@gmail.com',
+      from: SendgridSender,
+      subject: 'Daily Free Resources Emails',
+      html: `<p>New emails added in the last 24 hours:</p><ul>${decryptedEmails.map(e => `<li>${e}</li>`).join('')}</ul>`
+    };
+    await sgMail.send(msg);
+    console.log('Daily email report sent.');
+  } catch (err) {
+    console.error('Error sending daily email report:', err);
+  }
+}
+
 
 
 
@@ -114,6 +173,8 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
     const session = event.data.object;
 
 
+
+
     const productLinks = { 
       "Enzymes & Osmosis (March 12th)": `Enzymes & Osmosis class<br>March 12th, 7pm to 8:30pm<br>${Enzymes_Link}<br>MeetingID: ${Enzymes_ID}<br>Passcode: ${Enzymes_Passcode}<br><br>`,
       "Respiration (March 16th)": `Respiration class<br>March 16th, 3pm to 4:30pm<br>${Respiration_Link}<br>MeetingID: ${Respiration_ID}<br>Passcode: ${Respiration_Passcode}<br><br>`,
@@ -131,6 +192,7 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
       "Plant Transport (May 4th)": `Plant Transport class<br>May 4th, 3pm to 4:30pm<br>${PlantTransport_Link}<br>MeetingID: ${PlantTransport_ID}<br>Passcode: ${PlantTransport_Passcode}<br><br>`
 
     };
+
 
 
     
@@ -151,7 +213,7 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
 
 
 
-        if(products[0] === 'Unit 1 and The Cell Masterclasses' || products[0] === 'Cell & Ecology Free Masterclasses (March 6th and 9th)' || products[0] === 'Improvement Bundle' || products[0] === 'Final Class Product' ){
+        if(products[0] === 'Unit 1 and The Cell Masterclasses' || products[0] === 'Cell & Ecology Free Masterclasses (March 6th and 9th)' || products[0] === 'Improvement Bundle' || products[0] === 'Last Minute Masterclass' ){
 
           let message = ""
           let subject = ""
@@ -169,23 +231,11 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
           productTable = 'free_trial_temp';
         } else if (products[0] === 'Unit 1 and The Cell Masterclasses') {
           subject = 'Thank you for choosing the Free Resources!';
-          message = `Dear ${firstName},<br><br>Thank you for choosing the free Unit 1 and Cell chapter notes. Here is the link to the Google Drive containing the resources: <a href="https://u48917275.ct.sendgrid.net/ls/click?upn=u001.gb1oIQZYL4vnMZkgmvEgigzFl42rVVPLGu-2Fe519Dvun9tuRbO-2FbM7IplLEtFJNpQ05TKwRq03odmolpArth0ldjiurLFB4dCM-2B4tixT-2F0TJ1ELxqIhhbS32gO3hKFnrEIFcd_4pE3C559McDKAd-2Fg3v7vn7eIndNn6ci9X9Lg05SN5hd0HqQd0CGpTiKRONJude4-2BSsNEXmpTWFbVn7KIYUZRVHAyrUpW7MXxjc-2FqCDWugVFXx574jVw6J7AuqIMN8xCK0iv3bPZjXrabb-2BWXwezZpQFLZE34yn6CVbJCQvmrQ3rjg5a43SNZwK-2BgAipFyVeR3EkkRmw-2B21-2FGCOBGcKlZTw-3D-3D" target="_blank">Here</a><br><br>We would like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>Best Regards,<br>Max<br>
-          <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
-            <input type="checkbox" name="unsubscribe">
-            <label for="unsubscribe">I wish to opt out of future promotional emails from The LC Biology Guy</label><br>
-            <input type="hidden" name="email" value="${customerEmail}">
-            <button type="submit">Submit</button>
-          </form>`;
-          productTable = 'free_resources_emails';
-        } else if (products[0] === 'Final Class Product') {
-            subject = "You're In! Last Minute Masterclass Confirmed";
-            message = `Hi ${firstName},<br><br>You’re all set — your payment has gone through and your spot in the June 7th Last Minute Biology Masterclass is confirmed!<br><br>This class is designed to give you the smartest possible prep just before the exam, and I’m looking forward to helping you feel confident and exam-ready.<br><br>Here’s what to expect next:<br><br>You’ll get your personal Zoom link by Friday night (June 6th).<br><br>This link is just for you — please don’t share it.<br><br>Shared links will result in immediate removal from the session.<br><br>Got a question? Just hit reply and I’ll get back to you.<br><br>Let’s make this your best exam yet!<br><br>Talk soon,<br>Max<br><br>We would like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>Best Regards,<br>Max<br>
-            <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
-              <input type="checkbox" name="unsubscribe">
-              <label for="unsubscribe">I wish to opt out of future promotional emails from The LC Biology Guy</label><br>
-              <input type="hidden" name="email" value="${customerEmail}">
-              <button type="submit">Submit</button>
-            </form>`;
+          message = `Dear ${firstName},<br><br>**If any links are not clickable, mark email not as spam, the links should work then**<br><br>Thank you for choosing the free Unit 1 and Cell chapter notes. Here is the link to the Google Drive containing the resources: <a href="https://u48917275.ct.sendgrid.net/ls/click?upn=u001.gb1oIQZYL4vnMZkgmvEgigzFl42rVVPLGu-2Fe519Dvun9tuRbO-2FbM7IplLEtFJNpQ05TKwRq03odmolpArth0ldjiurLFB4dCM-2B4tixT-2F0TJ1ELxqIhhbS32gO3hKFnrEIFcd_4pE3C559McDKAd-2Fg3v7vn7eIndNn6ci9X9Lg05SN5hd0HqQd0CGpTiKRONJude4-2BSsNEXmpTWFbVn7KIYUZRVHAyrUpW7MXxjc-2FqCDWugVFXx574jVw6J7AuqIMN8xCK0iv3bPZjXrabb-2BWXwezZpQFLZE34yn6CVbJCQvmrQ3rjg5a43SNZwK-2BgAipFyVeR3EkkRmw-2B21-2FGCOBGcKlZTw-3D-3D" target="_blank">Here</a><br><br>We would like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>Best Regards,<br>Max<br><br>If you'd like to opt-out of future promotional emails, please click <a href="https://www.thelcbiologyguy.ie/#opt" target="_blank">Here</a> and submit your email address. Thanks!`;
+          productTable = 'testtable';
+        } else if (products[0] === 'Last Minute Masterclass') {
+            subject = "Last Minute Masterclass Notes And Recording";
+            message = `Hi ${firstName},<br>The recording is linked below. And your passcode is p4UsQ73?<br>For the recording, click <a href="https://us06web.zoom.us/rec/share/vf-vhnCpAjOBjp7XAFdlbJBPIBJR3UcOn5nnPakJjaPjuWGbJxYXOB5GdEnraXze.tJtbEBEK100QRKpC" target="_blank">*here*</a><br>The recording will expire in 7 days on June 14th.<br>The notes—both my class notes and the H1 Highlighted notes—are in this drive: https://drive.google.com/drive/folders/1wEvxdcgZUaG9ZCUDMsaU241GMWoe1YAt?usp=sharing<br>You will lose access to these notes in 7 days (June 14th).<br><br>Best,<br>Max<br><br>If you'd like to opt-out of future promotional emails, please click <a href="https://www.thelcbiologyguy.ie/#opt" target="_blank">Here</a> and submit your email address. Thanks!`;
             productTable = 'finalclass';
         } else if (products[0] === 'Improvement Bundle') {
           subject = 'H1 Fast-Track Bundle';
@@ -207,10 +257,11 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
 
 
         // check if email is already in database
+        const encryptedEmail = encrypt(customerEmail);
         const checkEmailQuery = `SELECT email FROM ${productTable} WHERE email = $1`;
         console.log(productTable)
         let emailSent = (`email sent and added to ${productTable}`)
-        const result = await db.query(checkEmailQuery, [customerEmail]);
+        const result = await db.query(checkEmailQuery, [encryptedEmail]);
         const unsubbedresult = await db.query('SELECT email FROM unsubbed WHERE email = $1', [customerEmail])
         const promotionsresult = await db.query('SELECT email FROM promotions WHERE email = $1', [customerEmail])
 
@@ -221,11 +272,11 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
 
         if(result.rows.length === 0){
         //add email to the product table
-          const insertEmailQuery = `INSERT INTO ${productTable} (email, "first name") VALUES ($1, $2)`; 
-          await db.query(insertEmailQuery, [customerEmail, firstName]);
+          const insertEmailQuery = `INSERT INTO ${productTable} (email, first_name) VALUES ($1, $2)`; 
+          await db.query(insertEmailQuery, [encryptedEmail, firstName]);
         //send the email.        
           sendEmail(customerEmail, subject, message, emailSent, db);
-          
+
         } else {
           sendEmail(customerEmail, "Sorry", "Dear customer,<br><br>It looks like you might have purchased one of my products twice.<br>If this was a paid product, then it must have been a mistake. Please contact me if this was the case.<br><br>If you purchased my free resources package and tried to do it again and still haven't recieved an email with the necessary links, please make sure to check your spam and promotion folders. If you still don't have it after 24 hours, then please contact me at my email address: thelcbiologyguy@gmail.com<br><br>Best regards,<br>The LC Biology Guy", "Double product purchase email", db)
           console.log("email already exists in the database table of this product")
@@ -237,6 +288,14 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
 
       if(unsubbedresult.rows.length === 0 && promotionsresult.rows.length === 0){
         await db.query('INSERT INTO promotions (email) VALUES ($1)', [customerEmail])
+      }
+
+
+      //Since this is a cart purchase, check if person who purchased a cart item has dont so before, if not, add them to the cart list.
+      const cartresult = await db.query('SELECT email FROM cart WHERE email = $1', [customerEmail])
+
+      if(cartresult.rows.length === 0){
+        await db.query('INSERT INTO cart (email, "first name") VALUES ($1, $2)', [customerEmail, firstName])
       }
 
       console.log(products)
@@ -269,6 +328,7 @@ app.use(express.urlencoded({ extended: true }));
 const endpointSecret = process.env.WEBHOOK_SECRET
 const API_KEY = process.env.SEND_GRID_KEY
 const SendgridSender = process.env.EMAIL
+const ReplyTo = process.env.REPLYTOEMAIL
 
 sgMail.setApiKey(`${API_KEY}`)
 
@@ -298,6 +358,20 @@ sgMail.setApiKey(`${API_KEY}`)
 // const zoom_6_passcode = process.env.ZOOM_6_PASSCODE;
 
 
+function encrypt(text) {
+  let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(ENCRYPTION_KEY), IV);
+  let encrypted = cipher.update(text, 'utf8', 'hex');
+  encrypted += cipher.final('hex');
+  return encrypted;
+}
+
+function decrypt(text) {
+  let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(ENCRYPTION_KEY), IV);
+  let decrypted = decipher.update(text, 'hex', 'utf8');
+  decrypted += decipher.final('utf8');
+  return decrypted;
+}
+
 
 
 // SendGrid email template
@@ -305,6 +379,7 @@ const sendEmail = (toEmail, subject, message, emailSent, db) => {
   const msg = {
     to: toEmail,
     from: `${SendgridSender}`, // Verified SendGrid sender email
+    replyTo: `${ReplyTo}`,  
     subject: subject,
     html: message,
   };
@@ -326,134 +401,6 @@ const sendEmail = (toEmail, subject, message, emailSent, db) => {
       console.error('Error sending email:', error);
     });
 };
-
-
-
-
-
-
-
-
-
-
-
-// // Stripe webhook handler
-// app.post('/stripe/webhook', async (req, res) => {
-//   const sig = req.headers['stripe-signature'];
-
-//   let event;
-
-//   // Verify the Stripe webhook signature
-//   try {
-//     event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
-//   } catch (err) {
-//     console.error('Error verifying webhook signature:', err);
-//     return res.status(400).send(`Webhook Error: ${err.message}`);
-//   }
-
-//   // Handle successful payment (for both Stripe Checkout and Payment Intents)
-//   if (event.type === 'checkout.session.async_payment_succeeded' || event.type === 'checkout.session.completed') {
-//     const session = event.data.object;
-
-//     const customerEmail = session.receipt_email || session.customer_details.email; // Get the customer email
-//     const firstNameField = session.custom_fields.find(field => field.key === 'first_name');
-//     const firstName = firstNameField ? firstNameField.text.value : 'Default Name';
-
-    
-//     if (customerEmail) {
-//       console.log(customerEmail);
-      
-//       const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 10 }); // Get line items
-
-//       let subject = '';
-//       let message = '';
-//       let productTable = ''; // Variable to hold the product table name
-
-//       // Loop through line items to determine the product
-//       for (const item of lineItems.data) {
-//         const productId = item.price.product; // Extract the product ID
-
-//         // Check product ID to determine which product was purchased
-//         if (productId === 'prod_RXmjWQSOFcm6Zv') {
-//           subject = 'Thanks for choosing the the Photosynthesis Masterclass'
-//           message = `Dear ${firstName},<br><br>***THIS CLASS HAS ENDED. To get access to the recording, please email me and I will confirm your purchase before giving you access to the google drive.***<br><br>Thank you for purchasing the Photosynthesis Masterclass! You can join the live Zoom session using the link below. The notes and recording will be shared via Google Drive after the live session:<br><br>Photosynthesis Masterclass<br>Time: Jan 14, 2025, 07:00 PM London<br>Join Zoom Meeting<br>${zoom_1_link}<br><br>Meeting ID: ${zoom_1_id} 4231<br>Passcode: ${zoom_1_passcode}<br><br>You can head to my <a href="https://www.thelcbiologyguy.ie/" target="_blank">website</a> to get access to my free notes on Unit 1 and Cell (structure, diversity, division) if you haven’t already.<br><br>If you have any questions or difficulties please send me an email: thelcbiologyguy@gmail.com<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
-//           <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
-//             <input type="checkbox" name="unsubscribe">
-//             <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
-//             <input type="hidden" name="email" value="${customerEmail}">
-//             <button type="submit">Submit</button>
-//           </form><br><br>Best of luck with your revision!<br>Max`;
-//           productTable = 'photosynthesis_masterclass';
-//         } else if (productId === 'prod_RRl0T5qS265k7U') {
-//           subject = 'Thank you for choosing the Free Resources!';
-//           message = `Dear ${firstName},<br><br>Thank you for choosing the free Unit 1 and Cell chapter notes. Here is the link to the Google Drive containing the resources: <a href="https://u48917275.ct.sendgrid.net/ls/click?upn=u001.gb1oIQZYL4vnMZkgmvEgigzFl42rVVPLGu-2Fe519Dvun9tuRbO-2FbM7IplLEtFJNpQ05TKwRq03odmolpArth0ldjiurLFB4dCM-2B4tixT-2F0TJ1ELxqIhhbS32gO3hKFnrEIFcd_4pE3C559McDKAd-2Fg3v7vn7eIndNn6ci9X9Lg05SN5hd0HqQd0CGpTiKRONJude4-2BSsNEXmpTWFbVn7KIYUZRVHAyrUpW7MXxjc-2FqCDWugVFXx574jVw6J7AuqIMN8xCK0iv3bPZjXrabb-2BWXwezZpQFLZE34yn6CVbJCQvmrQ3rjg5a43SNZwK-2BgAipFyVeR3EkkRmw-2B21-2FGCOBGcKlZTw-3D-3D" target="_blank">Here</a><br><br>We would like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
-//           <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
-//             <input type="checkbox" name="unsubscribe">
-//             <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
-//             <input type="hidden" name="email" value="${customerEmail}">
-//             <button type="submit">Submit</button>
-//           </form><br><br>Best regards,<br>The LC Biology Guy`;
-//           productTable = 'free_resources_emails';
-//         } else {
-//           subject = 'Thank you for your purchase';
-//           message = `Hi, \n\nYour payment went through, but unfortunately the server failed to fetch the product ID. This means I could not find the invite code for the class you purchased. Please email me back letting me know what class/s you purchased and I will send on the info you need. Thanks! \n\nBest regards,\nThe LC Biology Guy`;
-//           productTable = 'emails'; // tables for emails where the product id couldn't be found
-//         }
-
-
-//         // check if email is already in database
-//         const checkEmailQuery = `SELECT email FROM ${productTable} WHERE email = $1`;
-//         console.log(productTable)
-//         let emailSent = (`email sent and added to ${productTable}`)
-//         const result = await db.query(checkEmailQuery, [customerEmail]);
-//         const unsubbedresult = await db.query('SELECT email FROM unsubbed WHERE email = $1', [customerEmail])
-//         const promotionsresult = await db.query('SELECT email FROM promotions WHERE email = $1', [customerEmail])
-
-//         // If the email isn't in the unsubbed list then add to promotions list
-//         if(unsubbedresult.rows.length === 0 && promotionsresult.rows.length === 0){
-//           await db.query('INSERT INTO promotions (email) VALUES ($1)', [customerEmail])
-//         }
-
-//         if(result.rows.length === 0){
-//         //add email to the product table
-//           const insertEmailQuery = `INSERT INTO ${productTable} (email, "first name") VALUES ($1, $2)`;
-//           await db.query(insertEmailQuery, [customerEmail, firstName]);
-//         //send the email.        
-//           sendEmail(customerEmail, subject, message, emailSent, db);
-
-//       //     if (productId === 'prod_RRl0T5qS265k7U' && unsubbedresult.rows.length === 0) {
-//       //     {
-//       //     setTimeout(() => {
-//       //       const secondSubject = 'Is your child struggling with LC Biology?';
-//       //       const secondMessage = `Hi ${firstName},<br><br>Your child recently received my free H1 highlighted notes for Unit 1 and the 3 Cell topics. As I write this over 1200 students have downloaded the notes, which is truly incredible! Thank you for your support.<br><br>I have received many positive emails, but I would love to hear from you!<br><br>I have opened a Google reviews page and it would mean the world to me if you could leave me a 5-star Google review mentioning the free H1 Highlighted notes:<a href="https://www.google.com/maps/place//data=!4m3!3m2!1s0x6cad1d58dd492631:0xa7fc2af1a72b181d!12e1?source=g.page.m.ia._&laa=nmx-review-solicitation-ia2" target="_blank">HERE</a><br><br>I wish your child the very best with their study!<br>Best regards,<br>Max (The LC Biology Guy)<br><br>We would like to send you more promotional emails in the future but if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
-//       //     <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
-//       //       <input type="checkbox" name="unsubscribe">
-//       //       <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
-//       //       <input type="hidden" name="email" value="${customerEmail}">
-//       //       <button type="submit">Submit</button>
-//       //     </form><br><br>Best of luck with your revision!<br>Max`;
-    
-//       //       sendEmail(customerEmail, secondSubject, secondMessage, `Marketing email sent to ${customerEmail}`, db);
-//       //   }, 1800000); // 300000 milliseconds = 5 minutes
-//       // }
-//       // }
-          
-//         } else {
-//           sendEmail(customerEmail, "Sorry", "Dear customer,<br><br>It looks like you might have purchased one of my products twice.<br>If this was a paid product, then it must have been a mistake. Please contact me if this was the case.<br><br>If you purchased my free resources package, and tried to do it again, and still haven't recieved an email with the necessary links, please make sure to check your spam and promotion folders. If you still don't have it after 24 hours, then please contact me at my email address: thelcbiologyguy@gmail.com<br><br>Best regards,<br>The LC Biology Guy", "Double product purchase email", db)
-//           console.log("email already exists in the database table of this product")
-//     }
-//    }
-  
-//   // Acknowledge receipt of the event
-//   res.json({ received: true });
-// }}});
-
-
-
-
-
-
-
 
 
 
@@ -504,11 +451,12 @@ app.post('/submit-optin', async (req, res) => {
 
 
 app.get('/landing', (req, res) => {
-    res.render("landing.ejs", {
-      title: "Warning",
-      message: "By closing this pop up or clicking the button below, you agree to not share any of my paid for material after purchasing it yourself.",
-      button: "Understood",
-    })
+    // res.render("landing.ejs", {
+    //   title: "Warning",
+    //   message: "By closing this pop up or clicking the button below, you agree to not share any of my paid for material after purchasing it yourself.",
+    //   button: "Understood",
+    // })
+    res.render("temporary.ejs")
 
 })
 
@@ -531,21 +479,28 @@ app.get('/contact', (req, res) => {
 })
 
 app.get("/done", (req, res) => {
-  res.render("landing.ejs", {
-    title: "Success!",
-    message: "You should recieve a confirmation email sent to the address you entered at checkout. Be sure to check your spam or promotions folders just in case it gets filtered there. If you do not recieve an email after 24 hours please contact me at: thelcbiologyguy@gmail.com. Thanks!",
-    button: "Close",
-  })
+  // res.render("landing.ejs", {
+  //   title: "Success!",
+  //   message: "You should recieve a confirmation email sent to the address you entered at checkout. Be sure to check your spam or promotions folders just in case it gets filtered there. If you do not recieve an email after 24 hours please contact me at: thelcbiologyguy@gmail.com. Thanks!",
+  //   button: "Close",
+  // })
+  res.render("freeSuccess.ejs")
 })
 
 app.get("/cancel", (req, res) => {
-  res.render("landing.ejs", {
-    title: "You cancelled your purchase",
-    message: "Feel free to alter your cart, or click the bag icon again to head back to checkout.",
-    button: "Close",
-  })
+  // res.render("landing.ejs", {
+  //   title: "You cancelled your purchase",
+  //   message: "Feel free to alter your cart, or click the bag icon again to head back to checkout.",
+  //   button: "Close",
+  // })
+  res.render("temporary.ejs")
 })
 
+// Manual trigger for daily job (for testing purposes)
+app.get('/test-dailyjob', async (req, res) => {
+  await sendDailyEmailReport();
+  res.send('Daily job triggered manually.');
+});
 
 
 
@@ -565,18 +520,16 @@ app.get("/cancel", (req, res) => {
 //   //         </form><br><br>Best of luck with your revision!<br>Max`, "testWorked", db);
 
 
-//       // Fetch emails from the database
+// //       // Fetch emails from the database
 //       const result = await db.query(`
-// SELECT free_resources_emails.email, free_resources_emails.timestamp
-// FROM free_resources_emails
-// JOIN promotions ON free_resources_emails.email = promotions.email
-// WHERE free_resources_emails.timestamp >= '2025-02-01';
-//       `);
+// SELECT email FROM promotions
+// LIMIT 999 OFFSET 1998;
+// `);
   
 //       const emails = result.rows.map(row => row.email); // Extract email addresses
-  
+//   // "maxbaldwin175@gmail.com"
 
-//   // const emails = ["karlfleming64@gmail.com", "ksfwebdesigns@gmail.com"]
+//   // const emails = ["ksfwebdesigns@gmail.com"]
 
 //         if (emails.length === 0) {
 //         console.log('No emails found to send.');
@@ -588,8 +541,9 @@ app.get("/cancel", (req, res) => {
 //   const msg = {
 //     to: emails, // Array of recipients
 //     from: SendgridSender, // Verified sender
-//     subject: '🚨 Final Chance! Biology Mock Prep Bundle Disappears Tonight!',
-//     html: `This is your <b>last reminder</b> – <b>the Mock Prep Bundle offer expires tonight at midnight!</b>⏳<br><br>I want to share an amazing testimonial from one of my students, Daniel who attended my final class on plant reproduction.<br><br>“The class was on plant reproduction and we went through all the relevant exam questions and corrected them thoroughly and it was made sure that I understood them. I would highly recommend The LC Biology Guy”<br><br>After today, the recordings, notes, and worksheets covering <b>6 key exam topics</b> will no longer be available:<br>✅ Photosynthesis<br>✅ Respiration<br>✅ Genetics & Genetic Engineering<br>✅ DNA<br>✅ Human Reproduction<br>✅ Plant Reproduction<br><br>Plus, your child will also get <b>bonus notes</b> on:<br>📖 Enzymes<br>📖 Osmosis<br><br>These resources are designed to help your child <b>revise effectively, get expert support, and build confidence</b> for the mocks while laying the foundation to <b>maximize their score in June.</b><br><br>If you want them to have access, <b>this is your final opportunity!</b><br><br>👉 <b>Get the Mock Prep Bundle before midnight! Click <a href="https://www.thelcbiologyguy.ie/landing" target="_blank">here</a>.</b><br><br>Don't let them miss out!<br><br>Best,<br>Max (The LC Biology Guy)`,
+//     replyTo: `${ReplyTo}`,  
+//     subject: 'Thank You Everyone!',
+//     html: `Hey everyone,<br><br>The biology exam is done! Thank you for letting me know how you get on. I haven't heard from all of you but I hope the exam went good for you.<br><br>If you found any of my resources helpful (free or paid) I would love to get your honest review and feedback for that matter. You can leave a review on my Google page <a href="https://g.page/r/CR0YK6fxKvynEBM/review" target="_blank">HERE</a>, and any feedback just reply to this email.<br><br>Thank you class 2025. Best of luck with your future exams!<br><br>Best regards,<br>Max`
 //   };
 
 //   sgMail
