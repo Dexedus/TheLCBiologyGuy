@@ -101,7 +101,7 @@ const IV = process.env.EMAIL_ENCRYPTION_IV; // 16 chars
 const cron = require('node-cron');
 
 // Run every day at 10pm
-cron.schedule('15 22 * * *', async () => {
+cron.schedule('20 22 * * *', async () => {
   try {
     // Get emails and first names added in the last 24 hours
     const result = await db.query(`
