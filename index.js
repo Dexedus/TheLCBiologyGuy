@@ -97,11 +97,9 @@ const ZoomLinksBundle = process.env.BUNDLE_EMAIL;
 const ENCRYPTION_KEY = process.env.EMAIL_ENCRYPTION_KEY; // 32 chars
 const IV = process.env.EMAIL_ENCRYPTION_IV; // 16 chars
 
+// Function to send daily email report (can be called independently if needed)
+async function sendDailyEmailReport() {
 
-const cron = require('node-cron');
-
-// Run every day at 10pm
-cron.schedule('20 22 * * *', async () => {
   try {
     // Get emails and first names added in the last 24 hours
     const result = await db.query(`
@@ -109,10 +107,14 @@ cron.schedule('20 22 * * *', async () => {
       WHERE created_at >= NOW() - INTERVAL '1 day'
     `);
 
+
     // Decrypt emails and format with first name
     const emailList = result.rows.map(row => {
       const decryptedEmail = decrypt(row.email);
-      return `<li>${decryptedEmail} (${row.first_name})</li>`;
+      const first_name = row.first_name || 'Valued User';
+      console.log(first_name)
+      console.log(decryptedEmail) 
+      return `<li>${decryptedEmail} (${first_name})</li>`;
     });
 
     // Send email via SendGrid
@@ -123,31 +125,6 @@ cron.schedule('20 22 * * *', async () => {
       html: `<p>New emails added in the last 24 hours:</p><ul>${emailList.join('')}</ul>`
     };
 
-    await sgMail.send(msg);
-    console.log('Daily email report sent.');
-  } catch (err) {
-    console.error('Error sending daily email report:', err);
-  }
-});
-
-// Function to send daily email report (can be called independently if needed)
-async function sendDailyEmailReport() {
-
-console.log("ENCRYPTION_KEY length:", ENCRYPTION_KEY.length);
-console.log("IV length:", IV.length);
-
-  try {
-    const result = await db.query(`
-      SELECT email FROM testtable
-      WHERE created_at >= NOW() - INTERVAL '1 day'
-    `);
-    const decryptedEmails = result.rows.map(row => decrypt(row.email));
-    const msg = {
-      to: 'karlfleming64@gmail.com',
-      from: SendgridSender,
-      subject: 'Daily Free Resources Emails',
-      html: `<p>New emails added in the last 24 hours:</p><ul>${decryptedEmails.map(e => `<li>${e}</li>`).join('')}</ul>`
-    };
     await sgMail.send(msg);
     console.log('Daily email report sent.');
   } catch (err) {
