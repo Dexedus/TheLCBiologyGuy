@@ -1,0 +1,96 @@
+<%- include("partials/header.ejs")  %>
+
+<main style="width: 100%; display: flex; align-items: center; flex-direction: column;">
+
+  <div class="px-4 pt-5 text-center border-bottom" style="background-color: white; width: 100vw; padding-top: 150px!important;">
+    <h1 class="display-4 fw-bold text-body-emphasis" id="FreeResourcesTitle">Free Resources</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4" id="FreeResourcesText">Unit 1 and Cell Biology are not just foundational—they're essential. These topics appear every year on the exam and form the basis for more challenging chapters you'll encounter later. Since 2008, they’ve accounted for an impressive 33% of the overall exam marks.</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+        <form action="/create-checkout-session-not-cart" method="POST">
+          <input type="hidden" name="priceId" value="price_1QRyq7FArv9BTH3QK0tWVgi8">
+            <button type="submit" class="checkout-btn-2 btn btn-primary btn-lg px-4 me-sm-3" id="FreeResourcesButton">Get Started</button>
+          </form>
+      </div>
+    </div>
+    <div class="overflow-hidden" style="max-height: 30vh;">
+      <div class="container px-5">
+        <img src="/images/FreeResources.png" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image" width="700" height="500" loading="lazy">
+      </div>
+    </div>
+  </div>
+
+
+
+  <div id="carouselExample" class="carousel slide" style="width: 100vw; background-color: white;">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div id="testimonial-tab" style="background-image: url(/images/benner_2.jpg);">
+          <img id="testimonial-picture" src="/images/default-avatar-photo-placeholder.jpg" alt="profile picture">
+          <h2 style="font-weight: 700;">Darragh - Former Student</h2>
+          <p id="testimonial-text" style="text-align: center; max-width: 700px; font-weight: 500;">“I was in your free class. It was really really beneficial. you have made a huge benefit to not only me but many others I’m sure the interaction you establish through constant engagement is the perfect way to go.”</p>
+          
+        </div>      
+      </div>
+      <div class="carousel-item">
+        <div id="testimonial-tab" style="background-image: url(/images/benner_2.jpg);">
+          <img id="testimonial-picture" src="/images/default-avatar-photo-placeholder.jpg" alt="profile picture">
+          <h2 style="font-weight: 700; text-align: center;">Anonymous student - Attended Free Halloween class</h2>
+          <p id="testimonial-text" style="text-align: center; max-width: 800px; font-weight: 500;">“Such a wonderful and helpful class, I was hesitant at first since it was free but it was extremely helpful, the class was interactive and the notes received afterwards were also to the highest standard. Thank you so much for helping me Max🙏”</p>
+         
+        </div> 
+      </div>
+      <div class="carousel-item">
+        <div id="testimonial-tab" style="background-image: url(/images/benner_2.jpg);">
+          <img id="testimonial-picture" src="/images/default-avatar-photo-placeholder.jpg" alt="profile picture">
+          <h2 style="font-weight: 700;">Elyse - Student</h2>
+          <p id="testimonial-text" style="text-align: center; max-width: 700px; font-weight: 500;">“Thank you so much for the Halloween midterm classes and notes. They have been extremely helpful. All of max’s notes are exam focused and helped me to understand topics more. The live classes were interactive and really good to revise for upcoming mocks and Christmas exams.”
+            </p>
+          
+        </div> 
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+
+  <!-- <div class="p-5 text-center">
+    <div class="container py-5">
+      <p class="col-lg-8 mx-auto lead" style="font-weight: 500;">
+        <span style="font-size: 1.5em;">“</span> was in your free class. It was really really beneficial. you have made a huge benefit to not only me but many others I’m sure the interaction you establish through constant engagement is the perfect way to go.<span style="font-size: 1.5em;">”- Darragh, Former Student</span>
+      </p>
+    </div>
+  </div> -->
+
+
+    <div class=" px-4 py-5 text-center" style="background-color: white; width: 100%!important; padding-bottom: 80px!important; padding-top: 80px!important;">
+      <h1 class="display-5 fw-bold text-body-emphasis">Free Masterclasses</h1>
+      <div class="d-flex flex-wrap">
+        <div class="col-12 col-lg-5 mx-auto">
+          <h2>Cells</h2>
+          <p class="lead mb-4">March 6th</p>
+        </div>
+        <div class="col-12 col-lg-5 mx-auto">
+          <h2>Ecology</h2>
+          <p class="lead mb-4">March 9th</p>
+        </div>
+      </div>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <form action="/create-checkout-session-not-cart" method="POST">
+          <input type="hidden" name="priceId" value="price_1QzHabFArv9BTH3QKllgIrsd">
+          <button type="submit" class="checkout-btn-2 btn btn-primary btn-lg px-4 me-sm-3" id="FreeResourcesButton">Get Started</button>
+         </form>
+      </div>
+    </div>
+
+
+</main>
+
+<%- include("partials/footer.ejs")  %>
