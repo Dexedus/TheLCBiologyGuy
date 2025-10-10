@@ -9,6 +9,7 @@ const router = express.Router();
 const sgMail = require("@sendgrid/mail")
 const bodyParser = require("body-parser");
 const pg = require("pg")
+const crypto = require('crypto');
 
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
@@ -93,6 +94,64 @@ const PlantTransport_Passcode = process.env.PLANT_TRANSPORT_PASSCODE;
 
 const ZoomLinksBundle = process.env.BUNDLE_EMAIL;
 
+const ENCRYPTION_KEY = process.env.EMAIL_ENCRYPTION_KEY; // 32 chars
+const IV = process.env.EMAIL_ENCRYPTION_IV; // 16 chars
+
+
+const cron = require('node-cron');
+
+// Run every day at 6pm
+cron.schedule('0 18 * * *', async () => {
+  try {
+    // Get emails added in the last 24 hours
+    const result = await db.query(`
+      SELECT email FROM testtable
+      WHERE created_at >= NOW() - INTERVAL '1 day'
+    `);
+
+    // Decrypt emails
+    const decryptedEmails = result.rows.map(row => decrypt(row.email));
+
+    // Send email via SendGrid
+    const msg = {
+      to: 'karlfleming64@gmail.com',
+      from: SendgridSender,
+      subject: 'Daily Free Resources Emails',
+      html: `<p>New emails added in the last 24 hours:</p><ul>${decryptedEmails.map(e => `<li>${e}</li>`).join('')}</ul>`
+    };
+
+    await sgMail.send(msg);
+    console.log('Daily email report sent.');
+  } catch (err) {
+    console.error('Error sending daily email report:', err);
+  }
+});
+
+// Function to send daily email report (can be called independently if needed)
+async function sendDailyEmailReport() {
+
+console.log("ENCRYPTION_KEY length:", ENCRYPTION_KEY.length);
+console.log("IV length:", IV.length);
+
+  try {
+    const result = await db.query(`
+      SELECT email FROM testtable
+      WHERE created_at >= NOW() - INTERVAL '1 day'
+    `);
+    const decryptedEmails = result.rows.map(row => decrypt(row.email));
+    const msg = {
+      to: 'karlfleming64@gmail.com',
+      from: SendgridSender,
+      subject: 'Daily Free Resources Emails',
+      html: `<p>New emails added in the last 24 hours:</p><ul>${decryptedEmails.map(e => `<li>${e}</li>`).join('')}</ul>`
+    };
+    await sgMail.send(msg);
+    console.log('Daily email report sent.');
+  } catch (err) {
+    console.error('Error sending daily email report:', err);
+  }
+}
+
 
 
 
@@ -173,7 +232,7 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
         } else if (products[0] === 'Unit 1 and The Cell Masterclasses') {
           subject = 'Thank you for choosing the Free Resources!';
           message = `Dear ${firstName},<br><br>**If any links are not clickable, mark email not as spam, the links should work then**<br><br>Thank you for choosing the free Unit 1 and Cell chapter notes. Here is the link to the Google Drive containing the resources: <a href="https://u48917275.ct.sendgrid.net/ls/click?upn=u001.gb1oIQZYL4vnMZkgmvEgigzFl42rVVPLGu-2Fe519Dvun9tuRbO-2FbM7IplLEtFJNpQ05TKwRq03odmolpArth0ldjiurLFB4dCM-2B4tixT-2F0TJ1ELxqIhhbS32gO3hKFnrEIFcd_4pE3C559McDKAd-2Fg3v7vn7eIndNn6ci9X9Lg05SN5hd0HqQd0CGpTiKRONJude4-2BSsNEXmpTWFbVn7KIYUZRVHAyrUpW7MXxjc-2FqCDWugVFXx574jVw6J7AuqIMN8xCK0iv3bPZjXrabb-2BWXwezZpQFLZE34yn6CVbJCQvmrQ3rjg5a43SNZwK-2BgAipFyVeR3EkkRmw-2B21-2FGCOBGcKlZTw-3D-3D" target="_blank">Here</a><br><br>We would like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>Best Regards,<br>Max<br><br>If you'd like to opt-out of future promotional emails, please click <a href="https://www.thelcbiologyguy.ie/#opt" target="_blank">Here</a> and submit your email address. Thanks!`;
-          productTable = 'free_resources_emails';
+          productTable = 'testtable';
         } else if (products[0] === 'Last Minute Masterclass') {
             subject = "Last Minute Masterclass Notes And Recording";
             message = `Hi ${firstName},<br>The recording is linked below. And your passcode is p4UsQ73?<br>For the recording, click <a href="https://us06web.zoom.us/rec/share/vf-vhnCpAjOBjp7XAFdlbJBPIBJR3UcOn5nnPakJjaPjuWGbJxYXOB5GdEnraXze.tJtbEBEK100QRKpC" target="_blank">*here*</a><br>The recording will expire in 7 days on June 14th.<br>The notes—both my class notes and the H1 Highlighted notes—are in this drive: https://drive.google.com/drive/folders/1wEvxdcgZUaG9ZCUDMsaU241GMWoe1YAt?usp=sharing<br>You will lose access to these notes in 7 days (June 14th).<br><br>Best,<br>Max<br><br>If you'd like to opt-out of future promotional emails, please click <a href="https://www.thelcbiologyguy.ie/#opt" target="_blank">Here</a> and submit your email address. Thanks!`;
@@ -198,10 +257,11 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
 
 
         // check if email is already in database
+        const encryptedEmail = encrypt(customerEmail);
         const checkEmailQuery = `SELECT email FROM ${productTable} WHERE email = $1`;
         console.log(productTable)
         let emailSent = (`email sent and added to ${productTable}`)
-        const result = await db.query(checkEmailQuery, [customerEmail]);
+        const result = await db.query(checkEmailQuery, [encryptedEmail]);
         const unsubbedresult = await db.query('SELECT email FROM unsubbed WHERE email = $1', [customerEmail])
         const promotionsresult = await db.query('SELECT email FROM promotions WHERE email = $1', [customerEmail])
 
@@ -212,11 +272,11 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
 
         if(result.rows.length === 0){
         //add email to the product table
-          const insertEmailQuery = `INSERT INTO ${productTable} (email, "first name") VALUES ($1, $2)`; 
-          await db.query(insertEmailQuery, [customerEmail, firstName]);
+          const insertEmailQuery = `INSERT INTO ${productTable} (email, first_name) VALUES ($1, $2)`; 
+          await db.query(insertEmailQuery, [encryptedEmail, firstName]);
         //send the email.        
           sendEmail(customerEmail, subject, message, emailSent, db);
-          
+
         } else {
           sendEmail(customerEmail, "Sorry", "Dear customer,<br><br>It looks like you might have purchased one of my products twice.<br>If this was a paid product, then it must have been a mistake. Please contact me if this was the case.<br><br>If you purchased my free resources package and tried to do it again and still haven't recieved an email with the necessary links, please make sure to check your spam and promotion folders. If you still don't have it after 24 hours, then please contact me at my email address: thelcbiologyguy@gmail.com<br><br>Best regards,<br>The LC Biology Guy", "Double product purchase email", db)
           console.log("email already exists in the database table of this product")
@@ -297,6 +357,20 @@ sgMail.setApiKey(`${API_KEY}`)
 // const zoom_6_id = process.env.ZOOM_6_ID;
 // const zoom_6_passcode = process.env.ZOOM_6_PASSCODE;
 
+
+function encrypt(text) {
+  let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(ENCRYPTION_KEY), IV);
+  let encrypted = cipher.update(text, 'utf8', 'hex');
+  encrypted += cipher.final('hex');
+  return encrypted;
+}
+
+function decrypt(text) {
+  let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(ENCRYPTION_KEY), IV);
+  let decrypted = decipher.update(text, 'hex', 'utf8');
+  decrypted += decipher.final('utf8');
+  return decrypted;
+}
 
 
 
@@ -422,6 +496,11 @@ app.get("/cancel", (req, res) => {
   res.render("temporary.ejs")
 })
 
+// Manual trigger for daily job (for testing purposes)
+app.get('/test-dailyjob', async (req, res) => {
+  await sendDailyEmailReport();
+  res.send('Daily job triggered manually.');
+});
 
 
 
