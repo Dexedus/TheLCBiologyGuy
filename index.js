@@ -100,24 +100,27 @@ const IV = process.env.EMAIL_ENCRYPTION_IV; // 16 chars
 
 const cron = require('node-cron');
 
-// Run every day at 6pm
-cron.schedule('0 18 * * *', async () => {
+// Run every day at 10pm
+cron.schedule('0 22 * * *', async () => {
   try {
-    // Get emails added in the last 24 hours
+    // Get emails and first names added in the last 24 hours
     const result = await db.query(`
-      SELECT email FROM testtable
+      SELECT email, first_name FROM testtable
       WHERE created_at >= NOW() - INTERVAL '1 day'
     `);
 
-    // Decrypt emails
-    const decryptedEmails = result.rows.map(row => decrypt(row.email));
+    // Decrypt emails and format with first name
+    const emailList = result.rows.map(row => {
+      const decryptedEmail = decrypt(row.email);
+      return `<li>${decryptedEmail} (${row.first_name})</li>`;
+    });
 
     // Send email via SendGrid
     const msg = {
       to: 'karlfleming64@gmail.com',
       from: SendgridSender,
       subject: 'Daily Free Resources Emails',
-      html: `<p>New emails added in the last 24 hours:</p><ul>${decryptedEmails.map(e => `<li>${e}</li>`).join('')}</ul>`
+      html: `<p>New emails added in the last 24 hours:</p><ul>${emailList.join('')}</ul>`
     };
 
     await sgMail.send(msg);
