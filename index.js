@@ -605,7 +605,7 @@ app.post("/create-checkout-session-not-cart", async (req, res) => {
           key: 'first_name',
           label: {
             type: 'custom',
-            custom: 'Parent First Name',
+            custom: 'First Name',
           },
           type: 'text',
         },
