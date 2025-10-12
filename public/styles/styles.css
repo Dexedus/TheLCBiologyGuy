@@ -837,7 +837,7 @@ footer{
     }
 }
 
-@media (max-width: 1543px) {
+@media (max-width: 900px) {
 .trial-halloween-bg{
     background-image: none!important;
 }
@@ -1222,7 +1222,7 @@ footer{
 }
 
 .trial-halloween-bg {
-    padding-top: 120px!important
+    padding-top: 120px!important;
 
 }
 
