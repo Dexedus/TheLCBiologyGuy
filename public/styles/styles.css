@@ -837,7 +837,27 @@ footer{
     }
 }
 
+@media (max-width: 1125px) {
+.trial-halloween-bg{
+    background-image: none!important;
+}
+}
+
 @media (max-width: 992px) {
+
+    #containerHalloweenClass {
+        display: flex!important;
+        text-align: center!important;
+        justify-content: center!important;
+        align-items: center!important;
+    }
+
+    #subContainer{
+        display: flex!important;
+        justify-content: center!important;
+        flex-direction: column!important;
+        align-items: center!important;
+    }
 
     #lessons-photo {
         width: 100%;
@@ -875,10 +895,40 @@ footer{
   #new-tab .accordion,
   #new-tab .accordion-header,
   #new-tab .accordion-body,
-  #hero-title {
+  #hero-title,
+  #heroTitle {
     text-align: center !important;
     justify-content: center !important;
     align-items: center !important;
+  }
+
+  .trial-halloween-bg img[src="/images/GhostReadingBook.png"] {
+    display: none !important;
+  }
+
+  #HalloweenBackground {
+    background-position: center !important;
+  }
+
+  #containerHalloweenClass {
+    background-color: rgba(0, 0, 0, 0)!important;
+    border: none!important;
+  }
+
+  #HalloweenBackground {
+    position: relative;
+  }
+  #HalloweenBackground::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.35); /* adjust opacity for darkness */
+    z-index: 1;
+    border-radius: inherit;
+  }
+  #HalloweenBackground > * {
+    position: relative;
+    z-index: 2;
   }
 
   #hanging-icons .feature, #hanging-icons p {

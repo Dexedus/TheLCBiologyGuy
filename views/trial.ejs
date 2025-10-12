@@ -2,8 +2,8 @@
 
 <main class="trial-halloween-bg" style="min-height: 300px!important; padding-top: 120px!important; width: 100%; display: flex; align-items: center; flex-direction: column; background-image: url(/images/batsCool.jpg); background-size: contain;">
 
-  <div class="container col-xxl-8 px-4 py-5" style="background-color: black; border: 3px solid; border-radius: 10px; border-color: rgb(255, 139, 6);">
-    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+  <div id="containerHalloweenClass" class="container col-xxl-8 px-4 py-5" style="background-color: black; border: 3px solid; border-radius: 10px; border-color: rgb(255, 139, 6);">
+    <div id="subContainer" class="row flex-lg-row-reverse align-items-center g-5 py-5">
       <div class="col-10 col-sm-8 col-lg-6">
         <img src="/images/GhostReadingBook.png" class="d-block mx-lg-auto img-fluid"
           alt="A computer screen displays the Bootstrap Themes website with a clean and modern interface. The page features a large heading reading Responsive left-aligned hero with image and a paragraph describing Bootstrap as a popular front-end toolkit. The environment is professional and inviting, with a focus on web development and design. The emotional tone is informative and encouraging, aimed at users interested in building responsive websites."
@@ -12,7 +12,7 @@
       <div class="col-lg-6">
         <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Free Halloween Masterclass 2025!</h1>
         <p class="lead">I'm happy to annouce I am doing ANOTHER free Halloween Masterclass this year! Want to sign up? Just click on the button below where you'll submit your email. Then you will recieve an email with the details for class. See you then!</p>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-center justify-content-lg-start">
           <form action="/create-checkout-session-not-cart" method="POST">
           <input type="hidden" name="priceId" value="price_1SHRk9FArv9BTH3QpS2ZP6aS">
             <button type="submit" class="btn btn-outline-secondary btn-lg px-4 me-md-2">Sign Up</button>
@@ -23,7 +23,7 @@
   </div>
 
 
-    <div id="carouselExample" class="carousel slide" style="width: 100vw; background-color: black;">
+    <div id="carouselExample" class="carousel slide" style="width: 100vw; background-color: black; border-bottom: 2px solid rgb(255, 145, 0);">
     <div class="carousel-inner">
       <div class="carousel-item active">
         <div id="testimonial-tab">
@@ -62,7 +62,7 @@
   </div>
 
 
-    <div class="px-4 pt-5 text-center" style="background-image: url(/images/HalloweenBackground.jpg);  width: 100vw; padding-top: 150px!important; border-bottom: black solid 2px;">
+    <div id="HalloweenBackground" class="px-4 pt-5 text-center" style="background-image: url(/images/HalloweenBackground.jpg);  width: 100vw; padding-top: 150px!important;">
     <h1 class="display-4 fw-bold text-body-emphasis FreeResourcesTitle" id="FreeResourcesTitle">Free Resources</h1>
     <div class="col-lg-6 mx-auto">
       <p class="lead mb-4" id="FreeResourcesText">Unit 1 and Cell Biology are not just foundational—they're essential. These topics appear every year on the exam and form the basis for more challenging chapters you'll encounter later. Since 2008, they’ve accounted for an impressive 33% of the overall grade. These resources contain both notes and videos.</p>
