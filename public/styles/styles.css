@@ -1221,6 +1221,11 @@ footer{
   }
 }
 
+.trial-halloween-bg {
+    padding-top: 120px!important
+
+}
+
 /* Enhance low-res batsCool.jpg background in testimonial tab */
 #testimonial-tab {
     background-size: cover;
@@ -1268,6 +1273,19 @@ footer{
     min-height: 800px !important;
     background-position: center top;
     background-image: url(/images/batsCool.jpg);
+  }
+
+  .trial-halloween-bg {
+    padding-top: 0px!important;
+  }
+
+    .trial-halloween-bg ul {
+    list-style-type: none;
+    padding-left: 0;
+    text-align: center;
+  }
+  .trial-halloween-bg li {
+    text-align: center;
   }
 }
 

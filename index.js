@@ -465,6 +465,16 @@ app.get('/landing', (req, res) => {
 
 })
 
+app.get('/waiting', (req, res) => {
+    // res.render("landing.ejs", {
+    //   title: "Warning",
+    //   message: "By closing this pop up or clicking the button below, you agree to not share any of my paid for material after purchasing it yourself.",
+    //   button: "Understood",
+    // })
+    res.render("waitingList.ejs")
+
+})
+
 app.get('/optout', (req, res) => {
     res.render("optout.ejs")
 })
