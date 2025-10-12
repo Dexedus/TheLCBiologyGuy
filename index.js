@@ -101,28 +101,49 @@ const IV = process.env.EMAIL_ENCRYPTION_IV; // 16 chars
 async function sendDailyEmailReport() {
 
   try {
-    // Get emails and first names added in the last 24 hours
+    // Get emails and first names added in the last 24 hours from testtable
     const result = await db.query(`
       SELECT email, first_name FROM testtable
       WHERE created_at >= NOW() - INTERVAL '1 day'
     `);
 
-
-    // Decrypt emails and format with first name
-    const emailList = result.rows.map(row => {
+    // Decrypt emails and format with first name for testtable
+    let emailList = result.rows.map(row => {
       const decryptedEmail = decrypt(row.email);
       const first_name = row.first_name || 'Valued User';
-      console.log(first_name)
-      console.log(decryptedEmail) 
       return `<li>${decryptedEmail} (${first_name})</li>`;
     });
+    if (emailList.length === 0) {
+      emailList = ['<li>No new entries over the last 24 hours</li>'];
+    }
+
+    // Get emails and first names added in the last 24 hours from halloween table
+    const halloweenResult = await db.query(`
+      SELECT email, first_name FROM halloween
+      WHERE created_at >= NOW() - INTERVAL '1 day'
+    `);
+
+    // Decrypt emails and format with first name for halloween table
+    let halloweenEmailList = halloweenResult.rows.map(row => {
+      const decryptedEmail = decrypt(row.email);
+      const first_name = row.first_name || 'Valued User';
+      return `<li>${decryptedEmail} (${first_name})</li>`;
+    });
+    if (halloweenEmailList.length === 0) {
+      halloweenEmailList = ['<li>No new entries over the last 24 hours</li>'];
+    }
 
     // Send email via SendGrid
     const msg = {
-      to: 'thelcbiologyguy@gmail.com',
+      to: 'karlfleming64@gmail.com',
       from: SendgridSender,
       subject: 'Daily Free Resources Emails',
-      html: `<p>New emails added in the last 24 hours:</p><ul>${emailList.join('')}</ul>`
+      html: `
+        <p>New emails added in the last 24 hours:</p>
+        <ul>${emailList.join('')}</ul>
+        <p>Emails added to the halloween masterclass list in the last 24 hours:</p>
+        <ul>${halloweenEmailList.join('')}</ul>
+      `
     };
 
     await sgMail.send(msg);
