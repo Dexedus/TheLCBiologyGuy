@@ -954,8 +954,6 @@ footer{
 }
 
 @media (max-width: 992px) {
-<<<<<<< HEAD
-=======
 
     #containerHalloweenClass {
         display: flex!important;
@@ -970,7 +968,6 @@ footer{
         flex-direction: column!important;
         align-items: center!important;
     }
->>>>>>> staging
 
     #lessons-photo {
         width: 100%;
@@ -991,33 +988,6 @@ footer{
 }
 
 @media (max-width: 768px) {
-<<<<<<< HEAD
-  .free-success-container {
-    flex-direction: column;
-    min-width: 0;
-    width: 100vw;
-    height: 100vh;
-    border-radius: 0;
-    margin: 0;
-    text-align: center;
-  }
-
-  .free-success-main{
-    padding-top: 0px!important;
-  }
-  .free-success-left, .free-success-right {
-    min-width: 0;
-    width: 100%;
-    padding: 32px 16px;
-    border-radius: 0;
-  }
-  .free-success-right {
-    gap: 18px;
-    padding-bottom: 32px;
-  }
-}
-
-=======
   /* Center all text on homepage on mobile */
   main,
   .row,
@@ -1112,7 +1082,6 @@ footer{
   }
 }
 
->>>>>>> staging
 @media (max-width: 768px) {
   .free-success-left{
     padding-top: 120px;
