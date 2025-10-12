@@ -214,7 +214,7 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
 
 
 
-        if(products[0] === 'Unit 1 and The Cell Masterclasses' || products[0] === 'Cell & Ecology Free Masterclasses (March 6th and 9th)' || products[0] === 'Improvement Bundle' || products[0] === 'Last Minute Masterclass' ){
+        if(products[0] === 'Unit 1 and The Cell Masterclasses' || products[0] === 'Cell & Ecology Free Masterclasses (March 6th and 9th)' || products[0] === 'Improvement Bundle' || products[0] === 'Last Minute Masterclass' || products[0] === 'Free Halloween Masterclass'){
 
           let message = ""
           let subject = ""
