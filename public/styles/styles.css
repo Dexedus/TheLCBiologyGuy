@@ -320,6 +320,11 @@ main{
     align-items: center;
 }
 
+.trial-halloween-bg #testimonial-tab{
+    border-top: none;
+    border-bottom: #000000 2px solid;
+}
+
 #testimonial-picture{
     height: 100px;
     width: 100px;
@@ -526,6 +531,211 @@ main{
     animation-timing-function: ease-in-out;
 }
 
+/* Free Resources header uses New Rocker font */
+.trial-halloween-bg .FreeResourcesTitle, #FreeResourcesTitle {
+    font-family: 'New Rocker', 'Varela Round', Arial, sans-serif !important;
+    font-weight: 700 !important;
+    color: #faf5eb !important;
+    letter-spacing: 0.03em;
+}
+
+/* Testimonial header uses New Rocker font, bigger and bolder */
+.trial-halloween-bg #testimonial-tab h2 {
+    font-family: 'New Rocker', 'Varela Round', Arial, sans-serif !important;
+    font-size: 2.2em !important;
+    font-weight: 700 !important;
+    color: #fff !important;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.5em;
+}
+
+/* Testimonial text bigger and bolder */
+.trial-halloween-bg #testimonial-text {
+    font-size: 1.35em !important;
+    font-weight: 600 !important;
+    color: #fff !important;
+    line-height: 1.5;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
+
+
+
+
+/*NewPage*/
+.free-success-main {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  padding-top: 50px!important;
+}
+
+.free-success-container {
+  display: flex;
+  width: 90vw;
+  max-width: 900px;
+  min-height: 400px;
+  background: rgba(255,255,255,0.85);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(60,128,108,0.10);
+  overflow: hidden;
+}
+
+.free-success-left {
+  flex: 1;
+  background: linear-gradient(120deg, #7dd4bc 0%, #51a890 100%);
+  color: #fff;
+  padding: 48px 32px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 220px;
+}
+
+.free-success-title {
+  font-size: 2.2em;
+  font-family: "Unbounded", sans-serif;
+  margin-bottom: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  animation: fade-in 1s;
+}
+
+.free-success-message {
+  font-size: 1.15em;
+  margin-bottom: 32px;
+  font-family: "Varela Round", sans-serif;
+  animation: fade-in 1.5s;
+}
+
+.free-success-note {
+  font-size: 0.95em;
+  color: #e7eceb;
+  margin-top: auto;
+  font-family: "Geist Mono", monospace;
+  opacity: 0.8;
+  animation: fade-in 2s;
+}
+
+.free-success-note a {
+  color: #fff;
+  text-decoration: underline;
+  word-break: break-all;
+}
+
+.free-success-right {
+  flex: 1;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+  padding: 48px 32px;
+  min-width: 220px;
+}
+
+.free-success-btn {
+  display: block;
+  width: 100%;
+  max-width: 260px;
+  padding: 18px 0;
+  margin: 0 auto;
+  background: linear-gradient(90deg, #51a890 60%, #7dd4bc 100%);
+  color: #fff;
+  font-size: 1.15em;
+  font-family: "Unbounded", sans-serif;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 2px 12px rgba(60,128,108,0.08);
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  animation: fadeFromBottom 0.8s;
+}
+
+.free-success-btn:hover, .free-success-btn:focus {
+  background: linear-gradient(90deg, #3c806c 60%, #51a890 100%);
+  color: #fff;
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 6px 24px rgba(60,128,108,0.18);
+  text-decoration: none;
+}
+
+/* Halloween Theme for trial.ejs */
+.trial-halloween-bg {
+    background-color: #000;
+    min-height: 100vh;
+    width: 100vw;
+    position: relative;
+    color: #ffb347; /* Pumpkin orange */
+    font-family: 'Creepster', 'Varela Round', Arial, sans-serif;
+}
+
+.trial-halloween-bg h1,
+.trial-halloween-bg .display-4,
+.trial-halloween-bg .fw-bold {
+    font-family: 'Creepster', 'Syncopate', 'Unbounded', Arial, sans-serif;
+    color: #ff7518; /* Deep orange */
+    text-shadow: 1px 1px 4px #000, 0 0 4px #ff7518; /* Less intense shadow */
+}
+
+.trial-halloween-bg .lead,
+.trial-halloween-bg p,
+.trial-halloween-bg .carousel,
+.trial-halloween-bg .carousel-inner,
+.trial-halloween-bg .carousel-item,
+.trial-halloween-bg .carousel-control-prev-icon,
+.trial-halloween-bg .carousel-control-next-icon {
+    color: #fffbe6;
+    font-family: 'Varela Round', Arial, sans-serif;
+}
+
+.trial-halloween-bg .btn-primary,
+.trial-halloween-bg .checkout-btn-2 {
+    background-color: #ff7518 !important;
+    color: #fff !important;
+    border: none;
+    font-family: 'Syncopate', 'Unbounded', Arial, sans-serif;
+    box-shadow: 0 2px 12px #ff7518a0;
+    transition: background 0.3s, transform 0.2s;
+}
+.trial-halloween-bg .btn-primary:hover,
+.trial-halloween-bg .checkout-btn-2:hover {
+    background-color: #0c0c0c !important;
+    color: #ff7518 !important;
+    transform: scale(1.05);
+}
+
+/* Halloween trial page hero section styles */
+.trial-halloween-bg .display-5,
+.trial-halloween-bg .hero-section-title {
+    font-family: 'New Rocker', 'Varela Round', Arial, sans-serif !important;
+    font-weight: 700 !important;
+    color: #faf5eb !important; /* Matches Free Resources header color */
+    letter-spacing: 0.03em;
+}
+
+.trial-halloween-bg .btn,
+.trial-halloween-bg .btn-lg {
+    font-family: 'New Rocker', 'Varela Round', Arial, sans-serif !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    background-color: #ff7518 !important;
+    border: none !important;
+    letter-spacing: 0.03em;
+    transition: background 0.3s, color 0.3s, transform 0.2s;
+}
+
+.trial-halloween-bg .btn:hover,
+.trial-halloween-bg .btn-lg:hover {
+    background-color: #000000 !important;
+    color: #fff !important;
+    transform: scale(1.05);
+}
 
 
 
@@ -737,7 +947,30 @@ footer{
     }
 }
 
+@media (max-width: 900px) {
+.trial-halloween-bg{
+    background-image: none!important;
+}
+}
+
 @media (max-width: 992px) {
+<<<<<<< HEAD
+=======
+
+    #containerHalloweenClass {
+        display: flex!important;
+        text-align: center!important;
+        justify-content: center!important;
+        align-items: center!important;
+    }
+
+    #subContainer{
+        display: flex!important;
+        justify-content: center!important;
+        flex-direction: column!important;
+        align-items: center!important;
+    }
+>>>>>>> staging
 
     #lessons-photo {
         width: 100%;
@@ -755,6 +988,102 @@ footer{
         width: 100% !important;
         margin-top: -100px;
     }
+}
+
+@media (max-width: 768px) {
+<<<<<<< HEAD
+  .free-success-container {
+    flex-direction: column;
+    min-width: 0;
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+    margin: 0;
+    text-align: center;
+  }
+
+  .free-success-main{
+    padding-top: 0px!important;
+  }
+  .free-success-left, .free-success-right {
+    min-width: 0;
+    width: 100%;
+    padding: 32px 16px;
+    border-radius: 0;
+  }
+  .free-success-right {
+    gap: 18px;
+    padding-bottom: 32px;
+  }
+}
+
+=======
+  /* Center all text on homepage on mobile */
+  main,
+  .row,
+  .col-10,
+  .col-sm-8,
+  .col-lg-6,
+  .col-lg-6,
+  .container,
+  .hero-text,
+  #testimonial-tab,
+  #testimonial-tab h2,
+  #testimonial-tab p,
+  #new-tab,
+  #new-tab h1,
+  #new-tab .accordion,
+  #new-tab .accordion-header,
+  #new-tab .accordion-body,
+  #hero-title,
+  #heroTitle {
+    text-align: center !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .trial-halloween-bg img[src="/images/GhostReadingBook.png"] {
+    display: none !important;
+  }
+
+  #HalloweenBackground {
+    background-position: center !important;
+  }
+
+  #containerHalloweenClass {
+    background-color: rgba(0, 0, 0, 0)!important;
+    border: none!important;
+  }
+
+  #HalloweenBackground {
+    position: relative;
+  }
+  #HalloweenBackground::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.35); /* adjust opacity for darkness */
+    z-index: 1;
+    border-radius: inherit;
+  }
+  #HalloweenBackground > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  #hanging-icons .feature, #hanging-icons p {
+    text-align: left !important;
+    justify-content: start !important;
+  }
+  /* Remove left/right padding for better centering */
+  main {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  /* Center buttons in hero section */
+  .d-grid.gap-2.d-md-flex.justify-content-md-start {
+    justify-content: center !important;
+  }
 }
 
 @media (max-width: 768px) {
@@ -783,6 +1112,7 @@ footer{
   }
 }
 
+>>>>>>> staging
 @media (max-width: 768px) {
   .free-success-left{
     padding-top: 120px;
@@ -1023,3 +1353,86 @@ footer{
         scale: 1;
     }
 }
+
+@media (max-width: 768px) {
+  /* Hide Instagram videos on mobile */
+  .video1,
+  .video3 {
+    display: none !important;
+  }
+}
+
+.trial-halloween-bg {
+    padding-top: 120px!important;
+
+}
+
+/* Enhance low-res batsCool.jpg background in testimonial tab */
+#testimonial-tab {
+    background-size: cover;
+    background-position: center top;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Add a dark overlay to soften pixelation */
+.trial-halloween-bg #testimonial-tab::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.37); /* Increase opacity for more softness */
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Optionally, add blur for extra softness */
+.trial-halloween-bg #testimonial-tab::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(0.9px); /* Adjust blur as needed */
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Ensure testimonial content is above overlays */
+.trial-halloween-bg #testimonial-tab img,
+.trial-halloween-bg #testimonial-tab h2,
+.trial-halloween-bg #testimonial-tab p {
+    position: relative;
+    z-index: 2;
+    max-width: 90%;
+    word-break: break-word;
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+  #testimonial-tab {
+    min-height: 800px !important;
+    background-position: center top;
+    background-image: url(/images/batsCool.jpg);
+  }
+
+  .trial-halloween-bg {
+    padding-top: 0px!important;
+  }
+
+    .trial-halloween-bg ul {
+    list-style-type: none;
+    padding-left: 0;
+    text-align: center;
+  }
+  .trial-halloween-bg li {
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .px-4.pt-5.text-center.border-bottom {
+    background-position: center left !important;
+  }
+}
+

@@ -101,28 +101,49 @@ const IV = process.env.EMAIL_ENCRYPTION_IV; // 16 chars
 async function sendDailyEmailReport() {
 
   try {
-    // Get emails and first names added in the last 24 hours
+    // Get emails and first names added in the last 24 hours from testtable
     const result = await db.query(`
       SELECT email, first_name FROM testtable
       WHERE created_at >= NOW() - INTERVAL '1 day'
     `);
 
-
-    // Decrypt emails and format with first name
-    const emailList = result.rows.map(row => {
+    // Decrypt emails and format with first name for testtable
+    let emailList = result.rows.map(row => {
       const decryptedEmail = decrypt(row.email);
       const first_name = row.first_name || 'Valued User';
-      console.log(first_name)
-      console.log(decryptedEmail) 
       return `<li>${decryptedEmail} (${first_name})</li>`;
     });
+    if (emailList.length === 0) {
+      emailList = ['<li>No new entries over the last 24 hours</li>'];
+    }
+
+    // Get emails and first names added in the last 24 hours from halloween table
+    const halloweenResult = await db.query(`
+      SELECT email, first_name FROM halloween
+      WHERE created_at >= NOW() - INTERVAL '1 day'
+    `);
+
+    // Decrypt emails and format with first name for halloween table
+    let halloweenEmailList = halloweenResult.rows.map(row => {
+      const decryptedEmail = decrypt(row.email);
+      const first_name = row.first_name || 'Valued User';
+      return `<li>${decryptedEmail} (${first_name})</li>`;
+    });
+    if (halloweenEmailList.length === 0) {
+      halloweenEmailList = ['<li>No new entries over the last 24 hours</li>'];
+    }
 
     // Send email via SendGrid
     const msg = {
-      to: 'thelcbiologyguy@gmail.com',
+      to: 'karlfleming64@gmail.com',
       from: SendgridSender,
       subject: 'Daily Free Resources Emails',
-      html: `<p>New emails added in the last 24 hours:</p><ul>${emailList.join('')}</ul>`
+      html: `
+        <p>New emails added in the last 24 hours:</p>
+        <ul>${emailList.join('')}</ul>
+        <p>Emails added to the halloween masterclass list in the last 24 hours:</p>
+        <ul>${halloweenEmailList.join('')}</ul>
+      `
     };
 
     await sgMail.send(msg);
@@ -213,6 +234,10 @@ app.post('/stripe/webhook', bodyParser.raw({ type: 'application/json' }), async 
           subject = 'Thank you for choosing the Free Resources!';
           message = `Dear ${firstName},<br><br>**If any links are not clickable, mark email not as spam, the links should work then**<br><br>Thank you for choosing the free Unit 1 and Cell chapter notes. Here is the link to the Google Drive containing the resources: <a href="https://u48917275.ct.sendgrid.net/ls/click?upn=u001.gb1oIQZYL4vnMZkgmvEgigzFl42rVVPLGu-2Fe519Dvun9tuRbO-2FbM7IplLEtFJNpQ05TKwRq03odmolpArth0ldjiurLFB4dCM-2B4tixT-2F0TJ1ELxqIhhbS32gO3hKFnrEIFcd_4pE3C559McDKAd-2Fg3v7vn7eIndNn6ci9X9Lg05SN5hd0HqQd0CGpTiKRONJude4-2BSsNEXmpTWFbVn7KIYUZRVHAyrUpW7MXxjc-2FqCDWugVFXx574jVw6J7AuqIMN8xCK0iv3bPZjXrabb-2BWXwezZpQFLZE34yn6CVbJCQvmrQ3rjg5a43SNZwK-2BgAipFyVeR3EkkRmw-2B21-2FGCOBGcKlZTw-3D-3D" target="_blank">Here</a><br><br>We would like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>Best Regards,<br>Max<br><br>If you'd like to opt-out of future promotional emails, please click <a href="https://www.thelcbiologyguy.ie/#opt" target="_blank">Here</a> and submit your email address. Thanks!`;
           productTable = 'testtable';
+        } else if (products[0] === 'Free Halloween Masterclass') {
+            subject = "You're In for the 2 Day Free Biology Masterclass";
+            message = `Hey ${firstName},<br><br>The Halloween Masterclasses will run on the 27th and 28th of October.<br><br>Classes will start at 10am on both days.<br><br>Both classes will be recorded and uploaded to this Google Drive: https://u48917275.ct.sendgrid.net/ls/click?upn=u001.gb1oIQZYL4vnMZkgmvEgigzFl42rVVPLGu-2Fe519Dvun9tuRbO-2FbM7IplLEtFJNpQ05TKwRq03odmolpArth0ldjiurLFB4dCM-2B4tixT-2F0TJ1ELxqIhhbS32gO3hKFnrEIFcd_4pE3C559McDKAd-2Fg3v7vn7eIndNn6ci9X9Lg05SN5hd0HqQd0CGpTiKRONJude4-2BSsNEXmpTWFbVn7KIYUZRVHAyrUpW7MXxjc-2FqCDWugVFXx574jVw6J7AuqIMN8xCK0iv3bPZjXrabb-2BWXwezZpQFLZE34yn6CVbJCQvmrQ3rjg5a43SNZwK-2BgAipFyVeR3EkkRmw-2B21-2FGCOBGcKlZTw-3D-3D<br><br>The Zoom link will be shared on the 26th of October.<br><br>Best,<br>Max<br><br><b>If you'd like to opt-out of future promotional emails, please click <a href="https://www.thelcbiologyguy.ie/#opt" target="_blank">Here</a> and submit your email address. Thanks!<b/>`;
+            productTable = 'finalclass';
         } else if (products[0] === 'Last Minute Masterclass') {
             subject = "Last Minute Masterclass Notes And Recording";
             message = `Hi ${firstName},<br>The recording is linked below. And your passcode is p4UsQ73?<br>For the recording, click <a href="https://us06web.zoom.us/rec/share/vf-vhnCpAjOBjp7XAFdlbJBPIBJR3UcOn5nnPakJjaPjuWGbJxYXOB5GdEnraXze.tJtbEBEK100QRKpC" target="_blank">*here*</a><br>The recording will expire in 7 days on June 14th.<br>The notes—both my class notes and the H1 Highlighted notes—are in this drive: https://drive.google.com/drive/folders/1wEvxdcgZUaG9ZCUDMsaU241GMWoe1YAt?usp=sharing<br>You will lose access to these notes in 7 days (June 14th).<br><br>Best,<br>Max<br><br>If you'd like to opt-out of future promotional emails, please click <a href="https://www.thelcbiologyguy.ie/#opt" target="_blank">Here</a> and submit your email address. Thanks!`;
@@ -437,6 +462,16 @@ app.get('/landing', (req, res) => {
     //   button: "Understood",
     // })
     res.render("temporary.ejs")
+
+})
+
+app.get('/waiting', (req, res) => {
+    // res.render("landing.ejs", {
+    //   title: "Warning",
+    //   message: "By closing this pop up or clicking the button below, you agree to not share any of my paid for material after purchasing it yourself.",
+    //   button: "Understood",
+    // })
+    res.render("waitingList.ejs")
 
 })
 
