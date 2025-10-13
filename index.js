@@ -135,7 +135,7 @@ async function sendDailyEmailReport() {
 
     // Send email via SendGrid
     const msg = {
-      to: 'karlfleming64@gmail.com',
+      to: 'thelcbiologyguy@gmail.com',
       from: SendgridSender,
       subject: 'Daily Free Resources Emails',
       html: `
