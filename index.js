@@ -475,6 +475,34 @@ app.get('/waiting', (req, res) => {
 
 })
 
+app.post('/waiting', async (req, res) => {
+    try {
+        const email = '16byrnesla@gmail.com';
+        const firstName = 'Lauren';
+        
+        // Encrypt the email before storing
+        const encryptedEmail = encrypt(email);
+        
+        // Check if email already exists in the testname table
+        const checkEmailQuery = 'SELECT email FROM testname WHERE email = $1';
+        const result = await db.query(checkEmailQuery, [encryptedEmail]);
+        
+        if (result.rows.length === 0) {
+            // Insert the email and first name into testname table
+            const insertQuery = 'INSERT INTO testname (email, first_name) VALUES ($1, $2)';
+            await db.query(insertQuery, [encryptedEmail, firstName]);
+            console.log('Added Karl Fleming to testname database table');
+        } else {
+            console.log('Email already exists in testname table');
+        }
+        
+        res.redirect('/waiting');
+    } catch (error) {
+        console.error('Error adding to waiting list:', error);
+        res.status(500).send('Error processing request');
+    }
+})
+
 app.get('/optout', (req, res) => {
     res.render("optout.ejs")
 })
@@ -534,42 +562,46 @@ app.get('/test-dailyjob', async (req, res) => {
 //   //           <button type="submit">Submit</button>
 //   //         </form><br><br>Best of luck with your revision!<br>Max`, "testWorked", db);
 
-
-// //       // Fetch emails from the database
-//       const result = await db.query(`
-// SELECT email FROM promotions
-// LIMIT 999 OFFSET 1998;
+//   try {
+//     // Fetch emails and first names from the database
+//     const result = await db.query(`
+// SELECT email, first_name FROM halloween
 // `);
-  
-//       const emails = result.rows.map(row => row.email); // Extract email addresses
-//   // "maxbaldwin175@gmail.com"
 
-//   // const emails = ["ksfwebdesigns@gmail.com"]
+//     if (result.rows.length === 0) {
+//       console.log('No emails found to send.');
+//       res.redirect("/");
+//       return;
+//     }
 
-//         if (emails.length === 0) {
-//         console.log('No emails found to send.');
-//       } else {
-//         console.log('Emails sent')
-//       }
+//     console.log(`Sending emails to ${result.rows.length} recipients using sendMultiple`);
 
+//     // Prepare the list of recipients with their decrypted emails
+//     const recipients = result.rows.map(row => {
+//       const encryptedEmail = row.email;
+//       const decryptedEmail = decrypt(encryptedEmail);
+//       const firstName = row.first_name || 'everyone';
+//       return { email: decryptedEmail, firstName: firstName };
+//     });
 
-//   const msg = {
-//     to: emails, // Array of recipients
-//     from: SendgridSender, // Verified sender
-//     replyTo: `${ReplyTo}`,  
-//     subject: 'Thank You Everyone!',
-//     html: `Hey everyone,<br><br>The biology exam is done! Thank you for letting me know how you get on. I haven't heard from all of you but I hope the exam went good for you.<br><br>If you found any of my resources helpful (free or paid) I would love to get your honest review and feedback for that matter. You can leave a review on my Google page <a href="https://g.page/r/CR0YK6fxKvynEBM/review" target="_blank">HERE</a>, and any feedback just reply to this email.<br><br>Thank you class 2025. Best of luck with your future exams!<br><br>Best regards,<br>Max`
-//   };
+//     // Create individual messages for each recipient
+//     const messages = recipients.map(recipient => ({
+//       to: recipient.email,
+//       from: SendgridSender,
+//       replyTo: `${ReplyTo}`,
+//       subject: 'Free Cell Biology Masterclass Starts Tomorrow',
+//       html: `Hey ${recipient.firstName},<br>Just a reminder, tomorrow's cell masterclass starts at 10 am. I will open the class at 9:50 to allow people to join in early.<br><br>You can access the accompanying notes and the class recordings via this Google Drive: https://drive.google.com/drive/folders/1Vsr3aMvK8qGR8b1c7s6y7XK4oRKalvNW?usp=drive_link<br><br>Below are the links you will use to join.<br><br>Please do not share these links. Spaces are capped at 500 students, and I want those who signed up to be able to join.<br><br>You will join Day 1 (Cell Biology) using this link:<br>https://us06web.zoom.us/j/86720349492?pwd=XJWfPS8zXbkKsnRV4SaZptAvgvAUY5.1<br>Passcode: 475432<br><br>Day 2 (Ecology) using this link:<br>https://us06web.zoom.us/j/82704111200?pwd=iA0kyBba0sl0JNiNBblSpPRglbalrx.1<br>Passcode: 022398<br><br>Best regards,<br>Max`
+//     }));
 
-//   sgMail
-//   .sendMultiple(msg)
-//   .then(() => {
-//     console.log('Emails sent successfully!');
-//   })
-//   .catch((error) => {
-//     console.error('Error sending emails:', error);
-//   });
-
+//     try {
+//       await sgMail.send(messages);
+//       console.log(`All ${result.rows.length} emails sent successfully using sendMultiple!`);
+//     } catch (error) {
+//       console.error('Error sending emails:', error);
+//     }
+//   } catch (error) {
+//     console.error('Error fetching emails from database:', error);
+//   }
 
 //   res.redirect("/")
 // })
