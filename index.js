@@ -549,62 +549,62 @@ app.get('/test-dailyjob', async (req, res) => {
 
 
 
-// app.get("/sendemail", async (req, res) => {
+app.get("/sendemail", async (req, res) => {
 
-//   // const firstName = "Karl"
-//   // const customerEmail = "karlfleming64@gmail.com"
+  // const firstName = "Karl"
+  // const customerEmail = "karlfleming64@gmail.com"
 
-//   // sendEmail(customerEmail, "subject", `Dear ${firstName},<br><br>Thank you for your purchase!<br><br>The Google Drive can be accessed <a href="https://drive.google.com/drive/folders/1Cu7TUE7uWIsgLjPIwW19VJcR-VCZAIw9?usp=sharing" target="_blank">here.</a><br>This folder is set to restricted access, I will grant you access as soon as possible.<br><br>If you have made a request and not received access within 30 minutes please respond to this email<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
-//   //         <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
-//   //           <input type="checkbox" name="unsubscribe">
-//   //           <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
-//   //           <input type="hidden" name="email" value="${customerEmail}">
-//   //           <button type="submit">Submit</button>
-//   //         </form><br><br>Best of luck with your revision!<br>Max`, "testWorked", db);
+  // sendEmail(customerEmail, "subject", `Dear ${firstName},<br><br>Thank you for your purchase!<br><br>The Google Drive can be accessed <a href="https://drive.google.com/drive/folders/1Cu7TUE7uWIsgLjPIwW19VJcR-VCZAIw9?usp=sharing" target="_blank">here.</a><br>This folder is set to restricted access, I will grant you access as soon as possible.<br><br>If you have made a request and not received access within 30 minutes please respond to this email<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
+  //         <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
+  //           <input type="checkbox" name="unsubscribe">
+  //           <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
+  //           <input type="hidden" name="email" value="${customerEmail}">
+  //           <button type="submit">Submit</button>
+  //         </form><br><br>Best of luck with your revision!<br>Max`, "testWorked", db);
 
-//   try {
-//     // Fetch emails and first names from the database
-//     const result = await db.query(`
-// SELECT email, first_name FROM halloween
-// `);
+  try {
+    // Fetch emails and first names from the database
+    const result = await db.query(`
+SELECT email, first_name FROM halloween
+`);
 
-//     if (result.rows.length === 0) {
-//       console.log('No emails found to send.');
-//       res.redirect("/");
-//       return;
-//     }
+    if (result.rows.length === 0) {
+      console.log('No emails found to send.');
+      res.redirect("/");
+      return;
+    }
 
-//     console.log(`Sending emails to ${result.rows.length} recipients using sendMultiple`);
+    console.log(`Sending emails to ${result.rows.length} recipients using sendMultiple`);
 
-//     // Prepare the list of recipients with their decrypted emails
-//     const recipients = result.rows.map(row => {
-//       const encryptedEmail = row.email;
-//       const decryptedEmail = decrypt(encryptedEmail);
-//       const firstName = row.first_name || 'everyone';
-//       return { email: decryptedEmail, firstName: firstName };
-//     });
+    // Prepare the list of recipients with their decrypted emails
+    const recipients = result.rows.map(row => {
+      const encryptedEmail = row.email;
+      const decryptedEmail = decrypt(encryptedEmail);
+      const firstName = row.first_name || 'everyone';
+      return { email: decryptedEmail, firstName: firstName };
+    });
 
-//     // Create individual messages for each recipient
-//     const messages = recipients.map(recipient => ({
-//       to: recipient.email,
-//       from: SendgridSender,
-//       replyTo: `${ReplyTo}`,
-//       subject: 'Free Cell Biology Masterclass Starts Tomorrow',
-//       html: `Hey ${recipient.firstName},<br>Just a reminder, tomorrow's cell masterclass starts at 10 am. I will open the class at 9:50 to allow people to join in early.<br><br>You can access the accompanying notes and the class recordings via this Google Drive: https://drive.google.com/drive/folders/1Vsr3aMvK8qGR8b1c7s6y7XK4oRKalvNW?usp=drive_link<br><br>Below are the links you will use to join.<br><br>Please do not share these links. Spaces are capped at 500 students, and I want those who signed up to be able to join.<br><br>You will join Day 1 (Cell Biology) using this link:<br>https://us06web.zoom.us/j/86720349492?pwd=XJWfPS8zXbkKsnRV4SaZptAvgvAUY5.1<br>Passcode: 475432<br><br>Day 2 (Ecology) using this link:<br>https://us06web.zoom.us/j/82704111200?pwd=iA0kyBba0sl0JNiNBblSpPRglbalrx.1<br>Passcode: 022398<br><br>Best regards,<br>Max`
-//     }));
+    // Create individual messages for each recipient
+    const messages = recipients.map(recipient => ({
+      to: recipient.email,
+      from: SendgridSender,
+      replyTo: `${ReplyTo}`,
+      subject: 'Free Cell Biology Masterclass Starts Tomorrow',
+      html: `Hey ${recipient.firstName},<br>Class starts in 1 hour (10 am). Join via this link :<br>https://us06web.zoom.us/j/86720349492?pwd=XJWfPS8zXbkKsnRV4SaZptAvgvAUY5.1<br>Passcode: 475432<br><br>See you there!`
+    }));
 
-//     try {
-//       await sgMail.send(messages);
-//       console.log(`All ${result.rows.length} emails sent successfully using sendMultiple!`);
-//     } catch (error) {
-//       console.error('Error sending emails:', error);
-//     }
-//   } catch (error) {
-//     console.error('Error fetching emails from database:', error);
-//   }
+    try {
+      await sgMail.send(messages);
+      console.log(`All ${result.rows.length} emails sent successfully using sendMultiple!`);
+    } catch (error) {
+      console.error('Error sending emails:', error);
+    }
+  } catch (error) {
+    console.error('Error fetching emails from database:', error);
+  }
 
-//   res.redirect("/")
-// })
+  res.redirect("/")
+})
 
 
 
