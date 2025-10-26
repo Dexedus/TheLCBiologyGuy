@@ -589,7 +589,7 @@ SELECT email, first_name FROM halloween
       to: recipient.email,
       from: SendgridSender,
       replyTo: `${ReplyTo}`,
-      subject: 'Free Cell Biology Masterclass Starts Tomorrow',
+      subject: 'Free Cell Class in 1 hour',
       html: `Hey ${recipient.firstName},<br>Class starts in 1 hour (10 am). Join via this link :<br>https://us06web.zoom.us/j/86720349492?pwd=XJWfPS8zXbkKsnRV4SaZptAvgvAUY5.1<br>Passcode: 475432<br><br>See you there!`
     }));
 
