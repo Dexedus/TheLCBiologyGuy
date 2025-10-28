@@ -117,20 +117,20 @@ async function sendDailyEmailReport() {
       emailList = ['<li>No new entries over the last 24 hours</li>'];
     }
 
-    // Get emails and first names added in the last 24 hours from halloween table
-    const halloweenResult = await db.query(`
-      SELECT email, first_name FROM halloween
+    // Get emails and first names added in the last 24 hours from testname table
+    const testnameResult = await db.query(`
+      SELECT email, first_name FROM testname
       WHERE created_at >= NOW() - INTERVAL '1 day'
     `);
 
-    // Decrypt emails and format with first name for halloween table
-    let halloweenEmailList = halloweenResult.rows.map(row => {
+    // Decrypt emails and format with first name for testname table
+    let testnameEmailList = testnameResult.rows.map(row => {
       const decryptedEmail = decrypt(row.email);
       const first_name = row.first_name || 'Valued User';
       return `<li>${decryptedEmail} (${first_name})</li>`;
     });
-    if (halloweenEmailList.length === 0) {
-      halloweenEmailList = ['<li>No new entries over the last 24 hours</li>'];
+    if (testnameEmailList.length === 0) {
+      testnameEmailList = ['<li>No new entries over the last 24 hours</li>'];
     }
 
     // Send email via SendGrid
@@ -139,10 +139,10 @@ async function sendDailyEmailReport() {
       from: SendgridSender,
       subject: 'Daily Free Resources Emails',
       html: `
-        <p>New emails added in the last 24 hours:</p>
+        <p>New emails added to the free resources list in the last 24 hours:</p>
         <ul>${emailList.join('')}</ul>
-        <p>Emails added to the halloween masterclass list in the last 24 hours:</p>
-        <ul>${halloweenEmailList.join('')}</ul>
+        <p>Emails added to the waiting list in the last 24 hours:</p>
+        <ul>${testnameEmailList.join('')}</ul>
       `
     };
 
@@ -466,19 +466,18 @@ app.get('/landing', (req, res) => {
 })
 
 app.get('/waiting', (req, res) => {
-    // res.render("landing.ejs", {
-    //   title: "Warning",
-    //   message: "By closing this pop up or clicking the button below, you agree to not share any of my paid for material after purchasing it yourself.",
-    //   button: "Understood",
-    // })
-    res.render("waitingList.ejs")
-
+    const success = req.query.success;
+    res.render("waitingList.ejs", { success: success });
 })
 
 app.post('/waiting', async (req, res) => {
     try {
-        const email = '16byrnesla@gmail.com';
-        const firstName = 'Lauren';
+        const email = req.body.email;
+        const firstName = req.body.firstName;
+        
+        if (!email || !firstName) {
+            return res.status(400).send('Email and first name are required');
+        }
         
         // Encrypt the email before storing
         const encryptedEmail = encrypt(email);
@@ -491,12 +490,12 @@ app.post('/waiting', async (req, res) => {
             // Insert the email and first name into testname table
             const insertQuery = 'INSERT INTO testname (email, first_name) VALUES ($1, $2)';
             await db.query(insertQuery, [encryptedEmail, firstName]);
-            console.log('Added Karl Fleming to testname database table');
+            console.log(`Added ${firstName} (${email}) to testname database table`);
         } else {
             console.log('Email already exists in testname table');
         }
         
-        res.redirect('/waiting');
+        res.redirect('/waiting?success=true');
     } catch (error) {
         console.error('Error adding to waiting list:', error);
         res.status(500).send('Error processing request');
@@ -549,62 +548,62 @@ app.get('/test-dailyjob', async (req, res) => {
 
 
 
-app.get("/sendemail", async (req, res) => {
+// app.get("/sendemail", async (req, res) => {
 
-  // const firstName = "Karl"
-  // const customerEmail = "karlfleming64@gmail.com"
+//   // const firstName = "Karl"
+//   // const customerEmail = "karlfleming64@gmail.com"
 
-  // sendEmail(customerEmail, "subject", `Dear ${firstName},<br><br>Thank you for your purchase!<br><br>The Google Drive can be accessed <a href="https://drive.google.com/drive/folders/1Cu7TUE7uWIsgLjPIwW19VJcR-VCZAIw9?usp=sharing" target="_blank">here.</a><br>This folder is set to restricted access, I will grant you access as soon as possible.<br><br>If you have made a request and not received access within 30 minutes please respond to this email<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
-  //         <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
-  //           <input type="checkbox" name="unsubscribe">
-  //           <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
-  //           <input type="hidden" name="email" value="${customerEmail}">
-  //           <button type="submit">Submit</button>
-  //         </form><br><br>Best of luck with your revision!<br>Max`, "testWorked", db);
+//   // sendEmail(customerEmail, "subject", `Dear ${firstName},<br><br>Thank you for your purchase!<br><br>The Google Drive can be accessed <a href="https://drive.google.com/drive/folders/1Cu7TUE7uWIsgLjPIwW19VJcR-VCZAIw9?usp=sharing" target="_blank">here.</a><br>This folder is set to restricted access, I will grant you access as soon as possible.<br><br>If you have made a request and not received access within 30 minutes please respond to this email<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
+//   //         <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
+//   //           <input type="checkbox" name="unsubscribe">
+//   //           <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
+//   //           <input type="hidden" name="email" value="${customerEmail}">
+//   //           <button type="submit">Submit</button>
+//   //         </form><br><br>Best of luck with your revision!<br>Max`, "testWorked", db);
 
-  try {
-    // Fetch emails and first names from the database
-    const result = await db.query(`
-SELECT email, first_name FROM halloween
-`);
+//   try {
+//     // Fetch emails and first names from the database
+//     const result = await db.query(`
+// SELECT email, first_name FROM testemail
+// `);
 
-    if (result.rows.length === 0) {
-      console.log('No emails found to send.');
-      res.redirect("/");
-      return;
-    }
+//     if (result.rows.length === 0) {
+//       console.log('No emails found to send.');
+//       res.redirect("/");
+//       return;
+//     }
 
-    console.log(`Sending emails to ${result.rows.length} recipients using sendMultiple`);
+//     console.log(`Sending emails to ${result.rows.length} recipients using sendMultiple`);
 
-    // Prepare the list of recipients with their decrypted emails
-    const recipients = result.rows.map(row => {
-      const encryptedEmail = row.email;
-      const decryptedEmail = decrypt(encryptedEmail);
-      const firstName = row.first_name || 'everyone';
-      return { email: decryptedEmail, firstName: firstName };
-    });
+//     // Prepare the list of recipients with their decrypted emails
+//     const recipients = result.rows.map(row => {
+//       const encryptedEmail = row.email;
+//       const decryptedEmail = decrypt(encryptedEmail);
+//       const firstName = row.first_name || 'everyone';
+//       return { email: decryptedEmail, firstName: firstName };
+//     });
 
-    // Create individual messages for each recipient
-    const messages = recipients.map(recipient => ({
-      to: recipient.email,
-      from: SendgridSender,
-      replyTo: `${ReplyTo}`,
-      subject: 'Free Cell Class in 1 hour',
-      html: `Hey ${recipient.firstName},<br>Class starts in 1 hour (10 am). Join via this link :<br>https://us06web.zoom.us/j/82704111200?pwd=iA0kyBba0sl0JNiNBblSpPRglbalrx.1<br>Passcode: 022398<br><br>See you there!`
-    }));
+//     // Create individual messages for each recipient
+//     const messages = recipients.map(recipient => ({
+//       to: recipient.email,
+//       from: SendgridSender,
+//       replyTo: `${ReplyTo}`,
+//       subject: 'Free Class Recording & Notes',
+//       html: `Hey ${recipient.firstName},<br><br>Thank you for coming to the classes. Over 700 hundred signed up, more than 200 attended live on day 1, and over 100 came back for Day 2.<br>The feedback in the class was pretty awesome.<br><br>As promised, you can access the recording and my H1 highlighted notes via this <a href="https://drive.google.com/drive/folders/1Vsr3aMvK8qGR8b1c7s6y7XK4oRKalvNW?usp=drive_link" target="_blank">Google Drive</a><br><br>A lot of students were asking about my grinds and my January masterclass I teased.<br>So I am opening up a priority waitlist for anyone who wants first access when spots go live.<br><br>The class will be exam focused, very similar to the past 2 days.<br>I haven’t finalised the topics yet but some candidates are respiration, photosynthesis, DNA/RNA, and genetics (subject to change)<br><br>Those on the waitlist will get:<br><ul><li>Early access before I announced any grinds or masterclasses to the public</li><li>A lower price to the rest of the public.</li></ul><br><br>If you’d like to be notified first, join the list here:<br><a href="https://www.thelcbiologyguy.ie/waiting" target="_blank">Join waitlist</a><br><br>PS: Even if you’re not sure yet, join the waitlist anyway.<br>There is no commitment, just early access when the class opens.<br><br>Best Regards,<br>Max, The LC Biology Guy`
+//     }));
 
-    try {
-      await sgMail.send(messages);
-      console.log(`All ${result.rows.length} emails sent successfully using sendMultiple!`);
-    } catch (error) {
-      console.error('Error sending emails:', error);
-    }
-  } catch (error) {
-    console.error('Error fetching emails from database:', error);
-  }
+//     try {
+//       await sgMail.send(messages);
+//       console.log(`All ${result.rows.length} emails sent successfully using sendMultiple!`);
+//     } catch (error) {
+//       console.error('Error sending emails:', error);
+//     }
+//   } catch (error) {
+//     console.error('Error fetching emails from database:', error);
+//   }
 
-  res.redirect("/")
-})
+//   res.redirect("/")
+// })
 
 
 

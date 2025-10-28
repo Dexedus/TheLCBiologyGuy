@@ -1403,5 +1403,51 @@ footer{
   .px-4.pt-5.text-center.border-bottom {
     background-position: center left !important;
   }
+
+  /* Fix waiting list page mobile layout */
+  .free-success-main {
+    min-height: 100vh;
+    min-height: 100dvh; /* Use dynamic viewport height for better mobile support */
+    padding: 0 !important; /* Remove all padding to be flush with edges */
+    padding-top: 10px !important;
+    box-sizing: border-box;
+    margin: 0;
+  }
+
+  .free-success-container {
+    width: 100vw; /* Full viewport width */
+    height: 100vh; /* Full viewport height */
+    height: 100dvh; /* Use dynamic viewport height */
+    flex-direction: column;
+    min-height: auto;
+    margin: 0; /* Remove all margins */
+    border-radius: 0; /* Remove border radius for flush edges */
+    box-shadow: none; /* Remove shadow for cleaner look */
+    background: rgba(255,255,255,1); /* Make background solid */
+  }
+
+  .free-success-left,
+  .free-success-right {
+    min-width: auto;
+    padding: 24px 20px;
+    border-radius: 0; /* Remove border radius */
+  }
+
+  .free-success-left {
+    min-height: auto;
+    flex: 1; /* Take up available space */
+  }
+
+  .free-success-right {
+    gap: 20px;
+    padding: 24px 20px 32px 20px;
+    flex-shrink: 0; /* Prevent shrinking */
+  }
+
+  .free-success-btn {
+    max-width: 100%;
+    padding: 16px 0;
+    font-size: 1.1em;
+  }
 }
 

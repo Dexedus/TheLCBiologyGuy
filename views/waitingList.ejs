@@ -5,23 +5,36 @@
     <!-- Left Box -->
     <div class="free-success-left">
       <h1 class="free-success-title">Waiting List</h1>
+      <% if (typeof success !== 'undefined' && success === 'true') { %>
+        <div style="background-color: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin-bottom: 15px; border: 1px solid #c3e6cb;">
+          ✅ Success! You've been added to the waiting list.
+        </div>
+      <% } %>
       <p class="free-success-message">
         Please submit your email here to sign up for the paid classes waiting list.
       </p>
       <form action="/waiting" method="POST" style="margin: 20px 0;">
+        <div style="margin-bottom: 15px;">
+          <input type="email" name="email" placeholder="Enter your email address" required 
+                 style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; width: 100%; max-width: 300px; font-size: 16px;">
+        </div>
+        <div style="margin-bottom: 15px;">
+          <input type="text" name="firstName" placeholder="Enter your first name" required 
+                 style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; width: 100%; max-width: 300px; font-size: 16px;">
+        </div>
         <button type="submit" class="free-success-btn" style="background-color: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
           Join Waiting List
         </button>
       </form>
       <p class="free-success-note">
-        Note: if email doesn't arrive in 24 hours, contact me at <a href="mailto:thelcbiologyguy@gmail.com">thelcbiologyguy@gmail.com</a>
+        Note: if you have any questions, you can contact me at <a href="mailto:thelcbiologyguy@gmail.com">thelcbiologyguy@gmail.com</a>
       </p>
     </div>
     <!-- Right Box -->
     <div class="free-success-right">
       <a href="/" class="free-success-btn">Home</a>
       <a href="https://www.thelcbiologyguy.ie/#FAQ" class="free-success-btn">FAQ</a>
-      <a href="/contact" class="free-success-btn">Contact</a>
+      <a href="/trial" class="free-success-btn">Free Resources</a>
     </div>
   </div>
 </main>
