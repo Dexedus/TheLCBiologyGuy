@@ -531,13 +531,6 @@ main{
     animation-timing-function: ease-in-out;
 }
 
-/* Free Resources header uses New Rocker font */
-.trial-halloween-bg .FreeResourcesTitle, #FreeResourcesTitle {
-    font-family: 'New Rocker', 'Varela Round', Arial, sans-serif !important;
-    font-weight: 700 !important;
-    color: #faf5eb !important;
-    letter-spacing: 0.03em;
-}
 
 /* Testimonial header uses New Rocker font, bigger and bolder */
 .trial-halloween-bg #testimonial-tab h2 {
@@ -1331,71 +1324,11 @@ footer{
   }
 }
 
-.trial-halloween-bg {
-    padding-top: 120px!important;
-
-}
-
-/* Enhance low-res batsCool.jpg background in testimonial tab */
-#testimonial-tab {
-    background-size: cover;
-    background-position: center top;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-/* Add a dark overlay to soften pixelation */
-.trial-halloween-bg #testimonial-tab::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.37); /* Increase opacity for more softness */
-    z-index: 1;
-    pointer-events: none;
-}
-
-/* Optionally, add blur for extra softness */
-.trial-halloween-bg #testimonial-tab::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    backdrop-filter: blur(0.9px); /* Adjust blur as needed */
-    z-index: 1;
-    pointer-events: none;
-}
-
-/* Ensure testimonial content is above overlays */
-.trial-halloween-bg #testimonial-tab img,
-.trial-halloween-bg #testimonial-tab h2,
-.trial-halloween-bg #testimonial-tab p {
-    position: relative;
-    z-index: 2;
-    max-width: 90%;
-    word-break: break-word;
-    color: #fff;
-}
-
 @media (max-width: 768px) {
   #testimonial-tab {
-    min-height: 800px !important;
+    min-height: 400px !important;
     background-position: center top;
-    background-image: url(/images/batsCool.jpg);
-  }
-
-  .trial-halloween-bg {
-    padding-top: 0px!important;
-  }
-
-    .trial-halloween-bg ul {
-    list-style-type: none;
-    padding-left: 0;
-    text-align: center;
-  }
-  .trial-halloween-bg li {
-    text-align: center;
+    padding-inline: 33px !important;
   }
 }
 
