@@ -564,7 +564,7 @@ app.get('/test-dailyjob', async (req, res) => {
 //   try {
 //     // Fetch emails and first names from the database
 //     const result = await db.query(`
-// SELECT email, first_name FROM halloween
+// SELECT email, first_name FROM testemail
 // `);
 
 //     if (result.rows.length === 0) {
@@ -588,8 +588,8 @@ app.get('/test-dailyjob', async (req, res) => {
 //       to: recipient.email,
 //       from: SendgridSender,
 //       replyTo: `${ReplyTo}`,
-//       subject: 'Mock Exam on Cells and Ecology',
-//       html: `Hey ${recipient.firstName},<br><br>Students attending the classes earlier this week asked if I could do a mock exam on cells and ecology. I liked the idea, so you can access the practice exam and the marking scheme via the Google Drive link: <a href="https://drive.google.com/drive/folders/1Vsr3aMvK8qGR8b1c7s6y7XK4oRKalvNW?usp=drive_link" target="_blank">Mock Exam</a><br><br>Also I would love to hear you're feedback on the masterclass. Whether you came live or watched the recording this anonymous survey only takes 2 minutes, and it helps me out tremendously.<br><br>Feedback survey: https://forms.gle/SjrE3mUitAZcnsEi6<br><br>Happy Halloween!!<br>Max`
+//       subject: '40% of Your Mock in 5 Weeks!',
+//       html: `Hey ${recipient.firstName},<br><br>I am running a program to cover 40% of your mock in just 5 weeks.<br>There are only 20 people, and once all spaces are filled, the link will become inactive.<br><br>Tomorrow, this email will be sent to my wider list of students, so you have 24 hours for the best chance to secure your spot!<br><br>The course is €80<br>The link to join is here:  https://buy.stripe.com/4gMfZheBFaK20uBcIKgjC0u<br><br>Features of the program:<br><ul><li>1 class per week for 5 weeks. (Nov 15th, Nov 22nd, Nov 29th, Dec 7th, Dec 13th) Covering around 40% of your mock exam (Genetics, DNA/RNA, Enzymes, Photosynthesis, Respiration)</li><li>Exam-ready H1 Highlighted Notes: Everything that appeared in past exam questions is highlighted.</li><li>Memory boosting worksheets.</li><li>Weekly personalised support: Message me anytime or book a short 1-on-1 call every week.</li><br><br>Bonus<br><li>Free entry to January Mock Prep Masterclass (worth €40)</li></ul><br><br>I look forward to teaching you!<br>Best Regards,<br>Max`
 //     }));
 
 //     try {
