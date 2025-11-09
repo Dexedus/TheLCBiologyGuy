@@ -548,72 +548,72 @@ app.get('/test-dailyjob', async (req, res) => {
 
 
 
-app.get("/sendemail", async (req, res) => {
+// app.get("/sendemail", async (req, res) => {
 
-  // const firstName = "Karl"
-  // const customerEmail = "karlfleming64@gmail.com"
+//   // const firstName = "Karl"
+//   // const customerEmail = "karlfleming64@gmail.com"
 
-  // sendEmail(customerEmail, "subject", `Dear ${firstName},<br><br>Thank you for your purchase!<br><br>The Google Drive can be accessed <a href="https://drive.google.com/drive/folders/1Cu7TUE7uWIsgLjPIwW19VJcR-VCZAIw9?usp=sharing" target="_blank">here.</a><br>This folder is set to restricted access, I will grant you access as soon as possible.<br><br>If you have made a request and not received access within 30 minutes please respond to this email<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
-  //         <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
-  //           <input type="checkbox" name="unsubscribe">
-  //           <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
-  //           <input type="hidden" name="email" value="${customerEmail}">
-  //           <button type="submit">Submit</button>
-  //         </form><br><br>Best of luck with your revision!<br>Max`, "testWorked", db);
+//   // sendEmail(customerEmail, "subject", `Dear ${firstName},<br><br>Thank you for your purchase!<br><br>The Google Drive can be accessed <a href="https://drive.google.com/drive/folders/1Cu7TUE7uWIsgLjPIwW19VJcR-VCZAIw9?usp=sharing" target="_blank">here.</a><br>This folder is set to restricted access, I will grant you access as soon as possible.<br><br>If you have made a request and not received access within 30 minutes please respond to this email<br><br>We would also like to send you promotional emails from time to time. But if you don't want us to, that's okay. Just tick the box below, and submit so we can exclude you from our promotions list.<br><br>
+//   //         <form action="https://www.thelcbiologyguy.ie/unsubscribe" method="POST">
+//   //           <input type="checkbox" name="unsubscribe">
+//   //           <label for="unsubscribe">I no longer wish to receive emails from The LC Biology Guy</label><br><br>
+//   //           <input type="hidden" name="email" value="${customerEmail}">
+//   //           <button type="submit">Submit</button>
+//   //         </form><br><br>Best of luck with your revision!<br>Max`, "testWorked", db);
 
-  try {
-    // Fetch emails and first names from the database
-    const result = await db.query(`
-SELECT DISTINCT email, first_name
-FROM (
-    SELECT email, first_name FROM testtable
-    UNION
-    SELECT email, first_name FROM halloween
-) AS combined
-WHERE email NOT IN (
-    SELECT email FROM unsubbed
-    UNION
-    SELECT email FROM testname
-);
-`);
+//   try {
+//     // Fetch emails and first names from the database
+//     const result = await db.query(`
+// SELECT DISTINCT email, first_name
+// FROM (
+//     SELECT email, first_name FROM testtable
+//     UNION
+//     SELECT email, first_name FROM halloween
+// ) AS combined
+// WHERE email NOT IN (
+//     SELECT email FROM unsubbed
+//     UNION
+//     SELECT email FROM testname
+// );
+// `);
 
-    if (result.rows.length === 0) {
-      console.log('No emails found to send.');
-      res.redirect("/");
-      return;
-    }
+//     if (result.rows.length === 0) {
+//       console.log('No emails found to send.');
+//       res.redirect("/");
+//       return;
+//     }
 
-    console.log(`Sending emails to ${result.rows.length} recipients using sendMultiple`);
+//     console.log(`Sending emails to ${result.rows.length} recipients using sendMultiple`);
 
-    // Prepare the list of recipients with their decrypted emails
-    const recipients = result.rows.map(row => {
-      const encryptedEmail = row.email;
-      const decryptedEmail = decrypt(encryptedEmail);
-      const firstName = row.first_name || 'everyone';
-      return { email: decryptedEmail, firstName: firstName };
-    });
+//     // Prepare the list of recipients with their decrypted emails
+//     const recipients = result.rows.map(row => {
+//       const encryptedEmail = row.email;
+//       const decryptedEmail = decrypt(encryptedEmail);
+//       const firstName = row.first_name || 'everyone';
+//       return { email: decryptedEmail, firstName: firstName };
+//     });
 
-    // Create individual messages for each recipient
-    const messages = recipients.map(recipient => ({
-      to: recipient.email,
-      from: SendgridSender,
-      replyTo: `${ReplyTo}`,
-      subject: 'Master 40% of Your Mock in 5 Weeks!',
-      html: `Hey ${recipient.firstName},<br><br>I am running a program to cover 40% of your mock in just 5 weeks.<br>There are only 20 people, and once all spaces are filled, the link will become inactive.<br><br>The course is €80<br>The link to join is here:  https://buy.stripe.com/4gMfZheBFaK20uBcIKgjC0u<br><br>Features of the program:<br><ul><li>1 class per week for 5 weeks. (Nov 15th, Nov 22nd, Nov 29th, Dec 7th, Dec 13th) Covering around 40% of your mock exam (Genetics, DNA/RNA, Enzymes, Photosynthesis, Respiration)</li><li>Exam-ready H1 Highlighted Notes: Everything that appeared in past exam questions is highlighted.</li><li>Memory boosting worksheets.</li><li>Weekly personalised support: Message me anytime or book a short 1-on-1 call every week.</li><br><br>Bonus<br><li>Free entry to January Mock Prep Masterclass (worth €40)</li></ul><br><br>I look forward to teaching you!<br>Best Regards,<br>Max`
-    }));
+//     // Create individual messages for each recipient
+//     const messages = recipients.map(recipient => ({
+//       to: recipient.email,
+//       from: SendgridSender,
+//       replyTo: `${ReplyTo}`,
+//       subject: 'Master 40% of Your Mock in 5 Weeks!',
+//       html: `Hey ${recipient.firstName},<br><br>I am running a program to cover 40% of your mock in just 5 weeks.<br>There are only 20 people, and once all spaces are filled, the link will become inactive.<br><br>The course is €80<br>The link to join is here:  https://buy.stripe.com/4gMfZheBFaK20uBcIKgjC0u<br><br>Features of the program:<br><ul><li>1 class per week for 5 weeks. (Nov 15th, Nov 22nd, Nov 29th, Dec 7th, Dec 13th) Covering around 40% of your mock exam (Genetics, DNA/RNA, Enzymes, Photosynthesis, Respiration)</li><li>Exam-ready H1 Highlighted Notes: Everything that appeared in past exam questions is highlighted.</li><li>Memory boosting worksheets.</li><li>Weekly personalised support: Message me anytime or book a short 1-on-1 call every week.</li><br><br>Bonus<br><li>Free entry to January Mock Prep Masterclass (worth €40)</li></ul><br><br>I look forward to teaching you!<br>Best Regards,<br>Max`
+//     }));
 
-    try {
-      await sgMail.send(messages);
-      console.log(`All ${result.rows.length} emails sent successfully using sendMultiple!`);
-    } catch (error) {
-      console.error('Error sending emails:', error);
-    }
-  } catch (error) {
-    console.error('Error fetching emails from database:', error);
-  }
+//     try {
+//       await sgMail.send(messages);
+//       console.log(`All ${result.rows.length} emails sent successfully using sendMultiple!`);
+//     } catch (error) {
+//       console.error('Error sending emails:', error);
+//     }
+//   } catch (error) {
+//     console.error('Error fetching emails from database:', error);
+//   }
 
-  res.redirect("/")
-})
+//   res.redirect("/")
+// })
 
 
 
